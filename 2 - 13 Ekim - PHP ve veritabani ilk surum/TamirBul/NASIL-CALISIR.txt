@@ -1,0 +1,153 @@
+TAMIRBUL
+Bilgisayar, telefon ve tablet tamiri icin musteri ile tamirciyi bulusturan site.
+Statik sayfa degildir. Metinlerin cogu MySQL'den gelir, yonetici panelden degistirir.
+
+KULLANILAN DILLER
+- HTML: sayfa iskeleti
+- CSS: css/stil.css
+- JavaScript: js/site.js (sadece telefon menusu)
+- PHP: sayfa mantigi
+- MySQL: veriler
+Baska kutuphane, framework veya internetten font yok.
+
+
+NASIL ACILIR
+1. Proje klasorunde baslat.bat dosyasina cift tiklayin.
+2. Tarayici http://localhost:8000 adresini acar.
+3. Siyah "TamirBul" penceresini kapatmayin. O pencere siteyi ayakta tutar.
+4. Durdurmak icin o pencereyi kapatin. Yeniden acmak icin yine baslat.bat.
+
+Ilk acilista ornek veritabani kendi yuklenir. Tekrar acinca sizin eklediginiz kayitlar silinmez.
+
+PHP bu bilgisayarda kurulu degilse baslat.bat size kurulum komutunu yazar.
+Baska bir bilgisayarda XAMPP da kullanilabilir. XAMPP varsa baslat.bat once onu arar.
+
+Visual Studio Code:
+- TamirBul.code-workspace dosyasina cift tiklayin.
+- Ya da File > Open Folder ile bu klasoru acin.
+- Terminal > Run Task > Siteyi ac
+
+PHP dosyasina cift tiklayip tarayicida acmayin. PHP, sunucu olmadan calismaz.
+Kod duz metin gibi gorunur.
+
+
+DENEME HESAPLARI
+Sifre hepsi icin: 123456
+
+admin@tamirbul.test   yonetici
+ayse@ornek.com        musteri (Ayşe)
+mehmet@ornek.com      musteri (Mehmet)
+can@tamir.com         onayli tamirci (Can, telefon)
+elif@tamir.com        onaysiz tamirci (Elif, bilgisayar)
+
+Deneme talep kodu: TB1001
+
+
+OGRETMENE GOSTERILECEK YOL
+1. Ana sayfayi acin. Baslik veritabanindan gelir.
+2. Yonetici ile girin. Site ayarlarindan ana sayfa basligini degistirin.
+3. Ana sayfayi yenileyin. Yeni baslik gorunsun.
+4. Hizmet ekleyin veya fiyati degistirin. Hizmetler sayfasinda gorunsun.
+5. Cikis yapin. Ayşe ile girin. Talep olusturun. Takip kodunu not alin.
+6. Cikis yapin. Takip sayfasina kodu yazin. Durum gorunsun.
+7. Can ile girin. Gelen talepten randevu kurun.
+8. Yonetici ile Elif'i onaylayin. Elif artik talep alabilir.
+9. Iletisim formunu doldurun. Yonetici mesajlar sayfasinda gordugunu soyleyin.
+
+
+SAYFA DUZENI (herkes ayni kalipla yazar)
+Bir sayfa su sirayla kurulur:
+1. ortak/baglanti.php   veritabanini acar
+2. ortak/guvenlik.php   oturumu acar
+3. Varsa form kaydi     header() ile yonlendirmeden once olmali
+4. ortak/baslik.php     menu. <main> etiketini acar
+5. Sayfanin HTML'i
+6. ortak/altlik.php     <main> etiketini kapatir, altlik yazar
+
+Alt klasorde (musteri, tamirci, admin) dosya yolu ../ortak/ olur.
+$kok degiskeni de "../" olur. Ana klasorde $kok bostur.
+Bunu css ve linkler bozulmasin diye yapiyoruz.
+
+
+KLASORLER
+ortak/        Her sayfanin ortak parcasi. Baglanti, oturum, menu, altlik.
+css/          Gorunum.
+js/           Telefon menusu.
+musteri/      Musteri paneli.
+tamirci/      Tamirci paneli.
+admin/        Yonetim paneli.
+veritabani/   SQL dosyasi. Site bunu kendi calistirmaz. phpMyAdmin'e yuklenir.
+
+
+DORT KISI
+
+Kisi 1 - Ziyaretci on yuzu
+index.php
+hizmetler.php
+hizmet-detay.php
+tamirciler.php
+tamirci-detay.php
+hakkimizda.php
+iletisim.php
+css/stil.css
+js/site.js
+ortak/baslik.php
+ortak/altlik.php
+Siradaki is: hizmetler.php icine arama kutusu. Renkleri stil.css icinden degistirin.
+
+Kisi 2 - Uye ekranlari
+giris.php ve kayit.php gorunumunu Kisi 3 ile birlikte okuyun ama dosya sahibi Kisi 3.
+musteri/ klasoru
+tamirci/ klasoru
+Siradaki is: musteri/taleplerim.php icine Iptal et butonu.
+Yorum satiri nasil yazilacagini anlatiyor.
+Iptal sadece durumu beklemede olan kendi talebinde calissin.
+
+Kisi 3 - Uyelik ve talep
+ortak/baglanti.php
+ortak/guvenlik.php
+giris.php
+kayit.php
+cikis.php
+talep-olustur.php
+talep-takip.php
+Siradaki is: Kisi 2'nin iptal butonunun kayit kodunu yazmak.
+Id formdan, musteri numarasi oturumdan gelsin.
+
+Kisi 4 - Yonetim ve veritabani
+veritabani/tamirbul.sql
+admin/ klasoru
+Siradaki is: kullanicilar.php icine silme.
+Yonetici kendi hesabini silmesin.
+Silmeden once o kisinin talebi var mi bakilsin.
+
+Ayni dosyayi iki kisi ayni anda degistirmesin.
+Ortak dosyada degisiklik gerekirse once gruptaki sahibine soyleyin.
+
+
+VERITABANI TABLOLARI
+kullanicilar      musteri, tamirci, admin. rol sutunu ayirir.
+hizmetler         tamir cesitleri ve baslangic fiyati.
+talepler          musterinin ariza kaydi. takip_kodu ile sorgulanir.
+randevular        tamircinin verdigi gun ve saat.
+mesajlar          iletisim formu. sadece yonetici gorur.
+site_ayarlari     kisa metinler: site adi, telefon, ana sayfa basligi.
+sayfa_icerikleri  uzun metin: hakkimizda.
+
+Tablolar birbirine id ile baglanir. Ayri bir foreign key kurali koymadik.
+talepler.musteri_id  -> kullanicilar.id
+talepler.hizmet_id   -> hizmetler.id
+talepler.tamirci_id  -> kullanicilar.id
+randevular.talep_id  -> talepler.id
+randevular.tamirci_id -> kullanicilar.id
+
+Sifreler duz yazilmaz. password_hash ile kaydolur, password_verify ile kontrol edilir.
+
+
+HER SAYFANIN BASINDA YORUM VAR
+Dosyayi acinca ilk yorum su uc seyi soyler:
+- Bu sayfa ne
+- Hangi kisinin dosyasi
+- Bu sayfada neler olacak
+Kodun icindeki kisa yorumlar ise o satirin ne ise yaradigini soyler.
+Ogretmen sordugunda once o yorumu, sonra satirin kendisini okuyun.

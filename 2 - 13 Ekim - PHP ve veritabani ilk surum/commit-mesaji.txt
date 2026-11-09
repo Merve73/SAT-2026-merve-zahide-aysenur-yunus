@@ -1,0 +1,7 @@
+13 Ekim: PHP ve veritabanı ile ilk çalışan sürüm
+
+- HTML sayfalar PHP'ye çevrildi, bilgiler veritabanından geliyor
+- MySQL veritabanı: tablolar ve örnek veriler (veritabani/tamirbul.sql)
+- Ortak parçalar: veritabanı bağlantısı, üst menü, sayfa altı, oturum ve güvenlik fonksiyonları
+- Müşteri, tamirci ve yönetici panelleri; hizmetler, tamirciler, hakkımızda, iletişim sayfaları
+- baslat.bat ile siteyi tek tıkla açma, NASIL-CALISIR.txt

@@ -1,0 +1,432 @@
+/* TamirBul tek stil dosyasi.
+   Bolumler: genel, ust menu, karsilama, kart, form, tablo, altlik.
+   Renkler burada duz yazildi. Degistirmek isteyen kisi ayni hex kodunu arasın. */
+
+/* Tarayicinin kendi bosluklarini sifirlariz ki herkes ayni baslangici gorsun. */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    /* Segoe UI Windows'ta vardir. Yoksa Arial kullanilir. Disaridan font indirmiyoruz. */
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #2c2c2c;
+    background: #f6f1e8;
+    /* Sayfa kisa olsa bile altlik asagida kalsin diye govdeyi kolon yaptik. */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Kalan bos yuksekligi icerik alsin, altlik en altta dursun. */
+main {
+    flex: 1;
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+    margin-top: 0;
+}
+
+a {
+    color: #1f3d3a;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* Ortadaki 1100 piksellik alan. Sayfa cok genis ekranda dagilmasin. */
+.kapsayici {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px;
+}
+
+/* ----- Ust menu ----- */
+
+.ust {
+    background: #1f3d3a;
+    color: #ffffff;
+}
+
+.ust-ic {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.marka {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.menu a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 14px;
+}
+
+.menu a:hover {
+    text-decoration: underline;
+}
+
+/* Bilgisayarda dugme gorunmez. Telefon kuralinda tekrar acilir. */
+.menu-dugmesi {
+    display: none;
+    background: #d06a2b;
+    color: #ffffff;
+    border: 0;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* Panel sayfalarindaki ikinci menu. */
+.alt-menu {
+    background: #efe7da;
+    border-bottom: 1px solid #e4d9c8;
+}
+
+.alt-menu .kapsayici {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.alt-menu a {
+    margin-right: 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Veritabani kapaliysa cikan sari uyari. */
+.uyari {
+    background: #fff4d6;
+    color: #7a5b10;
+    padding: 12px 16px;
+}
+
+.hata {
+    background: #fde8e4;
+    color: #9c2f1e;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+.tamam {
+    background: #e5f2e5;
+    color: #1e6b32;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+/* ----- Ana sayfa karsilama ----- */
+
+.karsilama {
+    background: #1f3d3a;
+    color: #ffffff;
+}
+
+.karsilama a {
+    color: #ffffff;
+}
+
+.karsilama h1 {
+    font-size: 36px;
+    max-width: 680px;
+}
+
+.karsilama p {
+    font-size: 18px;
+    max-width: 640px;
+}
+
+/* ----- Kartlar ve adimlar ----- */
+
+.kart-alani {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.kart {
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+    padding: 16px;
+    width: 320px;
+}
+
+.kart h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.etiket {
+    display: inline-block;
+    background: #f3e2d4;
+    color: #8a4b1f;
+    padding: 2px 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.fiyat {
+    font-weight: bold;
+    color: #8a4b1f;
+}
+
+.tur-kutu {
+    display: block;
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+    padding: 18px;
+    width: 320px;
+    text-decoration: none;
+    color: #2c2c2c;
+}
+
+.tur-kutu:hover {
+    border-color: #d06a2b;
+}
+
+.filtre a {
+    display: inline-block;
+    margin: 0 8px 8px 0;
+    padding: 6px 10px;
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+    text-decoration: none;
+}
+
+.sayfa h1 {
+    margin-bottom: 8px;
+}
+
+.giris-metni {
+    color: #5e675f;
+    margin-top: 0;
+}
+
+/* ----- Dugmeler ----- */
+
+.buton, button.buton {
+    display: inline-block;
+    background: #d06a2b;
+    color: #ffffff;
+    text-decoration: none;
+    border: 0;
+    padding: 10px 14px;
+    margin: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.buton:hover, button.buton:hover {
+    background: #b85a22;
+}
+
+.buton-ikincil {
+    display: inline-block;
+    background: #1f3d3a;
+    color: #ffffff;
+    text-decoration: none;
+    border: 0;
+    padding: 10px 14px;
+    margin: 0 8px 8px 0;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Karsilama zemini de koyu yesil. Ikinci dugme cerceveli kalsin, kaybolmasin. */
+.karsilama .buton-ikincil {
+    background: transparent;
+    border: 1px solid #ffffff;
+}
+
+.buton-kucuk {
+    padding: 6px 10px;
+    font-size: 14px;
+}
+
+.tehlike {
+    background: #9c2f1e;
+}
+
+.tehlike:hover {
+    background: #7d2418;
+}
+
+/* ----- Form ----- */
+
+.form-kutu {
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+    padding: 16px;
+    max-width: 640px;
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 4px;
+    border: 1px solid #cfc3b2;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+/* Onay kutusu ve secim dairesi tum satiri kaplamasin. */
+input[type="radio"],
+input[type="checkbox"] {
+    width: auto;
+}
+
+/* Tablonun icindeki liste, hucre kadar dar kalsin. */
+td select,
+td input {
+    width: auto;
+    min-width: 140px;
+}
+
+textarea {
+    min-height: 120px;
+}
+
+.yan-yana {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.yan-yana > div {
+    flex: 1;
+}
+
+.bilgi-kutu {
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+    padding: 16px;
+}
+
+/* ----- Ozet kutulari (paneller) ----- */
+
+.ozet-alani {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.ozet {
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+    padding: 16px;
+    width: 220px;
+}
+
+.ozet strong {
+    display: block;
+    font-size: 28px;
+    color: #1f3d3a;
+}
+
+/* ----- Tablolar ----- */
+
+.tablo-kutu {
+    overflow-x: auto;
+    background: #fffefb;
+    border: 1px solid #e4d9c8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #e4d9c8;
+    vertical-align: top;
+}
+
+th {
+    background: #1f3d3a;
+    color: #ffffff;
+}
+
+/* ----- Altlik ----- */
+
+.alt {
+    background: #1f3d3a;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.alt a {
+    color: #ffffff;
+}
+
+.alt-ic {
+    display: flex;
+    gap: 24px;
+}
+
+.alt-ic > div {
+    flex: 1;
+}
+
+.alt-not {
+    padding-top: 0;
+    color: #d7e0dc;
+    font-size: 14px;
+}
+
+/* Telefon ekrani. 800 pikselden dar olunca menu alta iner. */
+@media (max-width: 800px) {
+    .menu-dugmesi {
+        display: inline-block;
+    }
+
+    .ust-ic {
+        flex-wrap: wrap;
+    }
+
+    .menu {
+        display: none;
+        width: 100%;
+        padding-top: 8px;
+    }
+
+    .menu.acik {
+        display: block;
+    }
+
+    .menu a {
+        display: block;
+        margin: 8px 0;
+    }
+
+    .kart, .tur-kutu, .ozet {
+        width: 100%;
+    }
+
+    .yan-yana, .alt-ic {
+        display: block;
+    }
+
+    .karsilama h1 {
+        font-size: 28px;
+    }
+}
