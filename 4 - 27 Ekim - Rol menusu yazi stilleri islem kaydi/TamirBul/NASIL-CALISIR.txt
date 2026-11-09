@@ -1,0 +1,311 @@
+TAMIRBUL
+Arızalı cihazı olan müşteri ile bölgesindeki tamirciyi buluşturan site.
+Altı kategori: Mobil & Bilişim, Beyaz Eşya, Küçük Ev Aletleri, TV & Ses, Oyun & Eğlence, Diğer Elektronik.
+Statik sayfa değildir. Metinlerin çoğu MySQL'den gelir, yönetici panelden değiştirir.
+Görünüm "sat proje" klasöründeki HTML tasarımından alındı.
+
+>>> Kodun her satırının üstünde ne yaptığını anlatan kısa bir yorum var.
+
+İŞİN AKIŞI
+1. Müşteri talep açar: kategori, cihaz türü, marka, model, arıza, fotoğraf, il ve ilçe.
+2. Aynı ildeki ve o kategoride yetkinliği olan onaylı tamirciler talebi panelinde görür.
+3. Tamirciler fiyat, süre ve not yazarak teklif verir. Her tamirci bir talebe bir teklif verir.
+4. Müşteri teklifleri karşılaştırır, isterse tamirciyle mesajlaşır, birini kabul eder.
+5. Seçilen tamirci randevu kurar. İş bitince "Tamamlandı" der.
+6. Müşteri tamirciye 1-5 arası puan verir. Puan ortalaması tamirci profilinde görünür.
+
+YÖNETİM PANELİNDEN NE DEĞİŞİR
+Sitede yazan ve görünen her şey veritabanından gelir. Yönetici şu sayfalardan değiştirir:
+admin/panel.php          Tek ekran özet: bekleyen başvurular, okunmamış mesajlar, son talepler,
+                         bekleyen randevular, talep durumları, içerik sayfalarının kısayolları.
+                         Sayaca tıklayınca ilgili sayfa açılır.
+                         Bekleyen iş (onay, okunmamış mesaj, teklif bekleyen talep) varsa sayaç kırmızı yanıp söner.
+                         Yönetim menüsünde Kullanıcılar ve Mesajlar linkinin yanında da kırmızı sayı çıkar.
+admin/ayarlar.php        Site yazıları: site adı, ana sayfa başlığı, düğme yazıları, bölüm başlıkları,
+                         sayfa açıklamaları, telefon, adres, altlık yazıları, slayt süresi.
+                         Her yazının altında "Yazı stili": renk, boyut, kalınlık, eğik, hizalama, yazı tipi.
+admin/slaytlar.php       Ana sayfanın üstünde sırayla değişen büyük resimler. İstenen kadar eklenir.
+admin/adimlar.php        "Nasıl çalışır" kartları: başlık, açıklama, resim, sıra.
+admin/kategoriler.php    Kategori kartları: ad, açıklama, resim.
+admin/cihaz-turleri.php  Talep formundaki cihaz türleri.
+admin/hizmetler.php      Hizmet kartları: ad, fiyat, açıklama, resim, hangi cihazlar için. Ekle, düzenle, sil aynı sayfada.
+admin/konumlar.php       İl ve ilçeler.
+admin/sayfa-icerik.php   Hakkımızda gibi uzun yazılar. Başlığın ve metnin stili de seçilir.
+
+YAZI STİLLERİ
+Seçimler yazi_stilleri tablosunda durur. Boş seçim "Varsayılan" demektir, site kendi görünüşünü kullanır.
+Seçeneklerin listesi ve CSS karşılığı ortak/yazi-stili.php içinde. Yeni renk eklemek için oraya bir satır yazılır.
+Sayfada kullanımı: <h2<?php echo yazi_stili("anasayfa_baslik"); ?>>...</h2>
+Yönetimde her yazının üstünde Word'deki gibi bir araç çubuğu var (ortak/stil-araclari.php):
+  [Yazı tipi] [Boyut] | K (kalın) T (eğik) | renk kutuları | sola, ortaya, sağa | Temizle
+Yazı kutusunun altında önizleme var (ortak/stil-onizleme.php).
+Bir düğmeye basınca veya yazıyı değiştirince önizleme hemen değişir (js/site.js, 5. bölüm).
+Önizleme iki zeminde görünür: koyu ve açık. Kaydetmeden önce iki modda da okunuyor mu bakılır.
+
+KOYU MOD / AÇIK MOD
+Sitenin varsayılanı koyu mod. Üst menüdeki "Açık mod" düğmesi değiştirir.
+Seçim "tema" çerezine yazılır, sonraki sayfalar da aynı modda açılır.
+ortak/baslik.php çereze bakıp <html class="koyu"> veya <html class="acik"> yazar.
+Renkler css/stil.css en üstünde: :root açık mod, html.koyu koyu mod renkleri.
+Yeni bir kutu yazarken beyaz yerine var(--kart), gri çizgi yerine var(--cizgi) kullanın, iki modda da doğru görünür.
+
+ÜST MENÜ (ROLE ÖZEL AÇILIR MENÜ)
+Menü ortak/baslik.php içinde. Giriş yapan kişinin rolüne göre değişir:
+  Ziyaretçi: Ana Sayfa, Keşfet, Talep, Hesap (giriş ve kayıt)
+  Müşteri:   Ana Sayfa, Keşfet, Taleplerim, kişi menüsü (panel, profil, çıkış)
+  Tamirci:   Ana Sayfa, Keşfet, İşlerim, kişi menüsü (profil, çıkış)
+  Yönetici:  Ana Sayfa, Keşfet, Yönetim, Site İçeriği, kişi menüsü (çıkış)
+Düğmeye basınca liste açılır, sayfada başka yere basınca kapanır (js/site.js, 8. bölüm).
+Bekleyen iş varsa (okunmamış mesaj, onay bekleyen tamirci, cevap bekleyen teklif) düğmede kırmızı sayı yanıp söner.
+Yeni link eklemek için ilgili rolün grubuna bir satır yazılır: menu_linki("adres", "ikon", "yazı", "açıklama", sayı)
+Eskiden panellerde ikinci bir menü şeridi (menu.php) vardı. Kaldırıldı, hepsi bu açılır menüde.
+Tamircinin onay uyarısı artık tamirci/onay-durumu.php dosyasında.
+
+TALEPTE HİZMET SEÇİMİ
+Talep formunda kategori ve cihaz türü seçilince sadece uygun hizmet kartları görünür (ortak/hizmet-secimi.php, js/site.js 7. bölüm).
+Cihaz türü seçilince o cihaza ait olmayan hizmetler de gizlenir. Örnek: Akıllı Telefon seçilince "Bilgisayar formatı" çıkmaz.
+Hangi hizmetin hangi cihazlar için olduğu hizmet_cihazlari tablosunda durur. Yönetici hizmet formunda onay kutularıyla seçer.
+Hiçbir cihaz işaretlenmezse hizmet kategorideki bütün cihazlar için geçerlidir. "Emin değilim" kartı her zaman vardır.
+Sunucu da kontrol eder: formu kurcalayıp uygun olmayan hizmet gönderilirse kabul edilmez (hizmet_kategoride_mi, hizmet_cihaza_uygun_mu).
+
+İKONLAR VE ANİMASYONLAR
+İkonlar emoji'dir, resim dosyası indirilmez. Hareketi css/stil.css verir:
+  ikon-zipla, ikon-salla, ikon-don, ikon-nabiz, ikon-suzul
+Kategori, adım ve durum ikonları ortak/ikonlar.php içindeki fonksiyonlardan gelir (kategori_ikonu, adim_ikonu, durum_ikonu).
+Bilgisayarında "hareketi azalt" ayarı açık olan kişide animasyonlar durur.
+
+POP-UP (AÇILIR PENCERE)
+Bütün pop-up'lar ortak/altlik.php içindeki tek <dialog> penceresini kullanır (js/site.js, 9. bölüm):
+  Onay sorusu:  forma data-onay="Silinsin mi?" yazılır. Eskiden tarayıcının gri confirm kutusu vardı.
+  Bilgi:        düğmeye data-pencere="kutu-id" yazılır, içerik <template id="kutu-id"> içinde durur.
+  Resim:        resme class="buyutulebilir" yazılır, tıklayınca büyük hali açılır.
+  Bildirim:     $hata ve $tamam yazıları sağ üstte kayarak da görünür (ortak/mesajlar.php).
+Form gönderilirken düğmede dönen halka çıkar, iki kez basılamaz (js/site.js, 10. bölüm).
+
+İŞLEM KAYITLARI (LOG)
+Sitede yapılan önemli işler islem_kayitlari tablosuna yazılır: kim, ne zaman, ne yaptı, hangi IP'den.
+Yazan fonksiyon: log_yaz("İşlem adı", "ayrıntı") (ortak/islem-kaydi.php). İşin başarıyla bittiği satırdan hemen önce çağrılır.
+Kaydedilenler: giriş, hatalı giriş, giriş kilitlenmesi, çıkış, kayıt olma, talep, teklif, teklif kabulü,
+randevu, puan, sohbet mesajı, iletişim mesajı, profil ve şifre değişikliği, yöneticinin bütün değişiklikleri,
+güvenlik kodu tutmayan (reddedilen) formlar. Şifre ve mesajın kendisi ASLA kayda yazılmaz.
+Yönetici okur: Yönetim > İşlem kayıtları (admin/kayitlar.php). Arama, rol süzme, 90 günden eskileri silme var.
+Hatalı giriş gibi güvenlik kayıtları kırmızı satır görünür.
+
+GÜVENLİK
+- Giriş: e-posta yanlış da olsa şifre yanlış da olsa aynı yazı çıkar: "E-posta veya şifre hatalı."
+  Böylece kimse "bu e-posta sitede kayıtlı mı?" diye deneyip üye listesi çıkaramaz.
+  5 yanlış denemeden sonra 5 dakika bekletir.
+- Form güvenlik kodu (CSRF): her POST formunda <?php echo guvenlik_alani(); ?> satırı var.
+  ortak/hazirla.php kodu kontrol eder. Kod yoksa veya yanlışsa form çalışmaz.
+  YENİ FORM YAZARKEN bu satırı form etiketinin hemen altına eklemeyi unutmayın.
+- Oturum çerezi JavaScript ile okunamaz (httponly) ve başka siteden gelen formla gönderilmez (samesite).
+- Takip kodu tahmin edilemez: TB1004-K7Q2M9. Örnek verilerdeki TB1001, TB1002, TB1003 eski biçimde kaldı.
+- E-posta filter_var ile, telefon 10-11 rakam olarak kontrol edilir.
+- Kutulara maxlength yazıldı: veritabanı sütunundan uzun yazı girilemez.
+
+RESİMLER
+Kartların arkasındaki resim veritabanında iki şekilde durur:
+- https:// ile başlayan internet adresi (örnek resimler unsplash.com sitesinden, ücretsiz lisanslı)
+- yuklemeler/ klasörüne yüklenmiş dosyanın adı
+Yönetim formunda ikisi de var: adres yazılır ya da bilgisayardan dosya seçilir.
+Hizmetin resmi boş bırakılırsa kategorisinin resmi kullanılır.
+Tamirci kartında tamircinin ilk yetkinlik kategorisinin resmi kullanılır.
+Resim fonksiyonları ortak/guvenlik.php içinde: resim_adresi, arka_plan, resim_yukle, resim_formdan_al.
+Yönetim formundaki resim kutusu ortak/resim-alani.php dosyasıdır.
+
+KULLANILAN DİLLER
+- HTML: sayfa iskeleti
+- CSS: css/stil.css
+- JavaScript: js/site.js (telefon menüsü, il-ilçe ve kategori-cihaz bağlı listeleri, sohbet kaydırma)
+- PHP: sayfa mantığı
+- MySQL: veriler
+Başka kütüphane, framework veya internetten font yok.
+
+
+NASIL AÇILIR
+1. Proje klasöründe baslat.bat dosyasına çift tıklayın.
+2. Tarayıcı http://localhost:8000 adresini açar.
+3. Siyah "TamirBul" penceresini kapatmayın. O pencere siteyi ayakta tutar.
+4. Durdurmak için o pencereyi kapatın. Yeniden açmak için yine baslat.bat.
+
+İlk açılışta örnek veritabanı kendi yüklenir. Tekrar açınca sizin eklediğiniz kayıtlar silinmez.
+
+PHP bu bilgisayarda kurulu değilse baslat.bat size kurulum komutunu yazar.
+Veritabanı yoksa baslat.bat MariaDB'yi kendi indirir. XAMPP varsa önce onu kullanır.
+
+Visual Studio Code:
+- TamirBul.code-workspace dosyasına çift tıklayın.
+- Ya da File > Open Folder ile bu klasörü açın.
+- Terminal > Run Task > Siteyi aç
+
+PHP dosyasına çift tıklayıp tarayıcıda açmayın. PHP, sunucu olmadan çalışmaz.
+Kod düz metin gibi görünür.
+
+
+DENEME HESAPLARI
+Şifre hepsi için: 123456
+
+admin@tamirbul.test   yönetici
+ayse@ornek.com        müşteri (Ayşe, İstanbul / Kadıköy)
+mehmet@ornek.com      müşteri (Mehmet, İstanbul / Ümraniye)
+can@tamir.com         onaylı tamirci (Güven Teknik Servis, İstanbul, Mobil & Bilişim)
+murat@tamir.com       onaylı tamirci (Öz Elektronik, İstanbul, Mobil + Beyaz Eşya + Küçük Ev Aletleri)
+elif@tamir.com        onaysız tamirci (Şahin Bilişim, Ankara)
+
+Deneme talep kodları:
+TB1001  Ayşe'nin iPhone talebi. Can ve Murat teklif verdi, Ayşe daha seçmedi.
+TB1002  Mehmet'in laptop talebi. Can seçildi, randevu kuruldu.
+TB1003  Ayşe'nin süpürge talebi. Murat tamir etti, 5 puan aldı.
+
+
+ÖĞRETMENE GÖSTERİLECEK YOL
+1. Ana sayfayı açın. Başlık ve 4 adım veritabanından gelir.
+2. Yönetici ile girin. Site ayarlarından ana sayfa başlığını değiştirin. Ana sayfayı yenileyin.
+3. Çıkış yapın. Ayşe ile girin. Panelde TB1001'e gelen iki teklifi gösterin.
+4. "Mesaj Gönder" ile Can'a mesaj yazın.
+5. Yeni talep oluşturun (fotoğraf ekleyin). İl seçince ilçeler değişir, kategori seçince cihazlar değişir.
+6. Çıkış yapın. Can ile girin. Yeni talep "Açık Arıza Talepleri" altında. Teklif verin.
+7. Çıkış yapın. Ayşe ile girin. Teklifi kabul edin. Tamircinin telefonu artık görünür.
+8. Can ile girin. "Size Verilen İşler" altında Randevu Kur. Randevularım'da Tamamlandı deyin.
+9. Ayşe ile girin. Talebe puan verin. Tamirciler sayfasında puan görünür.
+10. Yönetici ile Elif'in başvurusunu onaylayın veya reddedin.
+11. Takip sayfasına kodu yazın. Giriş yapmadan durum görünür.
+
+
+SAYFA DÜZENİ (herkes aynı kalıpla yazar)
+Bir sayfa şu sırayla kurulur:
+1. ortak/baglanti.php   veritabanını açar
+2. ortak/guvenlik.php   oturumu açar
+3. Varsa form kaydı     header() ile yönlendirmeden önce olmalı
+4. ortak/baslik.php     menü. <main> etiketini açar
+5. Sayfanın HTML'i
+6. ortak/altlik.php     <main> etiketini kapatır, altlık yazar
+
+Alt klasörde (müşteri, tamirci, admin) dosya yolu ../ortak/ olur.
+$kok değişkeni de "../" olur. Ana klasörde $kok boştur.
+Bunu css ve linkler bozulmasın diye yapıyoruz.
+
+
+KLASÖRLER
+ortak/        Her sayfanın ortak parçası. Bağlantı, oturum, menü, altlık.
+              mesajlar.php: kırmızı hata ve yeşil başarı kutusu, sağ üstte bildirim. Her formlu sayfa kullanır.
+              hizmet-secimi.php: talep formundaki kategoriye özel hizmet kartları.
+              ikonlar.php: kategori, adım ve durum ikonları.
+              yazi-stili.php, stil-araclari.php, stil-onizleme.php: yazı stili ve Word benzeri araç çubuğu.
+              Kısa yardımcı fonksiyonlar: formdan_al, gelen_sayi, temizle, satirlar, tek_satir,
+              calistir, sayi_getir, yonlendir, sadece_rol. Hepsi baglanti.php ve guvenlik.php içinde.
+              konum-secimi.php, cihaz-secimi.php, yetkinlik-secimi.php: formlarda tekrar eden seçim kutuları.
+css/          Görünüm. Tek dosya: stil.css
+js/           Tek dosya: site.js. (Eski tasarım dosyaları style.css ve main.js, sat proje klasörüne taşındı.)
+musteri/      Müşteri paneli, talep detay, teklif kabul, puan, talep düzenle.
+tamirci/      Tamirci paneli, uygun talepler, teklif ver, randevu.
+admin/        Yönetim paneli.
+yuklemeler/   Müşterinin yüklediği arıza fotoğrafları. Site kendisi doldurur.
+veritabani/   SQL dosyası. baslat.bat ilk açılışta yükler. phpMyAdmin'e de yüklenebilir.
+
+
+DÖRT KİŞİ
+
+Kişi 1 - Ziyaretçi ön yüzü
+index.php
+hizmetler.php
+hizmet-detay.php
+tamirciler.php
+tamirci-detay.php
+hakkimizda.php
+iletisim.php
+css/stil.css
+js/site.js
+ortak/baslik.php
+ortak/altlik.php
+Sıradaki iş: hizmetler.php içine arama kutusu. Renkleri stil.css içinden değiştirin.
+
+Kişi 2 - Üye ekranları
+giris.php ve kayit.php görünümünü Kişi 3 ile birlikte okuyun ama dosya sahibi Kişi 3.
+musteri/ klasörü
+tamirci/ klasörü
+Sıradaki iş: musteri/taleplerim.php içine İptal et butonu.
+Yorum satırı nasıl yazılacağını anlatıyor.
+İptal sadece durumu beklemede olan kendi talebinde çalışsın.
+
+Kişi 3 - Üyelik ve talep
+ortak/baglanti.php
+ortak/guvenlik.php
+ortak/konum-secimi.php, ortak/cihaz-secimi.php, ortak/yetkinlik-secimi.php
+giris.php
+kayit.php (seçim sayfası), musteri-kayit.php, tamirci-kayit.php
+cikis.php
+talep-olustur.php
+talep-takip.php
+sohbet.php
+musteri/teklif-kabul.php, musteri/puan-ver.php (kayıt kodları)
+Sıradaki iş: Kişi 2'nin iptal butonunun kayıt kodunu yazmak.
+İd formdan, müşteri numarası oturumdan gelsin.
+
+Kişi 4 - Yönetim ve veritabanı
+veritabani/tamirbul.sql
+admin/ klasörü
+Sıradaki iş: kullanicilar.php içine silme.
+Yönetici kendi hesabını silmesin.
+Silmeden önce o kişinin talebi var mı bakılsın.
+
+Aynı dosyayı iki kişi aynı anda değiştirmesin.
+Ortak dosyada değişiklik gerekirse önce gruptaki sahibine söyleyin.
+
+
+VERİTABANI TABLOLARI
+kullanicilar           müşteri, tamirci, admin. rol sütunu ayırır. onaylı: 0 bekliyor, 1 onaylı, 2 reddedildi.
+iller, ilceler         il ve ilçe listesi. Formdaki seçim kutuları buradan dolar.
+kategoriler            altı ana kategori.
+cihaz_turleri          her kategorinin cihazları. Örnek: Buzdolabı, Akıllı Telefon.
+tamirci_yetkinlikleri  tamircinin tamir edebildiği kategoriler. Bir tamircinin birden çok satırı olur.
+hizmet_cihazlari       hizmetin hangi cihaz türleri için olduğu. Satırı yoksa kategorideki bütün cihazlar için.
+hizmetler              tamir çeşitleri, başlangıç fiyatı ve resmi.
+adimlar                ana sayfadaki "Nasıl çalışır" kartları.
+slaytlar               ana sayfanın üstündeki büyük resimler.
+talepler               müşterinin arıza kaydı. takip_kodu ile sorgulanır. puan: 0 ise daha puanlanmadı.
+teklifler              tamircinin talebe verdiği fiyat. durum: bekliyor, kabul, red.
+sohbet_mesajlari       müşteri ile tamirci arasındaki mesajlar.
+randevular             tamircinin verdiği gün ve saat.
+mesajlar               iletişim formu. sadece yönetici görür.
+site_ayarlari          kısa metinler. etiket sütunu yönetim ekranında kutunun üstünde yazan addir.
+sayfa_icerikleri       uzun metin: hakkımızda.
+yazi_stilleri          yönetimden değişen yazıların renk, boyut, kalınlık, yazı tipi seçimleri.
+islem_kayitlari        log: kim, ne zaman, hangi işi yaptı, hangi IP'den.
+
+Talep durumları sırasıyla:
+beklemede (teklif bekliyor) -> tamirci_atandi (teklif kabul edildi) -> randevu_kuruldu -> tamamlandi
+Randevu iptal olursa talep tamirci_atandi durumuna geri döner. Yönetici iptal ve tamirde durumunu elle verebilir.
+
+Tablolar birbirine id ile bağlanır. Ayrı bir foreign key kuralı koymadık.
+talepler.musteri_id            -> kullanicilar.id
+talepler.hizmet_id             -> hizmetler.id
+talepler.tamirci_id            -> kullanicilar.id (teklifi kabul edilen tamirci)
+talepler.kategori_id           -> kategoriler.id
+cihaz_turleri.kategori_id      -> kategoriler.id
+ilceler.il_id                  -> iller.id
+tamirci_yetkinlikleri.tamirci_id  -> kullanicilar.id
+tamirci_yetkinlikleri.kategori_id -> kategoriler.id
+hizmet_cihazlari.hizmet_id      -> hizmetler.id
+hizmet_cihazlari.cihaz_turu_id  -> cihaz_turleri.id
+teklifler.talep_id             -> talepler.id
+teklifler.tamirci_id           -> kullanicilar.id
+sohbet_mesajlari.talep_id      -> talepler.id
+sohbet_mesajlari.tamirci_id    -> kullanicilar.id
+sohbet_mesajlari.gonderen_id   -> kullanicilar.id
+randevular.talep_id            -> talepler.id
+randevular.tamirci_id          -> kullanicilar.id
+
+İl, ilçe ve cihaz türünün numarası değil adı yazılır (örnek: talepler.sehir = 'Yozgat').
+Böylece ekranda göstermek için ayrıca JOIN gerekmez.
+
+Şifreler düz yazılmaz. password_hash ile kaydolur, password_verify ile kontrol edilir.
+
+
+HER SAYFANIN BAŞINDA YORUM VAR
+Dosyayı açınca ilk yorum şu üç şeyi söyler:
+- Bu sayfa ne
+- Hangi kişinin dosyası
+- Bu sayfada neler olacak
+Kodun içindeki kısa yorumlar ise o satırın ne ise yaradığını söyler.
+Öğretmen sorduğunda önce o yorumu, sonra satırın kendisini okuyun.

@@ -1,0 +1,9 @@
+27 Ekim: Role özel menü, Word tarzı yazı stilleri, işlem kaydı
+
+- Menü giriş yapanın rolüne göre değişiyor, açılır gruplar
+- Yönetim paneli tek ekran özet, koyu mod / açık mod
+- Site yazılarının rengi, boyutu, kalınlığı Word gibi seçiliyor (yazı stilleri)
+- Talepte sadece cihaza uygun hizmetler çıkıyor
+- İşlem kayıtları (log): kim, ne zaman, ne yaptı
+- Güvenlik: form güvenlik kodu (CSRF), tek giriş hata mesajı, deneme sınırı, rastgele takip kodu
+- DEGISIKLIKLER.txt rapor dosyası
