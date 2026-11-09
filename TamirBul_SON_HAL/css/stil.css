@@ -1,0 +1,3568 @@
+/* DOSYA: css/stil.css
+   KİM: Kişi 1
+   NE YAPAR: Sitenin tek stil dosyası. Tasarım "sat proje" klasöründeki HTML'den alındı.
+   Her satırın sonundaki yorum o satırın ne yaptığını söyler.
+   Renkleri değiştirmek için en üstteki :root kutusu değiştirilir.
+   Koyu mod renkleri hemen altındaki html.koyu kutusundadır. Sitenin varsayılanı koyu moddur. */
+
+/* HARİTA: Renkler (CSS değişkenleri) */
+/* :root içindeki --isim değerleri tüm dosyada var(--isim) diye kullanılır. */
+:root {
+    --primary: #2563eb; /* ana mavi */
+    --primary-dark: #1d4ed8; /* koyu mavi */
+    --secondary: #10b981; /* yeşil */
+    --background: var(--zemin-ikinci); /* sayfa zemini */
+    --text: #0f172a; /* yazı rengi */
+    --text-light: #64748b; /* soluk yazı */
+    --border: #cbd5e1; /* çerçeve rengi */
+    --navy: #0f172a; /* lacivert şerit */
+    --radius-lg: 16px; /* büyük köşe yuvarlaklığı */
+    --radius-sm: 10px; /* küçük köşe yuvarlaklığı */
+    --kart: #ffffff; /* kart, tablo, kutu zemini */
+    --zemin-ikinci: #f1f5f9; /* hafif gri zemin: rozet, mesaj balonu, stil kutusu */
+    --cizgi: #e2e8f0; /* ince ayırma çizgisi */
+    --yazi-ikinci: #334155; /* kutu adı (label) gibi koyu gri yazılar */
+    --baslik-mavi: #1d4ed8; /* form ara başlığı gibi mavi yazılar */
+    --mavi-zemin: #eff6ff; /* açık mavi bilgi kutusu zemini */
+    --yesil-zemin: #f0fdf4; /* açık yeşil bilgi kutusu zemini */
+}
+
+/* HARİTA: Koyu mod renkleri */
+/* <html class="koyu"> olunca yukarıdaki renklerin yerine bunlar kullanılır. */
+/* ortak/baslik.php sınıfı yazar, js/site.js düğmeyle değiştirir. */
+html.koyu {
+    --background: #0b1120; /* sayfa zemini: çok koyu lacivert */
+    --text: #e2e8f0; /* yazı rengi: açık gri */
+    --text-light: #94a3b8; /* soluk yazı */
+    --border: #243049; /* çerçeve rengi */
+    --kart: #0f172a; /* kart zemini */
+    --zemin-ikinci: #1e293b; /* hafif açık zemin */
+    --cizgi: #1e293b; /* ince çizgi */
+    --yazi-ikinci: #cbd5e1; /* kutu adı */
+    --baslik-mavi: #93c5fd; /* açık mavi */
+    --mavi-zemin: #172554; /* koyu mavi kutu */
+    --yesil-zemin: #052e16; /* koyu yeşil kutu */
+    color-scheme: dark; /* tarayıcının kendi parçaları (kaydırma çubuğu, seçim listesi) da koyu olur */
+}
+
+/* ----- Genel ----- */
+
+/* Bütün etiketler: tarayıcının boşlukları sıfırlanır. */
+* {
+    margin: 0; /* dış boşluk yok */
+    padding: 0; /* iç boşluk yok */
+    box-sizing: border-box; /* genişliğe kenar da dahil */
+}
+
+/* Sayfa gövdesi. */
+body {
+    font-family: "Inter", "Segoe UI", Tahoma, Arial, sans-serif; /* yazı tipi: Inter yoksa Segoe UI */
+    background: var(--background); /* zemin rengi */
+    -webkit-font-smoothing: antialiased; /* yazılar daha düzgün görünür */
+    color: var(--text); /* yazı rengi */
+    line-height: 1.6; /* satır yüksekliği */
+    min-height: 100vh; /* en az ekran boyu */
+    display: flex; /* içeriği kolon yaparız */
+    flex-direction: column; /* üstten alta */
+}
+
+/* Asıl içerik kalan boşluğu doldurur, altlık en altta kalır. */
+main {
+    flex: 1; /* kalan yüksekliği al */
+}
+
+/* Başlıkların satır aralığı. */
+h1, h2, h3, h4, h5 {
+    line-height: 1.25; /* başlıklarda sık satır */
+    letter-spacing: -0.015em; /* harfler biraz sık, modern görünüm */
+}
+
+/* Linkler. */
+a {
+    color: var(--primary); /* mavi link */
+}
+
+/* Resimler kutusundan taşmasın. */
+img {
+    max-width: 100%; /* en fazla kutu genişliği */
+}
+
+/* Paragraflar. */
+p {
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Ortadaki içerik alanı. */
+.container,
+.kapsayici {
+    width: 88%; /* ekranın %88'i */
+    max-width: 1200px; /* en fazla 1200 piksel */
+    margin: 0 auto; /* ortala */
+}
+
+/* ----- Düğmeler ----- */
+
+/* HARİTA: Düğmeler (btn) */
+/* Bütün düğmelerin ortak görünüşü: mavi zemin, beyaz yazı, yumuşak köşe. */
+.btn {
+    display: inline-flex; /* ikon ve yazı yan yana */
+    justify-content: center; /* yatay ortala */
+    align-items: center; /* dikey ortala */
+    gap: 8px; /* ikon ile yazı arası */
+    position: relative; /* yükleniyor halkası bunun içinde konumlanır */
+    padding: 11px 22px; /* iç boşluk */
+    border: 1px solid transparent; /* görünmez çerçeve, çerçeveli düğmeyle aynı boyda dursun */
+    border-radius: 12px; /* yumuşak köşe */
+    background: var(--primary); /* mavi zemin */
+    text-decoration: none; /* link alt çizgisi yok */
+    font-weight: 600; /* yarı kalın yazı */
+    font-size: 0.95rem; /* yazı boyu */
+    font-family: inherit; /* sayfanın yazı tipi */
+    line-height: 1.2; /* düğme yüksekliği sabit kalsın */
+    cursor: pointer; /* el işareti */
+    color: #ffffff; /* beyaz yazı */
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12), 0 4px 14px rgba(37, 99, 235, 0.22); /* hafif mavi gölge */
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, color 0.2s; /* yumuşak geçiş */
+    white-space: nowrap; /* yazı tek satır */
+}
+
+/* Fare üstüne gelince düğme biraz koyulaşır ve hafif kalkar. */
+.btn:hover {
+    background: var(--primary-dark); /* koyu mavi */
+    transform: translateY(-1px); /* 1 piksel yukarı */
+    box-shadow: 0 2px 4px rgba(15, 23, 42, 0.14), 0 8px 22px rgba(37, 99, 235, 0.3); /* gölge büyür */
+}
+
+/* Klavyeyle (Tab) gelinince düğmenin etrafında belirgin çizgi. */
+.btn:focus-visible {
+    outline: 3px solid rgba(96, 165, 250, 0.6); /* açık mavi çizgi */
+    outline-offset: 2px; /* düğmeden biraz uzakta */
+}
+
+/* İkinci düğme: koyu lacivert zemin. */
+.btn-secondary {
+    background: #1e293b; /* koyu lacivert */
+    border-color: #334155; /* ince çerçeve, koyu zeminde de seçilsin */
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.16); /* hafif gölge */
+}
+
+/* İkinci düğmenin üstüne gelince biraz açılır. */
+.btn-secondary:hover {
+    background: #334155; /* gri lacivert */
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.22); /* gölge */
+}
+
+/* Çerçeveli düğme: zemin yok, mavi çerçeve ve yazı. */
+.btn-outline {
+    background: transparent; /* zemin yok */
+    border-color: var(--border); /* gri çerçeve */
+    color: var(--text); /* sayfanın yazı rengi */
+    box-shadow: none; /* gölge yok */
+}
+
+/* Çerçeveli düğmenin üstüne gelince çerçeve ve yazı mavi olur. */
+.btn-outline:hover {
+    background: var(--mavi-zemin); /* açık mavi zemin */
+    border-color: var(--primary); /* mavi çerçeve */
+    color: var(--baslik-mavi); /* mavi yazı */
+    box-shadow: none; /* gölge yok */
+}
+
+/* Koyu resimli alanlardaki (karşılama, resimli kart) çerçeveli düğme: iki modda da beyaz. */
+.hero-section .btn-outline,
+.resimli-kart .btn-outline {
+    color: #ffffff; /* beyaz yazı */
+    border-color: rgba(255, 255, 255, 0.4); /* yarı saydam beyaz çerçeve */
+    background: rgba(255, 255, 255, 0.06); /* çok hafif zemin */
+    backdrop-filter: blur(6px); /* arkası bulanık */
+}
+
+/* Bu düğmenin üstüne gelince zemin biraz açılır. */
+.hero-section .btn-outline:hover,
+.resimli-kart .btn-outline:hover {
+    color: #ffffff; /* beyaz kalır */
+    border-color: #ffffff; /* beyaz çerçeve */
+    background: rgba(255, 255, 255, 0.14); /* biraz açık zemin */
+}
+
+/* Büyük ana sayfa düğmesi. */
+.btn-hero {
+    font-size: 1.05rem; /* büyük yazı */
+    padding: 15px 30px; /* geniş */
+    border-radius: 14px; /* biraz daha yuvarlak */
+}
+
+/* Küçük düğme. */
+.btn-sm {
+    padding: 7px 14px; /* küçük iç boşluk */
+    font-size: 0.85rem; /* küçük yazı */
+    border-radius: 10px; /* küçük köşe */
+}
+
+/* Kutunun tamamını kaplayan düğme. */
+.btn-block {
+    display: flex; /* blok düğme */
+    width: 100%; /* tam genişlik */
+    margin-top: 10px; /* üst boşluk */
+}
+
+/* Kırmızı düğme: sil, reddet, iptal. */
+.btn-danger {
+    background: #dc2626; /* kırmızı */
+    box-shadow: 0 4px 14px rgba(220, 38, 38, 0.22); /* kırmızı gölge */
+}
+
+/* Kırmızı düğmenin üstüne gelince koyulaşır. */
+.btn-danger:hover {
+    background: #b91c1c; /* koyu kırmızı */
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3); /* gölge büyür */
+}
+
+/* Yeşil düğme: kabul, tamamlandı. */
+.btn-success {
+    background: #16a34a; /* yeşil */
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.22); /* yeşil gölge */
+}
+
+/* Yeşil düğmenin üstüne gelince koyulaşır. */
+.btn-success:hover {
+    background: #15803d; /* koyu yeşil */
+    box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3); /* gölge büyür */
+}
+
+/* ----- Üst menü ----- */
+
+/* HARİTA: Üst menü görünümü (navbar) */
+/* Koyu lacivert üst şerit. */
+.navbar {
+    background: rgba(11, 17, 32, 0.86); /* yarı saydam koyu lacivert */
+    backdrop-filter: blur(14px); /* arkası buzlu cam gibi bulanık */
+    -webkit-backdrop-filter: blur(14px); /* Safari için aynı ayar */
+    border-bottom: 1px solid rgba(148, 163, 184, 0.12); /* alt ince çizgi */
+    position: sticky; /* sayfa kayarken üstte kalır */
+    top: 0; /* en üstte */
+    z-index: 1000; /* her şeyin üstünde */
+}
+
+/* Logo, linkler, düğmeler yan yana. */
+.navbar-container {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 20px; /* aradaki boşluk */
+    padding: 14px 0; /* üst alt boşluk */
+}
+
+/* Logo linki. */
+.logo {
+    text-decoration: none; /* alt çizgi yok */
+    flex-shrink: 0; /* daralmasın */
+}
+
+/* Logo yazısı. */
+.logo h1 {
+    font-size: 1.5rem; /* büyük */
+    font-weight: 800; /* çok kalın */
+    letter-spacing: -0.03em; /* harfler sık */
+    color: #f8fafc; /* beyaz */
+}
+
+/* Logonun renkli ikinci yarısı. */
+.logo span {
+    background: linear-gradient(135deg, #60a5fa, #22d3ee); /* maviden turkuaza renk geçişi */
+    -webkit-background-clip: text; /* renk sadece yazıda */
+    background-clip: text; /* renk sadece yazıda */
+    -webkit-text-fill-color: transparent; /* yazının kendi rengi şeffaf */
+}
+
+/* Menü: Ana Sayfa linki ve açılır menü düğmeleri yan yana. */
+.menu {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    flex: 1; /* kalan genişliği al */
+    gap: 4px; /* boşluk */
+}
+
+/* HARİTA: Açılır menü görünümü (CSS) */
+/* Menüdeki tek başına link (Ana Sayfa) ve açılır menü düğmeleri aynı görünür. */
+.menu-linki,
+.acilir-dugme {
+    display: inline-flex; /* ikon ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 7px; /* ikon ile yazı arası */
+    padding: 8px 12px; /* iç boşluk */
+    border-radius: 10px; /* yuvarlak */
+    transition: background-color 0.2s, color 0.2s; /* yumuşak renk geçişi */
+    color: #cbd5e1; /* açık gri yazı */
+    background: transparent; /* zemin yok */
+    border: 0; /* çerçeve yok */
+    font-family: inherit; /* sayfanın yazı tipi */
+    font-size: 0.92rem; /* yazı boyu */
+    font-weight: 600; /* yarı kalın */
+    text-decoration: none; /* alt çizgi yok */
+    cursor: pointer; /* el işareti */
+    white-space: nowrap; /* yazı alt satıra kırılmasın */
+}
+
+/* Üstüne gelince, açıkken ve açık sayfanın grubundayken. */
+.menu-linki:hover,
+.menu-linki.aktif,
+.acilir-dugme:hover,
+.acilir.acik .acilir-dugme,
+.acilir.aktif .acilir-dugme {
+    background: rgba(96, 165, 250, 0.14); /* hafif mavi zemin */
+    color: #93c5fd; /* açık mavi yazı */
+}
+
+/* Açılır menü kutusu. Liste bu kutuya göre konumlanır. */
+.acilir {
+    position: relative; /* içindeki liste buna göre yerleşir */
+}
+
+/* Kişi menüsü en sağa yaslanır. margin-left auto: soldaki boşluğu doldurur. */
+.acilir.sag {
+    margin-left: auto; /* sağa it */
+}
+
+/* Düğmedeki aşağı ok. */
+.acilir-ok {
+    display: inline-flex; /* ikon hizalı dursun */
+    font-size: 0.85rem; /* küçük */
+    opacity: 0.7; /* biraz soluk */
+    transition: transform 0.2s; /* dönerken yumuşak */
+}
+
+/* Menü açıkken ok yukarı döner. */
+.acilir.acik .acilir-ok {
+    transform: rotate(180deg); /* ters çevir */
+}
+
+/* Açılan liste. Kapalıyken gizli. */
+.acilir-liste {
+    display: none; /* gizli */
+    position: absolute; /* sayfanın akışından çıkar, üstte durur */
+    top: calc(100% + 8px); /* düğmenin 8 piksel altı */
+    left: 0; /* düğmenin solundan başlar */
+    min-width: 270px; /* en az genişlik */
+    background: #0f172a; /* koyu lacivert */
+    border: 1px solid #1e293b; /* ince çerçeve */
+    border-radius: 16px; /* yuvarlak */
+    box-shadow: 0 24px 50px rgba(2, 6, 23, 0.55); /* derin gölge */
+    padding: 8px; /* iç boşluk */
+    z-index: 1100; /* her şeyin üstünde */
+}
+
+/* Sağdaki kişi menüsünün listesi sağdan hizalanır, ekrandan taşmasın. */
+.acilir.sag .acilir-liste {
+    left: auto; /* soldan değil */
+    right: 0; /* sağdan */
+}
+
+/* Menü açılınca liste aşağı kayarak görünür. */
+.acilir.acik .acilir-liste {
+    display: block; /* görünür */
+    animation: menu-ac 0.18s ease-out; /* kısa kayma animasyonu */
+}
+
+/* Çok linkli liste iki sütun olur. */
+.acilir.acik .acilir-liste.genis {
+    display: grid; /* ızgara */
+    grid-template-columns: 1fr 1fr; /* iki sütun */
+    min-width: 520px; /* daha geniş */
+}
+
+/* Menü açılma animasyonu: biraz yukarıdan ve saydam başlar. */
+@keyframes menu-ac {
+    0% { opacity: 0; transform: translateY(-6px); } /* başlangıç */
+    100% { opacity: 1; transform: translateY(0); } /* yerinde */
+}
+
+/* Listedeki bir link: ikon, yazı ve açıklama. */
+.acilir-link {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 12px; /* boşluk */
+    padding: 9px 10px; /* iç boşluk */
+    border-radius: 10px; /* yuvarlak */
+    color: #e2e8f0; /* açık yazı */
+    text-decoration: none; /* alt çizgi yok */
+}
+
+/* Link üstüne gelince ve açık sayfanın linki. */
+.acilir-link:hover,
+.acilir-link.aktif {
+    background: #1e293b; /* biraz açık zemin */
+}
+
+/* Linkin ikonu: hafif mavi kare içinde. Sabit boy, yazılar alt alta hizalı dursun. */
+.acilir-ikon {
+    display: flex; /* ikonu ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    width: 34px; /* genişlik */
+    height: 34px; /* yükseklik */
+    flex-shrink: 0; /* daralmasın */
+    border-radius: 10px; /* yumuşak köşe */
+    background: rgba(96, 165, 250, 0.12); /* hafif mavi */
+    color: #93c5fd; /* açık mavi ikon */
+    font-size: 1.05rem; /* ikon boyu */
+    transition: background-color 0.2s, color 0.2s; /* yumuşak renk geçişi */
+}
+
+/* Link üstüne gelince ikon kutusu mavi dolar. */
+.acilir-link:hover .acilir-ikon,
+.acilir-link.aktif .acilir-ikon {
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz ikon */
+}
+
+/* Yazı ve açıklama alt alta. */
+.acilir-yazi {
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    line-height: 1.3; /* sık satır */
+}
+
+/* Linkin açıklaması: küçük ve soluk. */
+.acilir-yazi small {
+    color: #94a3b8; /* gri */
+    font-size: 0.78rem; /* küçük */
+}
+
+/* Linkteki kırmızı sayı en sağda. */
+.acilir-link .menu-sayisi {
+    margin-left: auto; /* sağa it */
+}
+
+/* Telefon menü düğmesi. Bilgisayarda gizli. */
+.menu-dugmesi {
+    display: none; /* gizli */
+    margin-left: auto; /* sağa */
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz yazı */
+    border: 0; /* çerçeve yok */
+    border-radius: 8px; /* yuvarlak */
+    padding: 8px 14px; /* iç boşluk */
+    font-weight: 700; /* kalın */
+}
+
+/* ----- Uyarı kutuları ----- */
+
+/* Sarı şerit: veritabanı kapalı, tamirci onaysız. */
+.uyari {
+    background: #fef9c3; /* açık sarı */
+    color: #854d0e; /* koyu sarı yazı */
+    padding: 12px 6%; /* iç boşluk */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* Kırmızı hata kutusu. */
+.hata {
+    background: #ffe4e6; /* açık kırmızı */
+    color: #9f1239; /* koyu kırmızı yazı */
+    border: 1px solid #fda4af; /* kırmızı çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Yeşil başarı kutusu. */
+.tamam {
+    background: #dcfce7; /* açık yeşil */
+    color: #166534; /* koyu yeşil yazı */
+    border: 1px solid #86efac; /* yeşil çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Boş liste yazısı. */
+.bos-liste {
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px dashed var(--border); /* kesik çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 24px; /* iç boşluk */
+    text-align: center; /* ortalı */
+    color: var(--text-light); /* soluk yazı */
+    margin-bottom: 25px; /* alt boşluk */
+}
+
+/* HARİTA: Giriş gerekli kutusu (giriş yap / kayıt ol düğmeleri) */
+/* Giriş yapmadan açılamayan sayfalarda çıkan kutu. Yazı ve iki düğme ortada. */
+.giris-gerekli {
+    background: var(--mavi-zemin); /* açık mavi */
+    border: 1px solid rgba(96, 165, 250, 0.35); /* yarı saydam mavi çerçeve, iki modda da yumuşak */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    padding: 28px 20px; /* iç boşluk */
+    text-align: center; /* ortalı */
+}
+
+/* Kutunun yazısı. */
+.giris-gerekli p {
+    color: var(--baslik-mavi); /* mavi (koyu modda açık mavi) */
+    font-weight: 600; /* yarı kalın */
+    margin-bottom: 16px; /* düğmelerle arasında boşluk */
+}
+
+/* Düğmeler yan yana ve ortada. */
+.giris-gerekli .kart-dugmeleri {
+    justify-content: center; /* ortala */
+}
+
+/* ----- Ana sayfa ----- */
+
+/* HARİTA: Ana sayfa karşılama ve slayt görünümü */
+/* Tam ekran karşılama alanı. */
+.hero-section {
+    position: relative; /* resimler bunun içine yerleşir */
+    height: 85vh; /* ekranın %85'i */
+    min-height: 480px; /* en az yükseklik */
+    display: flex; /* içeriği ortala */
+    align-items: center; /* dikey ortala */
+    overflow: hidden; /* taşan resim gizlenir */
+}
+
+/* Slayt resimlerinin kutusu. */
+.hero-bg-slider {
+    position: absolute; /* alanın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+}
+
+/* Her slayt resmi üst üste durur ve görünmezdir. js/site.js sırayla "aktif" yapar. */
+.slayt {
+    position: absolute; /* üst üste */
+    top: 0; /* üst kenara */
+    left: 0; /* sol kenara */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+    object-fit: cover; /* resmi kırparak doldur */
+    opacity: 0; /* görünmez */
+    transition: opacity 1.2s; /* yavaşça görünsün */
+}
+
+/* Görünen slayt. */
+.slayt.aktif {
+    opacity: 1; /* görünür */
+}
+
+/* Resmin üstündeki koyu perde. */
+.hero-overlay {
+    position: absolute; /* alanın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+    background: radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.28), transparent 60%), linear-gradient(180deg, rgba(2, 6, 23, 0.62), rgba(2, 6, 23, 0.9)); /* üstte mavi ışık, alta doğru koyulaşan perde */
+}
+
+/* Yazıların kutusu, perdenin üstünde. */
+.hero-container-center {
+    position: relative; /* perdenin üstüne çıkar */
+    text-align: center; /* ortalı yazı */
+}
+
+/* Yazı alanı genişliği. */
+.hero-content {
+    max-width: 800px; /* en fazla 800 piksel */
+    margin: 0 auto; /* ortala */
+}
+
+/* Büyük başlık. */
+.hero-content h2 {
+    font-size: clamp(2.1rem, 5vw, 3.6rem); /* ekrana göre büyüyen yazı */
+    font-weight: 800; /* çok kalın */
+    letter-spacing: -0.03em; /* harfler sık */
+    color: #ffffff; /* beyaz */
+    margin-bottom: 22px; /* alt boşluk */
+}
+
+/* Açıklama yazısı. */
+.hero-content p {
+    font-size: 1.15rem; /* büyükçe */
+    color: #cbd5e1; /* açık gri */
+    max-width: 640px; /* satır çok uzamasın, rahat okunsun */
+    margin-left: auto; /* ortala */
+    margin-right: auto; /* ortala */
+    margin-bottom: 32px; /* alt boşluk */
+}
+
+/* İki düğme yan yana. */
+.hero-actions {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    justify-content: center; /* ortala */
+    gap: 14px; /* boşluk */
+}
+
+/* Ana sayfa bölümleri. */
+.how-it-works-section,
+.categories-section {
+    padding: 80px 0; /* üst alt boşluk */
+}
+
+/* Bölüm başlığı. */
+.section-title {
+    text-align: center; /* ortalı */
+    font-size: clamp(1.7rem, 3vw, 2.2rem); /* ekrana göre büyüyen yazı */
+    font-weight: 800; /* çok kalın */
+    margin-bottom: 44px; /* alt boşluk */
+}
+
+/* Bölüm başlığının altındaki kısa renkli çizgi. ::after: başlığın sonuna CSS ile kutu ekler. */
+.section-title::after {
+    content: ""; /* boş kutu */
+    display: block; /* kendi satırı */
+    width: 56px; /* çizgi uzunluğu */
+    height: 4px; /* çizgi kalınlığı */
+    margin: 14px auto 0 auto; /* ortala, başlıktan biraz aşağıda */
+    border-radius: 4px; /* uçlar yuvarlak */
+    background: linear-gradient(90deg, #2563eb, #22d3ee); /* maviden turkuaza */
+}
+
+/* Kart ızgaraları. auto-fit: satıra sığdığı kadar kart koyar. */
+.steps-grid,
+.categories-grid,
+.kart-alani,
+.secim-kartlari {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* en az 240 piksel kart */
+    gap: 24px; /* kartlar arası boşluk */
+}
+
+/* Kategori ve hizmet kartları daha geniş: büyük ekranda 3 sütun olur, 6 kart iki düzgün satıra dizilir. */
+/* auto-fill: kart az olsa da sütun sayısı aynı kalır, 2 kart bütün satıra yayılıp devleşmez. */
+.categories-grid,
+.kart-alani {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* en az 300 piksel kart */
+}
+
+/* Kayıt seçim sayfasındaki iki kart. */
+.secim-kartlari {
+    width: 100%; /* tam genişlik */
+    max-width: 820px; /* en fazla */
+}
+
+/* Beyaz kartlar. */
+.step-card,
+.category-card,
+.kart {
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 18px; /* yuvarlak */
+    padding: 28px 24px; /* iç boşluk */
+    text-align: center; /* ortalı yazı */
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06); /* çok hafif gölge */
+    transition: transform 0.25s, box-shadow 0.25s; /* yumuşak hareket */
+    height: 100%; /* satırdaki kartlar eşit boy */
+}
+
+/* Kartın üstüne gelince hafif kalkar. */
+.step-card:hover,
+.category-card:hover,
+.kart:hover {
+    transform: translateY(-4px); /* yukarı */
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.28); /* belirgin gölge */
+}
+
+/* Kart başlıkları. */
+.step-card h3,
+.category-card h3,
+.kart h2 {
+    font-size: 1.2rem; /* yazı boyu */
+    margin: 8px 0; /* üst alt boşluk */
+}
+
+/* Tıklanabilir kart linki. */
+.category-card-link {
+    text-decoration: none; /* alt çizgi yok */
+    color: inherit; /* yazı rengi kartın */
+}
+
+/* Kartın altındaki "Talep Oluştur" yazısı. */
+.card-action-text {
+    display: inline-flex; /* yazı ve ok yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 6px; /* boşluk */
+    font-weight: 700; /* kalın */
+    color: var(--primary); /* mavi */
+}
+
+/* Kartın üstüne gelince ok biraz sağa kayar. */
+.category-card:hover .card-action-text .svg-ikon {
+    transform: translateX(3px); /* sağa */
+}
+
+/* Okun kayması yumuşak olsun. */
+.card-action-text .svg-ikon {
+    transition: transform 0.2s; /* yumuşak hareket */
+}
+
+/* Adım numarası kutusu. */
+.step-number {
+    position: absolute; /* kartın sol üst köşesine */
+    top: 16px; /* üstten */
+    left: 16px; /* soldan */
+    width: 30px; /* genişlik */
+    height: 30px; /* yükseklik */
+    background: rgba(255, 255, 255, 0.14); /* yarı saydam beyaz */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* ince çerçeve */
+    color: #ffffff; /* beyaz */
+    font-size: 0.85rem; /* küçük */
+    font-weight: 700; /* kalın */
+    border-radius: 50%; /* daire */
+    display: flex; /* rakamı ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    backdrop-filter: blur(6px); /* arkası buzlu */
+}
+
+/* Bölümün altındaki link. */
+.section-link {
+    text-align: center; /* ortalı */
+    margin-top: 30px; /* üst boşluk */
+}
+
+/* ----- Arka plani resimli kart ----- */
+
+/* HARİTA: Resimli kart görünümü (CSS) */
+/* Resim style="background-image" ile gelir. Resim yoksa lacivert kalır. */
+.resimli-kart {
+    position: relative; /* perde bunun içinde */
+    overflow: hidden; /* taşan perde gizlenir */
+    background-color: #1e293b; /* resim yoksa lacivert */
+    background-size: cover; /* resmi kırparak doldur */
+    background-position: center; /* resmi ortala */
+    border: none; /* çerçeve yok */
+    color: #ffffff; /* beyaz yazı */
+    min-height: 260px; /* en az yükseklik */
+    display: flex; /* içeriği kolon yap */
+    flex-direction: column; /* üstten alta */
+    justify-content: flex-end; /* yazılar alta yaslanır */
+}
+
+/* Resmin üstündeki, aşağı doğru koyulaşan perde. */
+.resimli-kart::before {
+    content: ""; /* boş kutu */
+    position: absolute; /* kartın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    right: 0; /* sağ */
+    bottom: 0; /* alt */
+    background: linear-gradient(180deg, rgba(2, 6, 23, 0.15) 0%, rgba(2, 6, 23, 0.55) 45%, rgba(2, 6, 23, 0.94) 100%); /* aşağı doğru koyulaşan perde */
+}
+
+/* Kartın içindeki her şey perdenin üstünde. */
+.resimli-kart > * {
+    position: relative; /* perdenin üstüne çıkar */
+}
+
+/* Adım numarası resimli kartta da köşede kalsın (yukarıdaki kural relative yapıyordu). */
+.resimli-kart > .step-number {
+    position: absolute; /* köşeye */
+}
+
+/* Resimli karttaki başlıklar beyaz. */
+.resimli-kart h1,
+.resimli-kart h2,
+.resimli-kart h3,
+.resimli-kart strong {
+    color: #ffffff; /* beyaz */
+}
+
+/* Resimli karttaki yazılar açık gri. */
+.resimli-kart p {
+    color: #e2e8f0; /* açık gri */
+}
+
+/* Resimli karttaki fiyat yeşil. */
+.resimli-kart .fiyat {
+    color: #4ade80; /* açık yeşil */
+}
+
+/* Resimli karttaki puan sarı. */
+.resimli-kart .rating {
+    color: #fcd34d; /* sarı */
+}
+
+/* Resimli karttaki alt link yazısı. */
+.resimli-kart .card-action-text {
+    color: #93c5fd; /* açık mavi */
+}
+
+/* ----- Formlar ----- */
+
+/* Form sayfası bölümü: kart ortada. */
+.auth-section,
+.request-section {
+    padding: 50px 20px; /* iç boşluk */
+}
+
+/* Kartları ortalayan kutu. */
+.auth-container,
+.request-container {
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    align-items: center; /* ortala */
+    gap: 24px; /* kartlar arası boşluk */
+}
+
+/* Beyaz form kartı. */
+.auth-card,
+.request-card,
+.form-kutu,
+.bilgi-kutu,
+.sohbet-karti {
+    width: 100%; /* tam genişlik */
+    max-width: 600px; /* en fazla */
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08); /* gölge */
+    padding: 36px 32px; /* iç boşluk */
+    margin-bottom: 24px; /* alt boşluk */
+}
+
+/* Geniş kartlar. */
+.auth-card-wide,
+.request-card,
+.sohbet-karti {
+    max-width: 820px; /* daha geniş */
+}
+
+/* Dar özet kartı (talep takip, teklif ver). */
+.dar-kart {
+    width: 100%; /* tam genişlik */
+    max-width: 600px; /* en fazla */
+}
+
+/* Üst üstte iki kart arasında boşluk. */
+.bosluklu {
+    margin-top: 10px; /* üst boşluk */
+}
+
+/* Form kartındaki başlık. */
+.auth-card h2,
+.request-card h2 {
+    font-size: 1.7rem; /* büyük */
+    text-align: center; /* ortalı */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Form kartındaki açıklama. */
+.auth-subtitle,
+.request-subtitle {
+    color: var(--text-light); /* soluk */
+    text-align: center; /* ortalı */
+    margin-bottom: 24px; /* alt boşluk */
+}
+
+/* Talep formundaki ara başlık. */
+.form-section-title {
+    font-weight: 800; /* kalın */
+    color: var(--baslik-mavi); /* koyu mavi */
+    border-bottom: 2px solid #dbeafe; /* alt çizgi */
+    margin: 24px 0 14px 0; /* boşluk */
+}
+
+/* Bir etiket + kutu ikilisi. */
+.form-group {
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Kutu adı. */
+label {
+    display: block; /* kendi satırı */
+    font-size: 0.88rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+    color: var(--yazi-ikinci); /* koyu gri */
+    margin-bottom: 6px; /* alt boşluk */
+}
+
+/* Eski tip formlarda label üstünde boşluk. */
+.form-kutu label {
+    margin-top: 12px; /* üst boşluk */
+}
+
+/* Küçük açıklama yazısı. */
+.form-help,
+.kucuk-etiket {
+    font-size: 0.85rem; /* küçük */
+    font-weight: 400; /* normal kalınlık */
+    color: var(--text-light); /* soluk */
+}
+
+/* Yazı kutuları ve seçim kutuları. */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="file"],
+select,
+textarea {
+    display: block; /* kendi satırı */
+    width: 100%; /* tam genişlik */
+    padding: 11px 14px; /* iç boşluk */
+    border: 1.5px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    font-size: 0.95rem; /* yazı boyu */
+    font-family: inherit; /* sayfanın yazı tipi */
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    color: var(--text); /* yazı rengi (koyu modda açık) */
+}
+
+/* Kutuya tıklayınca mavi çerçeve. */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none; /* tarayıcının çizgisi yok */
+    border-color: var(--primary); /* mavi çerçeve */
+}
+
+/* Kilitli kutu soluk. */
+select:disabled,
+input:disabled {
+    background: var(--zemin-ikinci); /* gri zemin */
+}
+
+/* Büyük yazı kutusu. */
+textarea {
+    min-height: 90px; /* en az yükseklik */
+}
+
+/* Onay ve seçim kutuları küçük kalsın. */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 16px; /* küçük */
+    height: 16px; /* küçük */
+    accent-color: var(--primary); /* mavi işaret */
+}
+
+/* İki kutu yan yana. */
+.form-row {
+    display: flex; /* yan yana */
+    gap: 18px; /* boşluk */
+}
+
+/* Yan yana kutular eşit genişlik. */
+.form-row .form-group {
+    flex: 1; /* eşit pay */
+}
+
+/* Beni hatırla ve şifremi unuttum satırı. */
+.form-actions-row {
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: center; /* dikey ortala */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Beni hatırla kutusu ve yazısı. */
+.remember-me {
+    display: flex; /* yan yana */
+    gap: 8px; /* boşluk */
+    margin: 0; /* boşluk yok */
+}
+
+/* Şifremi unuttum linki. */
+.forgot-password {
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.88rem; /* küçük */
+}
+
+/* Form kartının altı. */
+.auth-footer {
+    margin-top: 24px; /* üst boşluk */
+    padding-top: 18px; /* iç boşluk */
+    border-top: 1px solid var(--border); /* üst çizgi */
+    text-align: center; /* ortalı */
+}
+
+/* Kayıt linkleri yan yana. */
+.register-links {
+    display: flex; /* yan yana */
+    justify-content: center; /* ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Müşteri ve tamirci kayıt linkleri. */
+.link-primary,
+.link-secondary {
+    font-weight: 700; /* kalın */
+    text-decoration: none; /* alt çizgi yok */
+}
+
+/* Tamirci linki yeşil. */
+.link-secondary {
+    color: #059669; /* yeşil */
+}
+
+/* Yetkinlik kutularının ızgarası. */
+.competencies-grid {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* en az 200 piksel */
+    gap: 10px; /* boşluk */
+}
+
+/* Tek yetkinlik kutusu. */
+.checkbox-card {
+    display: flex; /* kutu ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    padding: 11px 14px; /* iç boşluk */
+    border: 1.5px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    cursor: pointer; /* el işareti */
+}
+
+/* Yetkinlik kutusunun üstüne gelince. */
+.checkbox-card:hover {
+    border-color: var(--primary); /* mavi çerçeve */
+}
+
+/* ----- Paneller ----- */
+
+/* Panel ve normal sayfa bölümü. */
+.dashboard-section,
+.sayfa {
+    padding: 40px 0 60px 0; /* üst alt boşluk */
+}
+
+/* Panel başlığı alanı. */
+.dashboard-header {
+    margin-bottom: 26px; /* alt boşluk */
+}
+
+/* Panel ve sayfa başlığı. */
+.dashboard-header h2,
+.sayfa h1 {
+    font-size: 2rem; /* büyük */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Panel açıklaması. */
+.dashboard-header p,
+.giris-metni {
+    color: var(--text-light); /* soluk */
+    margin-bottom: 20px; /* alt boşluk */
+}
+
+/* Sayfa içindeki ikinci başlıklar. */
+.sayfa h2 {
+    font-size: 1.3rem; /* orta */
+    margin: 10px 0 12px 0; /* boşluk */
+}
+
+/* Sayaç kutularının ızgarası. */
+.stats-cards-grid {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* en az 180 piksel */
+    gap: 18px; /* boşluk */
+    margin-bottom: 30px; /* alt boşluk */
+}
+
+/* Tek sayaç kutusu. */
+.stat-card {
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-top: 4px solid var(--primary); /* üstte mavi çizgi */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 20px 14px; /* iç boşluk */
+    text-align: center; /* ortalı */
+}
+
+/* Turuncu çizgili sayaç: dikkat isteyen. */
+.stat-card.highlight {
+    border-top-color: #f59e0b; /* turuncu */
+}
+
+/* Yeşil çizgili sayaç: biten işler. */
+.stat-card.success {
+    border-top-color: var(--secondary); /* yeşil */
+}
+
+/* Sayaç sayısı. */
+.stat-number {
+    display: block; /* kendi satırı */
+    font-size: 2rem; /* büyük */
+    font-weight: 900; /* çok kalın */
+    color: var(--primary); /* mavi */
+}
+
+/* Sayaç yazısı. */
+.stat-label {
+    color: var(--text-light); /* soluk */
+    font-size: 0.9rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* Bölüm başlıkları. */
+.content-title,
+.section-subtitle {
+    font-size: 1.35rem; /* orta */
+    margin: 10px 0 18px 0; /* boşluk */
+}
+
+/* Düğme satırı. */
+.kart-dugmeleri,
+.offer-actions,
+.detail-actions {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    margin: 10px 0; /* üst alt boşluk */
+}
+
+/* ----- Talep ve teklif kartları ----- */
+
+/* Liste. */
+.requests-list {
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    gap: 18px; /* kartlar arası boşluk */
+    margin-bottom: 26px; /* alt boşluk */
+}
+
+/* Talep kartı. */
+.request-item-card,
+.request-item {
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    padding: 24px 26px; /* iç boşluk */
+    margin-bottom: 20px; /* alt boşluk */
+}
+
+/* Kart üstü: solda bilgi, sağda düğme. */
+.request-item-header,
+.request-header {
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: flex-start; /* üstten hizala */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 10px; /* boşluk */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Kart başlığı (cihaz adı). */
+.request-item-card h3,
+.request-item-card h4,
+.request-title {
+    font-size: 1.2rem; /* orta */
+    margin: 8px 0 4px 0; /* boşluk */
+}
+
+/* Kod, tarih, konum satırı. */
+.request-date,
+.request-meta {
+    color: var(--text-light); /* soluk */
+    font-size: 0.88rem; /* küçük */
+}
+
+/* Arıza yazısı alanı. */
+.request-item-body,
+.request-desc {
+    padding: 12px 0; /* üst alt boşluk */
+    border-top: 1px solid var(--cizgi); /* üst çizgi */
+}
+
+/* Durum etiketi. Rengi durum_rozeti() fonksiyonu seçer. */
+.badge {
+    display: inline-block; /* yazı kadar */
+    padding: 3px 12px; /* iç boşluk */
+    border-radius: 20px; /* hap şeklinde */
+    font-size: 0.8rem; /* küçük */
+    font-weight: 700; /* kalın */
+}
+
+/* Mavi etiket. */
+.badge-info {
+    background: #dbeafe; /* açık mavi */
+    color: #1e40af; /* koyu mavi */
+}
+
+/* Sarı etiket. */
+.badge-warning {
+    background: #fef9c3; /* açık sarı */
+    color: #854d0e; /* koyu sarı */
+}
+
+/* Yeşil etiket. */
+.badge-success {
+    background: #dcfce7; /* açık yeşil */
+    color: #166534; /* koyu yeşil */
+}
+
+/* Kırmızı etiket. */
+.badge-danger {
+    background: #ffe4e6; /* açık kırmızı */
+    color: #9f1239; /* koyu kırmızı */
+}
+
+/* Gri etiket. */
+.badge-gri {
+    background: var(--zemin-ikinci); /* açık gri */
+    color: var(--yazi-ikinci); /* koyu gri */
+}
+
+/* Mavi küçük etiket (kategori). */
+/* .resimli-kart .etiket: resimli kartın "p" kuralı yazıyı açık gri yapıyordu, mavi zeminde okunmuyordu. */
+.etiket,
+.resimli-kart .etiket {
+    display: inline-flex; /* ikon ve yazı yan yana, yazı kadar genişlik */
+    align-items: center; /* dikey ortala */
+    align-self: center; /* kolon dizilen kartta yayılmasın, ortada dursun */
+    gap: 6px; /* ikon ile yazı arası */
+    background: #dbeafe; /* açık mavi */
+    color: #1e40af; /* koyu mavi */
+    border-radius: 20px; /* hap */
+    padding: 4px 12px; /* iç boşluk */
+    font-size: 0.78rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* Resimli karttaki etiket: yarı saydam beyaz, resmin üstünde buzlu cam gibi. */
+.resimli-kart .etiket {
+    background: rgba(255, 255, 255, 0.14); /* yarı saydam beyaz */
+    border: 1px solid rgba(255, 255, 255, 0.22); /* ince çerçeve */
+    color: #ffffff; /* beyaz yazı */
+    backdrop-filter: blur(6px); /* arkası bulanık */
+    margin-bottom: auto; /* kartın en üstünde kalsın, yazılar alta insin */
+}
+
+/* Gelen teklifler alanı. */
+.offers-subpanel {
+    background: var(--zemin-ikinci); /* açık gri */
+    border: 1px solid var(--cizgi); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 16px; /* iç boşluk */
+}
+
+/* Alan başlıkları. */
+.offers-subpanel h5,
+.offer-form-box h5 {
+    font-size: 1rem; /* normal */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Tek teklif kartı. */
+.offer-card {
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 14px 18px; /* iç boşluk */
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: center; /* dikey ortala */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 12px; /* boşluk */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Kabul edilen teklif yeşil çerçeveli. */
+.offer-card.kabul {
+    border: 2px solid #22c55e; /* yeşil çerçeve */
+    background: var(--yesil-zemin); /* açık yeşil */
+}
+
+/* Teklifteki puan ve not satırları. */
+.offer-mechanic-info span,
+.offer-mechanic-info small {
+    display: block; /* kendi satırı */
+    font-size: 0.85rem; /* küçük */
+    color: var(--text-light); /* soluk */
+}
+
+/* Puan yazısı. */
+.rating {
+    color: #b45309; /* koyu sarı */
+}
+
+/* Fiyat, süre ve düğmeler. */
+.offer-details {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Fiyat yazısı. */
+.offer-price,
+.fiyat {
+    font-size: 1.15rem; /* büyükçe */
+    font-weight: 800; /* kalın */
+    color: #059669; /* yeşil */
+}
+
+/* Tamircinin teklif kutusu. */
+.offer-form-box {
+    background: var(--mavi-zemin); /* açık mavi */
+    border: 1px solid #bae6fd; /* mavi çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 16px; /* iç boşluk */
+}
+
+/* Teklif formu kutuları tek satır. */
+.form-row-align {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: flex-end; /* alta hizala */
+    gap: 12px; /* boşluk */
+}
+
+/* Teklif formundaki her kutu. */
+.form-row-align .form-group {
+    flex: 1; /* eşit pay */
+    min-width: 150px; /* en az genişlik */
+    margin-bottom: 0; /* alt boşluk yok */
+}
+
+/* Teklif formundaki düğme daralmasın. */
+.form-row-align .button-group {
+    flex: 0; /* düğme kadar */
+}
+
+/* Seçilen tamirci kutusu (yeşil). */
+.completed-note {
+    background: var(--yesil-zemin); /* açık yeşil */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+}
+
+/* Puan formu satırı. */
+.puan-formu {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Puan seçim kutusu dar. */
+.puan-formu select {
+    width: auto; /* içerik kadar */
+}
+
+/* Talep detayı: solda bilgi, sağda fotoğraf. */
+.request-details-grid {
+    display: grid; /* ızgara */
+    grid-template-columns: 2fr 1fr; /* 2'ye 1 */
+    gap: 24px; /* boşluk */
+    padding: 14px 0; /* üst alt boşluk */
+}
+
+/* Bilgi listesi. */
+.detail-list {
+    list-style: none; /* madde işareti yok */
+}
+
+/* Bilgi satırı. */
+.detail-list li {
+    padding: 6px 0; /* üst alt boşluk */
+    border-bottom: 1px dashed var(--cizgi); /* kesik alt çizgi */
+}
+
+/* Fotoğraf çerçevesi. */
+.image-preview-frame {
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    min-height: 150px; /* en az yükseklik */
+    display: flex; /* içeriği ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    padding: 6px; /* iç boşluk */
+    color: var(--text-light); /* soluk yazı */
+}
+
+/* Konum etiketi. */
+.location-badge {
+    background: var(--zemin-ikinci); /* açık gri */
+    border-radius: 20px; /* hap */
+    padding: 5px 14px; /* iç boşluk */
+    font-size: 0.88rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* ----- Sohbet ----- */
+
+/* HARİTA: Sohbet ekranı görünümü (balonlar) */
+/* Mesajların kayan kutusu. */
+.chat-messages {
+    height: 400px; /* sabit yükseklik */
+    overflow-y: auto; /* taşarsa kaydırma çubuğu */
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    gap: 12px; /* balonlar arası boşluk */
+}
+
+/* Karşı tarafın mesajı: solda gri. */
+.mesaj-balonu {
+    align-self: flex-start; /* sola */
+    background: var(--zemin-ikinci); /* gri */
+    padding: 10px 15px; /* iç boşluk */
+    border-radius: 12px; /* yuvarlak */
+    max-width: 75%; /* en fazla genişlik */
+}
+
+/* Benim mesajım: sağda mavi. */
+.mesaj-balonu.benim {
+    align-self: flex-end; /* sağa */
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz yazı */
+}
+
+/* Balondaki ad ve saat. */
+.mesaj-balonu small {
+    display: block; /* kendi satırı */
+    font-weight: 700; /* kalın */
+    opacity: 0.75; /* biraz soluk */
+}
+
+/* Mesaj yazma satırı. */
+.sohbet-formu {
+    display: flex; /* yan yana */
+    gap: 10px; /* boşluk */
+    margin-top: 14px; /* üst boşluk */
+}
+
+/* ----- Tablolar ----- */
+
+/* Tablo kutusu: dar ekranda yana kayar. */
+.tablo-kutu {
+    overflow-x: auto; /* yana kaydırma */
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    margin-bottom: 26px; /* alt boşluk */
+}
+
+/* Tablo. */
+table {
+    width: 100%; /* tam genişlik */
+    border-collapse: collapse; /* çift çizgi yok */
+}
+
+/* Hücreler. */
+th, td {
+    text-align: left; /* sola yaslı */
+    padding: 10px 12px; /* iç boşluk */
+    border-bottom: 1px solid var(--cizgi); /* alt çizgi */
+    vertical-align: top; /* üste hizala */
+    font-size: 0.92rem; /* küçükçe */
+}
+
+/* Başlık hücreleri. */
+th {
+    background: var(--navy); /* lacivert */
+    color: #ffffff; /* beyaz */
+}
+
+/* Tablodaki formlar yan yana. */
+td form {
+    display: inline-block; /* yan yana */
+    margin: 0 4px 4px 0; /* küçük boşluk */
+}
+
+/* Tablodaki seçim kutusu dar. */
+td select {
+    display: inline-block; /* yan yana */
+    width: auto; /* içerik kadar */
+    padding: 6px 10px; /* küçük iç boşluk */
+}
+
+/* Tablodaki küçük resim. */
+.tablo-resmi {
+    width: 90px; /* genişlik */
+    height: 56px; /* yükseklik */
+    object-fit: cover; /* kırparak doldur */
+    border-radius: 6px; /* yuvarlak */
+}
+
+/* Yönetim formundaki resim önizlemesi. */
+.resim-onizleme {
+    display: block; /* kendi satırı */
+    width: 220px; /* genişlik */
+    height: 130px; /* yükseklik */
+    object-fit: cover; /* kırparak doldur */
+    border-radius: var(--radius-sm); /* yuvarlak */
+}
+
+/* ----- Diğer ----- */
+
+/* Filtre linkleri. */
+.filtre {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 8px; /* boşluk */
+    margin-bottom: 22px; /* alt boşluk */
+}
+
+/* Tek filtre linki. */
+.filtre a {
+    padding: 6px 16px; /* iç boşluk */
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 20px; /* hap */
+    text-decoration: none; /* alt çizgi yok */
+    color: var(--yazi-ikinci); /* koyu gri */
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.9rem; /* küçük */
+}
+
+/* Seçili filtre ve üstüne gelinen filtre. */
+.filtre a:hover,
+.filtre a.secili {
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz */
+}
+
+/* İki kutu yan yana (iletişim, il-ilçe). */
+.yan-yana {
+    display: flex; /* yan yana */
+    gap: 24px; /* boşluk */
+    align-items: flex-start; /* üste hizala */
+}
+
+/* Yan yana kutular eşit. */
+.yan-yana > * {
+    flex: 1; /* eşit pay */
+}
+
+/* ----- Altlık ----- */
+
+/* Sayfanın en altındaki koyu şerit. */
+.footer {
+    background: #020617; /* en koyu lacivert */
+    border-top: 1px solid #1e293b; /* üst ince çizgi */
+    color: #94a3b8; /* gri yazı */
+    padding: 56px 0 14px 0; /* iç boşluk */
+    font-size: 0.92rem; /* küçükçe */
+}
+
+/* Altlıktaki ikonlar mavi. */
+.footer .svg-ikon {
+    color: #60a5fa; /* mavi */
+    margin-right: 6px; /* yazıyla arası */
+}
+
+/* Altlıktaki linkler. */
+.footer a {
+    color: #cbd5e1; /* açık gri */
+    text-decoration: none; /* alt çizgi yok */
+    transition: color 0.2s; /* yumuşak renk geçişi */
+}
+
+/* Altlık linkinin üstüne gelince mavi olur. */
+.footer a:hover {
+    color: #60a5fa; /* mavi */
+}
+
+/* Altlıktaki sütun başlıkları. */
+.footer strong {
+    color: #f8fafc; /* beyaz */
+    display: block; /* kendi satırı */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Üç sütun yan yana. */
+.footer-container {
+    display: flex; /* yan yana */
+    gap: 30px; /* boşluk */
+}
+
+/* Sütunlar eşit. */
+.footer-container > div {
+    flex: 1; /* eşit pay */
+}
+
+/* En alttaki not. */
+.alt-not {
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* üst çizgi */
+    margin-top: 20px; /* üst boşluk */
+    padding-top: 12px; /* iç boşluk */
+    text-align: center; /* ortalı */
+    font-size: 0.85rem; /* küçük */
+}
+
+/* ----- Tek ekran yönetim paneli (admin/panel.php) ----- */
+
+/* Panel başlığı: solda yazı, sağda düğmeler. */
+.panel-ust {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    justify-content: space-between; /* iki uca */
+    align-items: center; /* dikey ortala */
+    gap: 12px; /* boşluk */
+}
+
+/* Sayaçlar daha sık dursun. */
+.panel-sayaclar {
+    grid-template-columns: repeat(4, 1fr); /* 8 sayaç: 4'lü iki satır */
+    gap: 12px; /* boşluk */
+    margin-bottom: 22px; /* alt boşluk */
+}
+
+/* Sayaç link olunca alt çizgi olmasın, üstüne gelince hafif kalksın. */
+a.stat-card {
+    text-decoration: none; /* alt çizgi yok */
+    padding: 14px 10px; /* daha az iç boşluk */
+    transition: transform 0.15s; /* yumuşak hareket */
+}
+
+/* Sayaç üstüne gelince. */
+a.stat-card:hover {
+    transform: translateY(-3px); /* 3 piksel yukarı */
+}
+
+/* Turuncu sayaçların sayısı da turuncu. */
+.stat-card.highlight .stat-number {
+    color: #d97706; /* turuncu */
+}
+
+/* Yeşil sayaçların sayısı da yeşil. */
+.stat-card.success .stat-number {
+    color: var(--secondary); /* yeşil */
+}
+
+/* İki sütunlu ızgara. */
+.panel-izgara {
+    display: grid; /* ızgara */
+    grid-template-columns: 1fr 1fr; /* iki eşit sütun */
+    gap: 18px; /* boşluk */
+}
+
+/* Izgaradaki beyaz kutu. */
+.panel-kutu {
+    background: var(--kart); /* kart zemini (koyu modda koyu) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 16px 18px; /* iç boşluk */
+    min-width: 0; /* içindeki tablo kutuyu taşırmasın */
+}
+
+/* Kutunun başlık satırı: solda başlık, sağda link. */
+.panel-kutu-baslik {
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: center; /* dikey ortala */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Kutu başlığı. */
+.panel-kutu-baslik h3 {
+    font-size: 1.05rem; /* orta */
+}
+
+/* Kutu başlığındaki "Tümü" linki. */
+.panel-kutu-baslik a {
+    color: var(--primary); /* mavi */
+    font-size: 0.88rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+    text-decoration: none; /* alt çizgi yok */
+}
+
+/* Kutudaki bir satır (başvuru, mesaj). */
+.panel-satir {
+    border-top: 1px solid var(--cizgi); /* üstte ince çizgi */
+    padding: 10px 0; /* üst alt boşluk */
+}
+
+/* Satırdaki düğmeler daha sık. */
+.panel-satir .offer-actions {
+    margin: 6px 0 0 0; /* sadece üstte boşluk */
+}
+
+/* Kutudaki tablo kenarsız dursun. */
+.panel-kutu .tablo-kutu {
+    margin-bottom: 0; /* alt boşluk yok */
+}
+
+/* Liste boşsa yazı. */
+.panel-bos {
+    color: var(--text-light); /* soluk */
+    padding: 14px 0; /* üst alt boşluk */
+}
+
+/* Talep durumu satırı: ad, çubuk, sayı. */
+.durum-satiri {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    margin-bottom: 8px; /* alt boşluk */
+    font-size: 0.9rem; /* küçükçe */
+}
+
+/* Durumun adı sabit genişlikte, çubuklar aynı yerden başlasın. */
+.durum-adi {
+    width: 130px; /* genişlik */
+    flex-shrink: 0; /* daralmasın */
+}
+
+/* Çubuğun gri zemini. */
+.durum-cubugu {
+    flex: 1; /* kalan yeri kaplar */
+    height: 10px; /* yükseklik */
+    background: var(--cizgi); /* çubuğun boş kısmı */
+    border-radius: 5px; /* yuvarlak */
+    overflow: hidden; /* içteki çubuk taşmasın */
+}
+
+/* Çubuğun dolu kısmı. Genişliği PHP style ile verir. */
+.durum-cubugu span {
+    display: block; /* genişlik alabilsin */
+    height: 100%; /* tam yükseklik */
+    background: var(--primary); /* mavi */
+}
+
+/* İçerik kısayolları ızgarası. */
+.icerik-kisayollari {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* en az 130 piksel */
+    gap: 10px; /* boşluk */
+}
+
+/* Tek kısayol. */
+.icerik-kisayollari a {
+    display: block; /* kutu */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 8px; /* yuvarlak */
+    padding: 10px; /* iç boşluk */
+    text-decoration: none; /* alt çizgi yok */
+    color: var(--text); /* koyu yazı */
+    font-size: 0.88rem; /* küçük */
+}
+
+/* Kısayol üstüne gelince. */
+.icerik-kisayollari a:hover {
+    border-color: var(--primary); /* mavi çerçeve */
+    background: var(--mavi-zemin); /* açık mavi zemin */
+}
+
+/* Kısayoldaki sayı. */
+.icerik-kisayollari strong {
+    display: block; /* kendi satırı */
+    font-size: 1.4rem; /* büyük */
+    color: var(--primary); /* mavi */
+}
+
+/* ----- Yazı stili seçimi (admin/ayarlar.php, admin/sayfa-icerik.php) ----- */
+
+/* Site yazıları formu geniş olsun, seçim kutuları sığsın. */
+.form-genis {
+    max-width: 900px; /* daha geniş */
+}
+
+/* Bir yazının kutusu ve stil seçimi. Altta ince çizgi ile ayrılır. */
+.ayar-satiri {
+    border-bottom: 1px solid var(--cizgi); /* ince çizgi */
+    padding-bottom: 12px; /* alt boşluk */
+}
+
+/* HARİTA: Word benzeri araç çubuğu (CSS) */
+/* Araç çubuğu: düğmeler yan yana, gri zeminli şerit. */
+.kelime-araclari {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 6px; /* boşluk */
+    background: var(--zemin-ikinci); /* hafif gri */
+    border: 1px solid var(--border); /* çerçeve */
+    border-bottom: 0; /* alttaki yazı kutusuna yapışık */
+    border-radius: 10px 10px 0 0; /* sadece üst köşeler yuvarlak */
+    padding: 6px 8px; /* iç boşluk */
+}
+
+/* Araç çubuğundaki düğmeler label etiketidir. Sitenin genel label kuralı (kendi satırı, üst boşluk) burada geçmez. */
+.kelime-araclari label {
+    display: inline-flex; /* yan yana */
+    margin: 0; /* boşluk yok */
+}
+
+/* Hizalama düğmeleri yan yana. */
+.hiza-dugmeleri {
+    display: inline-flex; /* yan yana */
+    gap: 2px; /* boşluk */
+}
+
+/* Araç çubuğunun altındaki yazı kutusunun üst köşeleri düz, çubuğa yapışık. */
+.kelime-araclari + input,
+.kelime-araclari + textarea {
+    border-top-left-radius: 0; /* düz köşe */
+    border-top-right-radius: 0; /* düz köşe */
+}
+
+/* Yazı tipi ve boyut kutuları küçük. */
+.kelime-araclari .arac-secim {
+    display: inline-block; /* yan yana */
+    width: auto; /* içerik kadar */
+    padding: 5px 8px; /* küçük iç boşluk */
+    font-size: 0.85rem; /* küçük yazı */
+    border-radius: 6px; /* az yuvarlak */
+}
+
+/* Ayraç: ince dikey çizgi. */
+.arac-ayrac {
+    width: 1px; /* ince */
+    height: 24px; /* yükseklik */
+    background: var(--border); /* gri */
+    margin: 0 4px; /* yanlarda boşluk */
+}
+
+/* Düğmenin içindeki onay kutusu ve seçim yuvarlağı görünmez ama tıklanabilir ve klavyeyle seçilebilir. */
+.arac-dugmesi input,
+.renk-kutusu input {
+    position: absolute; /* yer kaplamaz */
+    opacity: 0; /* görünmez */
+    width: 1px; /* çok küçük */
+    height: 1px; /* çok küçük */
+}
+
+/* Düğmenin görünen yüzü: kare düğme. */
+.arac-dugmesi .arac-yuzu {
+    display: inline-flex; /* içi ortalı */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    width: 32px; /* genişlik */
+    height: 32px; /* yükseklik */
+    border-radius: 6px; /* az yuvarlak */
+    border: 1px solid transparent; /* görünmez çerçeve, basılınca renklenir */
+    font-size: 1rem; /* yazı boyu */
+    font-family: Georgia, serif; /* K ve T harfleri Word'deki gibi */
+    cursor: pointer; /* el işareti */
+    user-select: none; /* çift tıklayınca harf seçilmesin */
+}
+
+/* Düğmenin üstüne gelince. */
+.arac-dugmesi .arac-yuzu:hover {
+    background: var(--kart); /* kart rengi */
+    border-color: var(--border); /* çerçeve */
+}
+
+/* Basılı düğme (onay kutusu işaretli): mavi zemin. input:checked + span: işaretli kutunun hemen yanındaki yüz. */
+.arac-dugmesi input:checked + .arac-yuzu {
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz */
+    border-color: var(--primary-dark); /* koyu mavi çerçeve */
+}
+
+/* Klavyeyle gelinince (Tab) düğmenin etrafında çizgi. */
+.arac-dugmesi input:focus-visible + .arac-yuzu,
+.renk-kutusu input:focus-visible + .arac-yuzu {
+    outline: 2px solid var(--primary); /* mavi çizgi */
+    outline-offset: 2px; /* biraz dışarıda */
+}
+
+/* Renk kutuları yan yana. */
+.renk-paleti {
+    display: inline-flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 4px; /* boşluk */
+}
+
+/* Tek renk kutusu: küçük kare. */
+.renk-kutusu .arac-yuzu {
+    display: inline-flex; /* içi ortalı */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    width: 22px; /* genişlik */
+    height: 22px; /* yükseklik */
+    border-radius: 5px; /* az yuvarlak */
+    border: 2px solid var(--border); /* çerçeve */
+    cursor: pointer; /* el işareti */
+    transition: transform 0.15s; /* büyürken yumuşak */
+}
+
+/* Renk kutusunun üstüne gelince büyür. */
+.renk-kutusu .arac-yuzu:hover {
+    transform: scale(1.2); /* yüzde 20 büyür */
+}
+
+/* Seçili renk: kalın çerçeve ve biraz büyük. */
+.renk-kutusu input:checked + .arac-yuzu {
+    border-color: var(--text); /* yazı renginde çerçeve */
+    box-shadow: 0 0 0 2px var(--primary); /* dışında mavi halka */
+    transform: scale(1.15); /* biraz büyük */
+}
+
+/* Otomatik renk kutusu: içinde A harfi. */
+.renk-otomatik {
+    background: var(--kart); /* kart rengi */
+    color: var(--text); /* yazı rengi */
+    font-size: 0.75rem; /* küçük */
+    font-weight: 800; /* kalın */
+}
+
+/* Hizalama ikonu: üç çizgi alt alta. */
+.hiza-ikonu {
+    flex-direction: column; /* çizgiler alt alta */
+    gap: 3px; /* çizgiler arası */
+    padding: 7px; /* iç boşluk */
+}
+
+/* Tek çizgi. */
+.hiza-ikonu i {
+    display: block; /* kendi satırı */
+    height: 2px; /* ince */
+    background: currentColor; /* yazı renginde */
+    border-radius: 1px; /* yuvarlak uç */
+}
+
+/* 1. ve 3. çizgi uzun, 2. çizgi kısa. */
+.hiza-ikonu i:nth-child(1),
+.hiza-ikonu i:nth-child(3) {
+    width: 16px; /* uzun */
+}
+
+/* Ortadaki çizgi kısa. */
+.hiza-ikonu i:nth-child(2) {
+    width: 10px; /* kısa */
+}
+
+/* Sola hizada kısa çizgi solda. */
+.hiza-sol {
+    align-items: flex-start; /* sola dizer */
+}
+
+/* Ortaya hizada kısa çizgi ortada. */
+.hiza-orta {
+    align-items: center; /* ortaya dizer */
+}
+
+/* Sağa hizada kısa çizgi sağda. */
+.hiza-sag {
+    align-items: flex-end; /* sağa dizer */
+}
+
+/* Temizle düğmesi. */
+.arac-temizle {
+    background: transparent; /* zemin yok */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 6px; /* az yuvarlak */
+    color: var(--text); /* yazı rengi */
+    font-family: inherit; /* sayfanın yazı tipi */
+    font-size: 0.82rem; /* küçük */
+    padding: 5px 10px; /* iç boşluk */
+    cursor: pointer; /* el işareti */
+}
+
+/* Temizle üstüne gelince çerçeve ve yazı mavi olur. */
+.arac-temizle:hover {
+    border-color: var(--primary); /* mavi çerçeve */
+    color: var(--primary); /* mavi yazı */
+}
+
+/* Bir yazının alanı (araç çubuğu, kutu, önizleme) diğerinden boşlukla ayrılır. */
+.stil-alani {
+    margin-bottom: 14px; /* alt boşluk */
+}
+
+/* İki önizleme alt alta: koyu zemin ve açık zemin. */
+.stil-onizlemeler {
+    display: grid; /* ızgara */
+    grid-template-columns: 1fr; /* tek sütun, yazı geniş görünsün */
+    gap: 10px; /* boşluk */
+    margin-top: 6px; /* üst boşluk */
+}
+
+/* Tek önizleme kutusu. Uzun yazıda kutu en fazla 220 piksel olur, gerisi kaydırılır. */
+.stil-onizleme {
+    border-radius: 6px; /* yuvarlak */
+    padding: 10px 12px; /* iç boşluk */
+    max-height: 220px; /* en fazla yükseklik */
+    overflow: auto; /* sığmazsa kaydırma */
+    white-space: pre-line; /* metindeki satır başları görünsün */
+}
+
+/* Koyu zeminli önizleme: sitenin koyu kısımları gibi. */
+.stil-onizleme.koyu-zemin {
+    background: #0f172a; /* lacivert */
+    color: #e2e8f0; /* açık gri yazı */
+    border: 1px solid #334155; /* çerçeve: koyu modda sayfadan ayrılsın */
+}
+
+/* Açık zeminli önizleme: açık moddaki sayfalar gibi. */
+.stil-onizleme.acik-zemin {
+    background: #ffffff; /* beyaz */
+    color: #0f172a; /* koyu yazı */
+    border: 1px solid #cbd5e1; /* çerçeve */
+}
+
+/* Önizlemenin üstündeki "Koyu zeminde" yazısı. */
+.stil-onizleme .kucuk-etiket {
+    display: block; /* kendi satırı */
+    font-size: 0.75rem; /* çok küçük */
+    color: #94a3b8; /* açık gri: koyu zeminde okunur */
+    white-space: normal; /* normal satır kırma */
+}
+
+/* Açık zemindeki "Açık zeminde" yazısı daha koyu gri. */
+.stil-onizleme.acik-zemin .kucuk-etiket {
+    color: #64748b; /* koyu gri: beyaz zeminde okunur */
+}
+
+/* ----- Önemli sayaçlar: kırmızı yanıp sönme (admin/panel.php, admin/menu.php) ----- */
+
+/* HARİTA: Dikkat parıltısı animasyonu (keyframes) */
+/* @keyframes: animasyonun adımları. 0% başlangıç, 50% orta, 100% son. */
+/* Bekleyen iş varsa kutunun etrafında turuncu bir halka yavaşça belirip kaybolur. Göz yormaz. */
+@keyframes dikkat-parilti {
+    0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35); } /* halka görünür */
+    70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); } /* halka açılıp kaybolur */
+    100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } /* bekler */
+}
+
+/* Dikkat isteyen sayaç (sayısı 0'dan büyükse PHP bu sınıfı ekler). Sınıf adı eski: yanip-sonen. */
+.stat-card.yanip-sonen {
+    border: 1px solid rgba(245, 158, 11, 0.55); /* turuncu çerçeve */
+    border-top: 3px solid #f59e0b; /* üstte turuncu çizgi */
+    animation: dikkat-parilti 2.6s ease-out infinite; /* yavaş, sakin parıltı */
+}
+
+/* Dikkat isteyen sayacın sayısı turuncu. */
+.stat-card.yanip-sonen .stat-number {
+    color: #f59e0b; /* turuncu */
+}
+
+/* Okunmamış mesaj gibi bekleyen işi olan panel kutusu: turuncu çerçeve ve sakin parıltı. */
+.panel-kutu.yanip-sonen {
+    border: 1px solid rgba(245, 158, 11, 0.55); /* turuncu çerçeve */
+    animation: dikkat-parilti 2.6s ease-out infinite; /* yavaş parıltı */
+}
+
+/* Yönetim menüsündeki kırmızı sayı (örnek: Mesajlar 1). */
+.menu-sayisi {
+    display: inline-block; /* kutu */
+    min-width: 20px; /* en az genişlik */
+    margin-left: 4px; /* soldan boşluk */
+    padding: 0 6px; /* iç boşluk */
+    border-radius: 10px; /* hap şekli */
+    background: #ef4444; /* kırmızı */
+    color: #ffffff; /* beyaz yazı */
+    font-size: 0.75rem; /* küçük */
+    font-weight: 700; /* kalın */
+    line-height: 20px; /* sayı ortada dursun */
+    text-align: center; /* ortalı */
+}
+
+/* Bilgisayarında "hareketi azalt" ayarı açık olan kişide animasyon durur, renk kalır. */
+@media (prefers-reduced-motion: reduce) {
+    .yanip-sonen { animation: none; } /* parıltı yok, renk kalır */
+}
+
+/* ----- Koyu mod / açık mod düğmesi ----- */
+
+/* Üst menüdeki tema düğmesi. order: 3 ile bilgisayarda en sağda durur. */
+.tema-dugmesi {
+    order: 3; /* menüden sonra */
+    flex-shrink: 0; /* daralmasın */
+    background: rgba(255, 255, 255, 0.04); /* çok hafif zemin */
+    color: #e2e8f0; /* açık gri yazı */
+    border: 1px solid #334155; /* gri çerçeve */
+    border-radius: 10px; /* yumuşak köşe */
+    padding: 7px 12px; /* iç boşluk */
+    font-family: inherit; /* sayfanın yazı tipi */
+    font-size: 0.85rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+    cursor: pointer; /* el işareti */
+}
+
+/* Tema düğmesinin üstüne gelince. */
+.tema-dugmesi:hover {
+    border-color: #60a5fa; /* mavi çerçeve */
+    color: #60a5fa; /* mavi yazı */
+}
+
+/* Düğmedeki iki yazı: ikon ve yazı yan yana. */
+.tema-acik-yazi,
+.tema-koyu-yazi {
+    display: inline-flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 6px; /* boşluk */
+}
+
+/* Koyu moddayken "Koyu mod" yazısı gizli (zaten koyudayız). */
+html.koyu .tema-koyu-yazi {
+    display: none; /* gizli */
+}
+
+/* Açık moddayken "Açık mod" yazısı gizli. */
+html.acik .tema-acik-yazi {
+    display: none; /* gizli */
+}
+
+/* Uzun formda Kaydet düğmesi ekranın altında sabit kalır. */
+.sabit-kaydet {
+    position: sticky; /* kaydırınca altta yapışır */
+    bottom: 0; /* ekranın en altı */
+    background: var(--kart); /* kart zemini, arkadaki yazı görünmesin */
+    padding: 12px 0; /* üst alt boşluk */
+    margin: 0; /* dış boşluk yok */
+}
+
+/* ----- İkonlar ----- */
+
+/* HARİTA: SVG ikonların görünüşü */
+/* ortak/ikonlar.php içindeki ikon() fonksiyonu <svg class="svg-ikon"> yazar. Hareket yok, sade çizgi ikon. */
+.svg-ikon {
+    width: 1.15em; /* yazı boyuna göre genişlik */
+    height: 1.15em; /* yazı boyuna göre yükseklik */
+    fill: none; /* içi boş */
+    stroke: currentColor; /* çizgi rengi yazının rengi */
+    stroke-width: 2; /* çizgi kalınlığı */
+    stroke-linecap: round; /* çizgi uçları yuvarlak */
+    stroke-linejoin: round; /* köşeler yuvarlak */
+    flex-shrink: 0; /* yan yana dizilince ezilmesin */
+    vertical-align: -0.18em; /* yazıyla aynı hizada dursun */
+}
+
+/* Dönme: kendi etrafında bir tur. Sadece düğmedeki yükleniyor halkası kullanır. */
+@keyframes don {
+    0% { transform: rotate(0deg); } /* başlangıç */
+    100% { transform: rotate(360deg); } /* tam tur */
+}
+
+/* Başlığın üstündeki küçük hap: "Hızlı teklif, güvenilir tamirci". */
+.hero-rozet {
+    display: inline-flex; /* ikon ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 8px; /* boşluk */
+    background: rgba(255, 255, 255, 0.08); /* yarı saydam beyaz */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* ince çerçeve */
+    color: #e2e8f0; /* açık yazı */
+    border-radius: 999px; /* hap */
+    padding: 7px 16px; /* iç boşluk */
+    margin-bottom: 22px; /* alt boşluk */
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.88rem; /* küçükçe */
+    letter-spacing: 0.01em; /* harfler biraz açık */
+    backdrop-filter: blur(6px); /* arkası buzlu cam gibi */
+}
+
+/* Hap içindeki kalkan ikonu yeşil. */
+.hero-rozet .svg-ikon {
+    color: #34d399; /* yeşil */
+}
+
+/* Düğmelerin altındaki güven şeridi: üç kısa söz yan yana. */
+.hero-guven {
+    list-style: none; /* madde işareti yok */
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    justify-content: center; /* ortala */
+    gap: 10px 28px; /* satır ve sütun boşluğu */
+    margin-top: 34px; /* düğmelerden uzak */
+    color: #cbd5e1; /* açık gri */
+    font-size: 0.92rem; /* küçükçe */
+    font-weight: 500; /* orta kalın */
+}
+
+/* Şeritteki her söz: ikon ve yazı yan yana. */
+.hero-guven li {
+    display: inline-flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 8px; /* boşluk */
+}
+
+/* Şeritteki ikonlar yeşil. */
+.hero-guven .svg-ikon {
+    color: #34d399; /* yeşil */
+}
+
+/* Yazılar resmin ve perdenin üstünde dursun. */
+.hero-container-center {
+    position: relative; /* z-index çalışsın */
+    z-index: 2; /* perdenin üstünde */
+}
+
+/* Adım ve kategori kartlarındaki ikon kutusu: yuvarlak köşeli kare içinde ikon. */
+.adim-ikonu,
+.kart-ikonu {
+    width: 54px; /* genişlik */
+    height: 54px; /* yükseklik */
+    margin: 0 auto 14px auto; /* ortala, alt boşluk */
+    display: flex; /* ikonu ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    border-radius: 16px; /* yumuşak köşe */
+    background: rgba(37, 99, 235, 0.16); /* hafif mavi */
+    border: 1px solid rgba(96, 165, 250, 0.35); /* ince mavi çerçeve */
+    color: #93c5fd; /* açık mavi ikon */
+    font-size: 1.5rem; /* ikon boyu */
+    backdrop-filter: blur(6px); /* resimli kartta arkası buzlu */
+    transition: background-color 0.25s, color 0.25s, border-color 0.25s; /* yumuşak renk geçişi */
+}
+
+/* Kartın üstüne gelince ikon kutusu mavi dolar. */
+.step-card:hover .adim-ikonu,
+.category-card:hover .kart-ikonu,
+.kart:hover .kart-ikonu {
+    background: var(--primary); /* mavi */
+    border-color: var(--primary); /* mavi çerçeve */
+    color: #ffffff; /* beyaz ikon */
+}
+
+/* Sayaç kutusundaki ikon: renkli kare içinde. */
+.sayac-ikonu {
+    display: inline-flex; /* ikonu ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    width: 42px; /* genişlik */
+    height: 42px; /* yükseklik */
+    border-radius: 12px; /* yumuşak köşe */
+    background: rgba(37, 99, 235, 0.12); /* hafif mavi */
+    color: var(--primary); /* mavi ikon */
+    font-size: 1.2rem; /* ikon boyu */
+    margin-bottom: 12px; /* alt boşluk */
+}
+
+/* Dikkat isteyen sayacın ikonu turuncu. */
+.highlight .sayac-ikonu {
+    background: rgba(245, 158, 11, 0.14); /* hafif turuncu */
+    color: #f59e0b; /* turuncu */
+}
+
+/* Biten işler sayacının ikonu yeşil. */
+.success .sayac-ikonu {
+    background: rgba(22, 163, 74, 0.14); /* hafif yeşil */
+    color: #16a34a; /* yeşil */
+}
+
+/* Puan yıldızı içi dolu ve sarı. */
+.rating .svg-ikon {
+    fill: currentColor; /* içi dolu */
+    color: #f59e0b; /* sarı */
+}
+
+/* Durum rozetlerinin başında küçük renkli nokta. ::before: etiketin önüne CSS ile kutu ekler. */
+.badge-warning::before,
+.badge-success::before,
+.badge-danger::before,
+.badge-info::before {
+    content: ""; /* boş kutu */
+    display: inline-block; /* yazıyla yan yana */
+    width: 7px; /* nokta genişliği */
+    height: 7px; /* nokta yüksekliği */
+    border-radius: 50%; /* daire */
+    background: currentColor; /* rozetin yazı rengi */
+    margin-right: 7px; /* yazıyla arası */
+    vertical-align: 0.1em; /* yazının ortasına */
+}
+
+/* Boş liste kutusunun üstünde gri büyüteç ikonu (SVG resim olarak). */
+.bos-liste::before {
+    content: ""; /* boş kutu */
+    display: block; /* kendi satırı */
+    width: 40px; /* genişlik */
+    height: 40px; /* yükseklik */
+    margin: 0 auto 10px auto; /* ortala */
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='1.6' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E") center / contain no-repeat; /* büyüteç */
+}
+
+/* Hata ve başarı kutularının solunda kalın renkli çizgi. */
+.hata,
+.tamam {
+    border-left-width: 4px; /* sol çizgi kalın */
+}
+
+/* ----- Pop-up pencere ve bildirim ----- */
+
+/* HARİTA: Pop-up pencere görünümü (dialog) */
+/* Ortak pencere. <dialog> açılınca tarayıcı sayfanın ortasına koyar. */
+.pencere {
+    width: min(520px, 92vw); /* en fazla 520 piksel, telefonda ekranın %92'si */
+    margin: auto; /* ekranın ortasında. (Dosyanın başındaki * kuralı margin'i sıfırlıyordu.) */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 18px; /* yuvarlak */
+    background: var(--kart); /* kart rengi */
+    color: var(--text); /* yazı rengi */
+    padding: 22px 24px; /* iç boşluk */
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45); /* gölge */
+}
+
+/* Pencere açılınca büyüyerek gelir. [open]: pencere açıkken. */
+.pencere[open] {
+    animation: pencere-ac 0.22s ease-out; /* kısa açılma */
+}
+
+/* Pencere açılma animasyonu. */
+@keyframes pencere-ac {
+    0% { opacity: 0; transform: scale(0.92); } /* küçük ve saydam */
+    100% { opacity: 1; transform: scale(1); } /* normal */
+}
+
+/* Pencerenin arkasındaki karartma. ::backdrop: dialog'un arka perdesi. */
+.pencere::backdrop {
+    background: rgba(2, 6, 23, 0.65); /* koyu yarı saydam */
+}
+
+/* Pencerenin üst kısmı: ikon ve başlık yan yana. */
+.pencere-ust {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 12px; /* boşluk */
+    margin-bottom: 12px; /* alt boşluk */
+}
+
+/* Pencere ikonu büyük. */
+.pencere-ikonu {
+    display: flex; /* harfi ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    width: 40px; /* genişlik */
+    height: 40px; /* yükseklik */
+    flex-shrink: 0; /* daralmasın */
+    border-radius: 50%; /* daire */
+    background: var(--mavi-zemin); /* açık mavi */
+    color: var(--primary); /* mavi harf */
+    font-size: 1.2rem; /* harf boyu */
+    font-weight: 800; /* çok kalın */
+}
+
+/* Pencere içeriği. */
+.pencere-icerik {
+    line-height: 1.6; /* rahat satır */
+    max-height: 70vh; /* ekranın %70'i */
+    overflow: auto; /* sığmazsa kaydırma */
+}
+
+/* İçerikteki paragraflar arası boşluk. */
+.pencere-icerik p {
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Pencerede büyük resim. */
+.pencere-resmi {
+    width: 100%; /* pencere genişliği */
+    border-radius: 10px; /* yuvarlak */
+}
+
+/* Pencere düğmeleri sağda. */
+.pencere-dugmeleri {
+    display: flex; /* yan yana */
+    justify-content: flex-end; /* sağa */
+    gap: 10px; /* boşluk */
+    margin-top: 16px; /* üst boşluk */
+}
+
+/* Büyütülebilir resim: üstüne gelince büyüteç işareti. */
+img.buyutulebilir {
+    cursor: zoom-in; /* büyüteç imleci */
+}
+
+/* Bilgi düğmesi (ⓘ): yuvarlak küçük düğme. */
+.bilgi-dugmesi {
+    display: inline-flex; /* ortalı */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    width: 22px; /* genişlik */
+    height: 22px; /* yükseklik */
+    border-radius: 50%; /* daire */
+    border: 1px solid var(--primary); /* mavi çerçeve */
+    background: transparent; /* zemin yok */
+    color: var(--primary); /* mavi */
+    font-size: 0.85rem; /* küçük */
+    cursor: pointer; /* el işareti */
+    vertical-align: middle; /* yazıyla aynı hizada */
+    font-family: Georgia, serif; /* "i" harfi bilgi işareti gibi dursun */
+    font-weight: 700; /* kalın */
+    font-style: italic; /* eğik */
+}
+
+/* İpucu listesi. */
+.ipucu-listesi {
+    list-style: none; /* madde işareti yok */
+    display: flex; /* kolon */
+    flex-direction: column; /* alt alta */
+    gap: 8px; /* boşluk */
+}
+
+/* HARİTA: Bildirim (sağ üstte kayan pop-up) */
+/* Bildirim: sağ üstte sabit, sağdan kayarak gelir, 6 saniye sonra kaybolur. */
+.bildirim {
+    position: fixed; /* sayfa kaysa da yerinde */
+    top: 84px; /* menünün altında */
+    right: 18px; /* sağdan boşluk */
+    z-index: 2000; /* her şeyin üstünde */
+    display: flex; /* ikon, yazı, kapat yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    max-width: min(380px, 90vw); /* en fazla 380 piksel */
+    padding: 14px 16px; /* iç boşluk */
+    border-radius: 14px; /* yuvarlak */
+    color: #ffffff; /* beyaz yazı */
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35); /* gölge */
+    animation: bildirim-gel 0.4s ease-out, bildirim-git 0.5s ease-in 6s forwards; /* gel, 6 sn sonra git */
+}
+
+/* Hata bildirimi kırmızı. */
+.bildirim-hata {
+    background: linear-gradient(135deg, #be123c, #ef4444); /* kırmızı geçiş */
+}
+
+/* Başarı bildirimi yeşil. */
+.bildirim-tamam {
+    background: linear-gradient(135deg, #047857, #10b981); /* yeşil geçiş */
+}
+
+/* Bildirimdeki ikon büyükçe. */
+.bildirim > .svg-ikon {
+    font-size: 1.3rem; /* büyükçe */
+}
+
+/* Kapat düğmesi. */
+.bildirim-kapat {
+    margin-left: auto; /* sağa it */
+    background: rgba(255, 255, 255, 0.2); /* yarı saydam */
+    border: 0; /* çerçeve yok */
+    color: #ffffff; /* beyaz */
+    width: 26px; /* genişlik */
+    height: 26px; /* yükseklik */
+    border-radius: 50%; /* daire */
+    cursor: pointer; /* el işareti */
+    display: inline-flex; /* ikonu ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    flex-shrink: 0; /* daralmasın */
+}
+
+/* Bildirim sağdan kayarak gelir. */
+@keyframes bildirim-gel {
+    0% { opacity: 0; transform: translateX(40px); } /* sağda, saydam */
+    100% { opacity: 1; transform: translateX(0); } /* yerinde */
+}
+
+/* Bildirim sağa kayıp kaybolur. forwards: son halinde kalır (görünmez). */
+@keyframes bildirim-git {
+    0% { opacity: 1; transform: translateX(0); } /* yerinde */
+    100% { opacity: 0; transform: translateX(40px); visibility: hidden; } /* kayboldu */
+}
+
+/* ----- Talep formundaki hizmet kartları ----- */
+
+/* HARİTA: Hizmet seçim kartları (CSS) */
+/* "Hizmet seçin" başlığı. */
+.hizmet-secimi-baslik {
+    font-size: 0.88rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+    color: var(--yazi-ikinci); /* koyu gri (koyu modda açık) */
+    margin-bottom: 6px; /* alt boşluk */
+}
+
+/* Kartların ızgarası. */
+.hizmet-kartlari {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); /* en az 170 piksel */
+    gap: 10px; /* boşluk */
+    margin-top: 8px; /* üst boşluk */
+}
+
+/* Tek kart. label olduğu için tamamına tıklanınca seçilir. */
+.hizmet-karti {
+    position: relative; /* içindeki gizli yuvarlak buna göre */
+    margin: 0; /* label'ın alt boşluğunu sıfırla */
+    cursor: pointer; /* el işareti */
+}
+
+/* Kartın seçim yuvarlağı görünmez. */
+.hizmet-karti input {
+    position: absolute; /* yer kaplamaz */
+    opacity: 0; /* görünmez */
+}
+
+/* Kartın görünen içi. */
+.hizmet-karti-ici {
+    display: flex; /* kolon */
+    flex-direction: column; /* alt alta */
+    gap: 4px; /* boşluk */
+    height: 100%; /* kart boyu eşit */
+    padding: 12px; /* iç boşluk */
+    border: 2px solid var(--border); /* çerçeve */
+    border-radius: 12px; /* yuvarlak */
+    background: var(--kart); /* kart rengi */
+    color: var(--text); /* yazı rengi */
+    font-weight: 400; /* normal kalınlık */
+    transition: transform 0.15s, border-color 0.15s; /* yumuşak geçiş */
+}
+
+/* Kart üstüne gelince biraz kalkar. */
+.hizmet-karti:hover .hizmet-karti-ici {
+    transform: translateY(-3px); /* 3 piksel yukarı */
+    border-color: var(--primary); /* mavi çerçeve */
+}
+
+/* Seçili kart: mavi çerçeve ve hafif mavi zemin. */
+.hizmet-karti input:checked + .hizmet-karti-ici {
+    border-color: var(--primary); /* mavi */
+    background: var(--mavi-zemin); /* açık mavi (koyu modda koyu mavi) */
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25); /* dış halka */
+}
+
+/* Seçili kartın ikonu mavi. */
+.hizmet-karti input:checked + .hizmet-karti-ici > .svg-ikon {
+    color: var(--primary); /* mavi */
+}
+
+/* Klavyeyle gelinince çizgi. */
+.hizmet-karti input:focus-visible + .hizmet-karti-ici {
+    outline: 2px solid var(--primary); /* mavi çizgi */
+    outline-offset: 2px; /* dışarıda */
+}
+
+/* Kart ikonu. */
+.hizmet-karti-ici > .svg-ikon {
+    width: 28px; /* genişlik */
+    height: 28px; /* yükseklik */
+    color: var(--text-light); /* soluk */
+}
+
+/* Kart açıklaması küçük ve soluk. */
+.hizmet-karti-ici small {
+    color: var(--text-light); /* soluk */
+    font-size: 0.8rem; /* küçük */
+    line-height: 1.35; /* sık satır */
+}
+
+/* Karttaki fiyat. */
+.hizmet-karti-ici .fiyat {
+    font-size: 0.85rem; /* küçük */
+    font-weight: 700; /* kalın */
+    margin-top: auto; /* kartın en altına iter */
+}
+
+/* ----- Yükleniyor animasyonu ve yardımcı sınıflar ----- */
+
+/* HARİTA: Düğmede yükleniyor halkası */
+/* Form gönderilince düğmenin yazısı saydam olur, ortasında dönen halka çıkar. */
+.btn.yukleniyor {
+    color: transparent; /* yazı görünmez */
+    pointer-events: none; /* tekrar basılamaz */
+}
+
+/* Dönen halka. ::after: düğmenin içine CSS ile eklenen kutu. */
+.btn.yukleniyor::after {
+    content: ""; /* boş kutu */
+    position: absolute; /* düğmenin ortasında */
+    top: 50%; /* yukarıdan yarı */
+    left: 50%; /* soldan yarı */
+    width: 18px; /* genişlik */
+    height: 18px; /* yükseklik */
+    margin: -9px 0 0 -9px; /* tam ortaya çek */
+    border: 3px solid rgba(255, 255, 255, 0.35); /* soluk halka */
+    border-top-color: #ffffff; /* üst kısmı beyaz, dönünce fark edilsin */
+    border-radius: 50%; /* daire */
+    animation: don 0.7s linear infinite; /* hızlı döner */
+    z-index: 2; /* düğme renginin üstünde */
+}
+
+/* Gizli eleman. */
+.gizli {
+    display: none; /* görünmez */
+}
+
+/* Bilgisayarında "hareketi azalt" ayarı açık olan kişide bütün süs animasyonları durur. */
+@media (prefers-reduced-motion: reduce) {
+    .acilir-liste, .pencere[open] { animation: none; } /* hareket yok */
+    .slayt { transition: none; } /* slaytlar kaymadan değişir */
+}
+
+/* ----- İşlem kayıtları (admin/kayitlar.php) ----- */
+
+/* Arama formu: kutu, seçim ve düğmeler yan yana. */
+.kayit-arama {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 8px; /* boşluk */
+    margin-bottom: 14px; /* alt boşluk */
+}
+
+/* Arama kutusu geniş, seçim kutusu dar. */
+.kayit-arama input {
+    flex: 1; /* kalan genişliği alır */
+    min-width: 220px; /* en az genişlik */
+}
+
+/* Rol seçim kutusu içerik kadar. */
+.kayit-arama select {
+    width: auto; /* içerik kadar */
+}
+
+/* Hatalı giriş gibi güvenlik kayıtları kırmızımsı. */
+.guvenlik-satiri td {
+    background: rgba(239, 68, 68, 0.12); /* hafif kırmızı */
+}
+
+/* Güvenlik satırındaki işlem adı kırmızı. */
+.guvenlik-satiri strong {
+    color: #ef4444; /* kırmızı */
+}
+
+/* Hatalı giriş uyarısı yuvarlak köşeli kutu. */
+.kayit-uyarisi {
+    border-radius: var(--radius-sm); /* yuvarlak */
+    margin-bottom: 14px; /* alt boşluk */
+}
+
+/* ----- Keşfet sayfaları: Hakkımızda, Hizmetler, Tamirciler, İletişim ----- */
+
+/* HARİTA: Sayfa kapağı (fotoğraflı başlık alanı) */
+/* Sayfanın en üstündeki fotoğraflı şerit. Fotoğraf style="background-image" ile gelir. */
+.sayfa-kapagi {
+    position: relative; /* perde bunun içinde */
+    background-color: #0f172a; /* fotoğraf yüklenmezse lacivert */
+    background-size: cover; /* fotoğrafı kırparak doldur */
+    background-position: center; /* fotoğrafı ortala */
+    padding: 96px 0 84px 0; /* üst alt boşluk */
+    text-align: center; /* ortalı yazı */
+    color: #ffffff; /* beyaz yazı */
+    overflow: hidden; /* taşan perde gizlenir */
+}
+
+/* Fotoğrafın üstündeki koyu perde, yazı okunsun diye. ::before: kutunun başına CSS ile kutu ekler. */
+.sayfa-kapagi::before {
+    content: ""; /* boş kutu */
+    position: absolute; /* kapağın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+    background: radial-gradient(ellipse at 50% 0%, rgba(37, 99, 235, 0.32), transparent 65%), linear-gradient(180deg, rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.88)); /* ana sayfadaki gibi mavi ışıklı koyu perde */
+}
+
+/* Kapaktaki yazılar perdenin üstünde. */
+.sayfa-kapagi-ici {
+    position: relative; /* perdenin üstüne çıkar */
+    max-width: 820px; /* satırlar çok uzamasın */
+}
+
+/* Kapak başlığı. */
+.sayfa-kapagi h1 {
+    font-size: clamp(1.9rem, 4.5vw, 3rem); /* ekrana göre büyüyen yazı */
+    font-weight: 800; /* çok kalın */
+    letter-spacing: -0.03em; /* harfler sık */
+    margin-bottom: 16px; /* alt boşluk */
+}
+
+/* Kapak açıklaması. */
+.sayfa-kapagi p {
+    color: #cbd5e1; /* açık gri */
+    font-size: 1.1rem; /* büyükçe */
+    max-width: 660px; /* rahat okunsun */
+    margin: 0 auto; /* ortala */
+}
+
+/* Keşfet sayfalarındaki bölümler. */
+.hakkimizda-bolum {
+    padding: 72px 0; /* üst alt boşluk */
+}
+
+/* Rengi farklı bölüm: art arda gelen bölümler birbirinden ayrılsın. */
+.zemin-farkli {
+    background: var(--zemin-ikinci); /* hafif farklı zemin */
+}
+
+/* Dar kapsayıcı: soru-cevap gibi okunacak yazılar için. */
+.kapsayici.dar {
+    max-width: 820px; /* en fazla 820 piksel */
+}
+
+/* Bölüm başlığının altındaki açıklama. */
+.bolum-aciklamasi {
+    text-align: center; /* ortalı */
+    color: var(--text-light); /* soluk */
+    max-width: 640px; /* rahat okunsun */
+    margin: -24px auto 36px auto; /* başlığa yakın, kartlardan uzak */
+}
+
+/* HARİTA: Hakkımızda hikaye bölümü (yazı + fotoğraf) */
+/* İki sütun: solda yazı, sağda fotoğraf. */
+.hikaye-izgara {
+    display: grid; /* ızgara */
+    grid-template-columns: 1.1fr 1fr; /* yazı biraz daha geniş */
+    gap: 56px; /* sütun arası */
+    align-items: center; /* dikey ortala */
+}
+
+/* Başlığın üstündeki küçük mavi yazı. */
+.ust-yazi {
+    display: inline-block; /* yazı kadar */
+    color: var(--primary); /* mavi */
+    font-weight: 700; /* kalın */
+    font-size: 0.85rem; /* küçük */
+    text-transform: uppercase; /* büyük harf */
+    letter-spacing: 0.08em; /* harfler açık */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Hikaye başlığı. */
+.hikaye-yazi h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem); /* büyük */
+    font-weight: 800; /* çok kalın */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Hikaye metni. */
+.hikaye-metni {
+    color: var(--text-light); /* soluk */
+    font-size: 1.05rem; /* biraz büyük */
+    line-height: 1.75; /* rahat satır aralığı */
+    margin-bottom: 22px; /* alt boşluk */
+}
+
+/* Yeşil tikli madde listesi. */
+.tik-listesi {
+    list-style: none; /* madde işareti yok */
+    display: grid; /* alt alta */
+    gap: 10px; /* maddeler arası */
+}
+
+/* Her madde: tik ve yazı yan yana. */
+.tik-listesi li {
+    display: flex; /* yan yana */
+    align-items: flex-start; /* üstten hizala */
+    gap: 10px; /* boşluk */
+    font-weight: 500; /* orta kalın */
+}
+
+/* Tik ikonu yeşil. */
+.tik-listesi .svg-ikon {
+    color: var(--secondary); /* yeşil */
+    margin-top: 3px; /* yazının ilk satırıyla hizalı */
+}
+
+/* Fotoğraf kutusu. */
+.hikaye-resim {
+    position: relative; /* rozet bunun içinde */
+}
+
+/* Fotoğraf. */
+.hikaye-resim img {
+    display: block; /* altında boşluk kalmasın */
+    width: 100%; /* kutu genişliği */
+    height: 420px; /* sabit yükseklik */
+    object-fit: cover; /* kırparak doldur */
+    border-radius: 22px; /* yuvarlak köşe */
+    box-shadow: 0 24px 50px rgba(2, 6, 23, 0.3); /* derin gölge */
+}
+
+/* Fotoğrafın sol altındaki küçük beyaz kutu. */
+.resim-rozeti {
+    position: absolute; /* fotoğrafın üstünde */
+    left: -18px; /* biraz dışarı taşar */
+    bottom: 26px; /* alttan */
+    display: flex; /* ikon ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    background: var(--kart); /* kart zemini */
+    color: var(--text); /* yazı rengi */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 14px; /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+    box-shadow: 0 14px 30px rgba(2, 6, 23, 0.25); /* gölge */
+    font-size: 0.92rem; /* küçükçe */
+}
+
+/* Rozetteki ikon mavi. */
+.resim-rozeti .svg-ikon {
+    color: var(--primary); /* mavi */
+    font-size: 1.3rem; /* büyükçe */
+}
+
+/* HARİTA: Rakamlarla TamirBul şeridi */
+/* Mavi şerit. */
+.rakam-seridi {
+    background: linear-gradient(135deg, #1d4ed8, #0ea5e9); /* maviden turkuaza */
+    color: #ffffff; /* beyaz yazı */
+    padding: 44px 0; /* üst alt boşluk */
+}
+
+/* Dört rakam yan yana. */
+.rakam-izgara {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(4, 1fr); /* dört eşit sütun */
+    gap: 20px; /* boşluk */
+    text-align: center; /* ortalı */
+}
+
+/* Her rakam kutusu: ikon, sayı, yazı alt alta. */
+.rakam-kutu {
+    display: flex; /* alt alta */
+    flex-direction: column; /* kolon */
+    align-items: center; /* ortala */
+    gap: 4px; /* boşluk */
+}
+
+/* Rakam ikonu. */
+.rakam-kutu .svg-ikon {
+    font-size: 1.6rem; /* büyük */
+    opacity: 0.85; /* biraz soluk */
+}
+
+/* Büyük sayı. */
+.rakam-kutu strong {
+    font-size: 2.4rem; /* çok büyük */
+    font-weight: 800; /* çok kalın */
+    line-height: 1.1; /* sık satır */
+}
+
+/* Sayının altındaki yazı. */
+.rakam-kutu span {
+    color: #dbeafe; /* çok açık mavi */
+    font-weight: 500; /* orta kalın */
+}
+
+/* HARİTA: Özellik kartları ve ekip kartları */
+/* Kart ızgarası: satıra sığdığı kadar. */
+.ozellik-izgara {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* en az 300 piksel */
+    gap: 22px; /* boşluk */
+}
+
+/* Üç sütunlu ızgara. */
+.ozellik-izgara.uclu {
+    grid-template-columns: repeat(3, 1fr); /* üç eşit sütun */
+}
+
+/* Dört sütunlu ızgara. */
+.ozellik-izgara.dortlu {
+    grid-template-columns: repeat(4, 1fr); /* dört eşit sütun */
+}
+
+/* Ortalı özellik kartı (misyon, vizyon) ve ekip kartı. */
+.ozellik-kart,
+.ekip-kart {
+    background: var(--kart); /* kart zemini */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 18px; /* yuvarlak */
+    padding: 30px 24px; /* iç boşluk */
+    text-align: center; /* ortalı */
+    transition: transform 0.25s, box-shadow 0.25s; /* yumuşak hareket */
+}
+
+/* Üstüne gelince hafif kalkar. */
+.ozellik-kart:hover,
+.ekip-kart:hover,
+.ozellik-satir:hover {
+    transform: translateY(-4px); /* yukarı */
+    box-shadow: 0 18px 40px rgba(2, 6, 23, 0.2); /* gölge */
+}
+
+/* Kart başlığı. */
+.ozellik-kart h3,
+.ozellik-satir h3,
+.ekip-kart h3 {
+    font-size: 1.12rem; /* orta */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Kart yazısı soluk. */
+.ozellik-kart p,
+.ozellik-satir p,
+.ekip-kart p {
+    color: var(--text-light); /* soluk */
+    margin-bottom: 0; /* alt boşluk yok */
+}
+
+/* Yan yana özellik: solda ikon, sağda yazı. */
+.ozellik-satir {
+    display: flex; /* yan yana */
+    gap: 16px; /* boşluk */
+    align-items: flex-start; /* üstten hizala */
+    background: var(--kart); /* kart zemini */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 18px; /* yuvarlak */
+    padding: 22px; /* iç boşluk */
+    transition: transform 0.25s, box-shadow 0.25s; /* yumuşak hareket */
+}
+
+/* Yan yana kartta ikon kutusu ortalanmaz, solda durur. */
+.ozellik-satir .kart-ikonu {
+    margin: 0; /* boşluk yok */
+    flex-shrink: 0; /* ezilmesin */
+    width: 48px; /* genişlik */
+    height: 48px; /* yükseklik */
+    font-size: 1.3rem; /* ikon boyu */
+}
+
+/* Açık zeminli kartlarda ikon koyu mavi olsun, okunsun. */
+.ozellik-kart .kart-ikonu,
+.ozellik-satir .kart-ikonu,
+.iletisim-kart .kart-ikonu {
+    color: var(--primary); /* mavi */
+}
+
+/* Ekip kartındaki yuvarlak ikon. */
+.ekip-avatar {
+    width: 76px; /* genişlik */
+    height: 76px; /* yükseklik */
+    margin: 0 auto 16px auto; /* ortala */
+    border-radius: 50%; /* daire */
+    display: flex; /* ikonu ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    background: linear-gradient(135deg, #2563eb, #22d3ee); /* maviden turkuaza */
+    color: #ffffff; /* beyaz ikon */
+    font-size: 1.9rem; /* büyük ikon */
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35); /* mavi gölge */
+}
+
+/* Ekip kartında "Kişi 1" hapı. */
+.ekip-kim {
+    display: inline-block; /* yazı kadar */
+    background: var(--mavi-zemin); /* açık mavi */
+    color: var(--baslik-mavi); /* mavi yazı */
+    border-radius: 999px; /* hap */
+    padding: 2px 12px; /* iç boşluk */
+    font-size: 0.8rem; /* küçük */
+    font-weight: 700; /* kalın */
+    margin-bottom: 12px; /* alt boşluk */
+}
+
+/* HARİTA: Numaralı adım çizgisi */
+/* Adımlar yan yana, numaraların arkasında ince çizgi. */
+.adim-cizgisi {
+    list-style: none; /* numara işareti yok, kendimiz yazarız */
+    display: grid; /* ızgara */
+    grid-auto-columns: 1fr; /* eşit sütunlar */
+    grid-auto-flow: column; /* adımlar yan yana */
+    gap: 24px; /* boşluk */
+    position: relative; /* çizgi bunun içinde */
+}
+
+/* Numaraların arkasından geçen çizgi. */
+.adim-cizgisi::before {
+    content: ""; /* boş kutu */
+    position: absolute; /* adımların arkasında */
+    top: 26px; /* numaraların ortası */
+    left: 12%; /* ilk numaradan */
+    right: 12%; /* son numaraya */
+    height: 2px; /* ince */
+    background: linear-gradient(90deg, #2563eb, #22d3ee); /* maviden turkuaza */
+    opacity: 0.4; /* soluk */
+}
+
+/* Her adım ortalı. */
+.adim-cizgisi li {
+    position: relative; /* çizginin üstünde */
+    text-align: center; /* ortalı */
+}
+
+/* Adım numarası yuvarlağı. */
+.adim-no {
+    width: 52px; /* genişlik */
+    height: 52px; /* yükseklik */
+    margin: 0 auto 14px auto; /* ortala */
+    border-radius: 50%; /* daire */
+    display: flex; /* rakamı ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz */
+    font-weight: 800; /* çok kalın */
+    font-size: 1.2rem; /* büyükçe */
+    box-shadow: 0 0 0 6px var(--background); /* çizgiyi numaranın etrafında keser */
+}
+
+/* Farklı zeminli bölümde halka o zeminin renginde olsun. */
+.zemin-farkli .adim-no {
+    box-shadow: 0 0 0 6px var(--zemin-ikinci); /* bölüm zemini */
+}
+
+/* Açık modda sayfa zemini de --zemin-ikinci olduğu için farklı bölüm biraz daha koyu gri olur. */
+/* :not(.koyu): html etiketinde koyu sınıfı yoksa, yani açık moddaysa. */
+html:not(.koyu) .zemin-farkli {
+    background: #e6ebf2; /* biraz koyu gri */
+}
+
+/* Açık modda farklı bölümdeki numara halkası da aynı gri. */
+html:not(.koyu) .zemin-farkli .adim-no {
+    box-shadow: 0 0 0 6px #e6ebf2; /* bölüm zemini */
+}
+
+/* Adım başlığı. */
+.adim-cizgisi h3 {
+    font-size: 1.08rem; /* orta */
+    margin-bottom: 6px; /* alt boşluk */
+}
+
+/* Adım açıklaması. */
+.adim-cizgisi p {
+    color: var(--text-light); /* soluk */
+    font-size: 0.95rem; /* biraz küçük */
+}
+
+/* HARİTA: Sık sorulan sorular (details) */
+/* Her soru bir kutu. */
+.sss {
+    background: var(--kart); /* kart zemini */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 14px; /* yuvarlak */
+    margin-bottom: 12px; /* sorular arası */
+    overflow: hidden; /* köşeler düzgün */
+}
+
+/* Soru satırı. Tıklanabilir. */
+.sss summary {
+    cursor: pointer; /* el işareti */
+    padding: 18px 22px; /* iç boşluk */
+    font-weight: 600; /* yarı kalın */
+    list-style: none; /* tarayıcının üçgeni gizlenir */
+    display: flex; /* yazı ve artı yan yana */
+    justify-content: space-between; /* artı en sağda */
+    align-items: center; /* dikey ortala */
+    gap: 16px; /* boşluk */
+}
+
+/* Safari'nin kendi üçgeni de gizlenir. */
+.sss summary::-webkit-details-marker {
+    display: none; /* görünmez */
+}
+
+/* Sağdaki artı işareti. ::after: yazının sonuna CSS ile kutu ekler. */
+.sss summary::after {
+    content: "+"; /* artı */
+    font-size: 1.4rem; /* büyük */
+    color: var(--primary); /* mavi */
+    transition: transform 0.2s; /* yumuşak dönüş */
+}
+
+/* Soru açıkken artı dönerek çarpı olur. [open]: details açıkken tarayıcı ekler. */
+.sss[open] summary::after {
+    transform: rotate(45deg); /* 45 derece */
+}
+
+/* Açık sorunun çerçevesi mavi. */
+.sss[open] {
+    border-color: var(--primary); /* mavi */
+}
+
+/* Cevap yazısı. */
+.sss p {
+    padding: 0 22px 18px 22px; /* iç boşluk */
+    color: var(--text-light); /* soluk */
+    margin: 0; /* dış boşluk yok */
+}
+
+/* HARİTA: Sayfa sonu çağrı bölümü */
+/* Fotoğraflı, ortalı çağrı şeridi. */
+.cagri-bolumu {
+    position: relative; /* perde bunun içinde */
+    background-color: #1d4ed8; /* fotoğraf yoksa mavi */
+    background-size: cover; /* kırparak doldur */
+    background-position: center; /* ortala */
+    color: #ffffff; /* beyaz yazı */
+    text-align: center; /* ortalı */
+    padding: 80px 0; /* üst alt boşluk */
+}
+
+/* Fotoğrafın üstündeki mavi perde. */
+.cagri-bolumu::before {
+    content: ""; /* boş kutu */
+    position: absolute; /* tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.92), rgba(2, 6, 23, 0.85)); /* maviden koyuya */
+}
+
+/* Fotoğrafsız sade çağrı: sadece renk geçişi. */
+.cagri-bolumu.sade {
+    background: linear-gradient(135deg, #1d4ed8, #0f172a); /* maviden laciverte */
+    padding: 64px 0; /* biraz daha az boşluk */
+}
+
+/* Sade çağrıda perde gerekmez. */
+.cagri-bolumu.sade::before {
+    display: none; /* gizli */
+}
+
+/* Çağrı yazıları perdenin üstünde. */
+.cagri-ici {
+    position: relative; /* perdenin üstüne çıkar */
+    max-width: 720px; /* rahat okunsun */
+}
+
+/* Çağrı başlığı. */
+.cagri-ici h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.3rem); /* büyük */
+    font-weight: 800; /* çok kalın */
+    margin-bottom: 12px; /* alt boşluk */
+}
+
+/* Çağrı açıklaması. */
+.cagri-ici p {
+    color: #dbeafe; /* çok açık mavi */
+    margin-bottom: 26px; /* düğmelerden uzak */
+}
+
+/* Çağrıdaki çerçeveli düğme beyaz çizgili olsun (ana sayfadaki gibi). */
+.cagri-bolumu .btn-outline {
+    color: #ffffff; /* beyaz yazı */
+    border-color: rgba(255, 255, 255, 0.55); /* beyaz çerçeve */
+    background: transparent; /* zemin yok */
+}
+
+/* Hizmet ve tamirci listesinin üstündeki "8 hizmet listeleniyor" yazısı. */
+.liste-sayisi {
+    color: var(--text-light); /* soluk */
+    font-size: 0.92rem; /* küçükçe */
+    margin: -6px 0 18px 0; /* filtreye yakın */
+}
+
+/* HARİTA: İletişim kartları ve form düzeni */
+/* Dört bilgi kartı yan yana. */
+.iletisim-kartlari {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(4, 1fr); /* dört eşit sütun */
+    gap: 18px; /* boşluk */
+    margin-top: -86px; /* kapağın üstüne biraz biner */
+    margin-bottom: 40px; /* formdan uzak */
+    position: relative; /* kapağın üstünde dursun */
+}
+
+/* Her bilgi kartı: ikon, ad, değer alt alta. */
+.iletisim-kart {
+    display: flex; /* alt alta */
+    flex-direction: column; /* kolon */
+    align-items: center; /* ortala */
+    text-align: center; /* ortalı */
+    gap: 4px; /* boşluk */
+    background: var(--kart); /* kart zemini */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 18px; /* yuvarlak */
+    padding: 24px 16px; /* iç boşluk */
+    color: var(--text); /* yazı rengi (link mavi olmasın) */
+    text-decoration: none; /* alt çizgi yok */
+    box-shadow: 0 14px 34px rgba(2, 6, 23, 0.18); /* gölge */
+    transition: transform 0.25s, border-color 0.25s; /* yumuşak hareket */
+    word-break: break-word; /* uzun e-posta taşmasın */
+}
+
+/* Link olan kartın üstüne gelince kalkar ve çerçeve mavi olur. */
+a.iletisim-kart:hover {
+    transform: translateY(-4px); /* yukarı */
+    border-color: var(--primary); /* mavi */
+}
+
+/* Kart değeri soluk. */
+.iletisim-kart span:last-child {
+    color: var(--text-light); /* soluk */
+    font-size: 0.95rem; /* biraz küçük */
+}
+
+/* Form solda geniş, yardım kutuları sağda dar. */
+.iletisim-izgara {
+    display: grid; /* ızgara */
+    grid-template-columns: 1.4fr 1fr; /* form daha geniş */
+    gap: 26px; /* boşluk */
+    align-items: start; /* üstten hizala */
+}
+
+/* Sağdaki kutular alt alta. */
+.iletisim-yan {
+    display: grid; /* alt alta */
+    gap: 18px; /* kutular arası */
+}
+
+/* Sağdaki kutuların başlıkları: ikon ve yazı yan yana. */
+.iletisim-yan h2 {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 8px; /* boşluk */
+    font-size: 1.1rem; /* orta */
+}
+
+/* Form başlığı. */
+.iletisim-izgara form h2 {
+    font-size: 1.4rem; /* büyükçe */
+    margin-bottom: 4px; /* alt boşluk */
+}
+
+/* ----- Yönetim: Site yazıları ve Sayfa yazıları ----- */
+
+/* HARİTA: Site yazıları ekranı (CSS) */
+/* İki sütun: solda dar grup listesi, sağda geniş form. */
+.yazi-yonetimi {
+    display: grid; /* ızgara */
+    grid-template-columns: 270px 1fr; /* sol 270 piksel, sağ kalan */
+    gap: 26px; /* sütun arası */
+    align-items: start; /* üstten hizala */
+}
+
+/* Sol menü: aşağı kayarken ekranın üstünde yapışık durur. */
+.yazi-menusu {
+    position: sticky; /* yapışkan */
+    top: 86px; /* üst menünün altında */
+    background: var(--kart); /* kart zemini */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 16px; /* yuvarlak */
+    padding: 18px; /* iç boşluk */
+    max-height: calc(100vh - 110px); /* ekrandan taşmasın */
+    overflow-y: auto; /* uzunsa kendi içinde kayar */
+}
+
+/* Arama kutusunun adı. */
+.yazi-menusu label {
+    display: block; /* kendi satırı */
+    font-weight: 700; /* kalın */
+    margin-bottom: 6px; /* alt boşluk */
+}
+
+/* Arama kutusu. */
+.yazi-menusu input {
+    width: 100%; /* tam genişlik */
+}
+
+/* "50 yazı, 10 grup" yazısı. */
+.yazi-sayisi {
+    color: var(--text-light); /* soluk */
+    font-size: 0.85rem; /* küçük */
+    margin: 8px 0 12px 0; /* boşluk */
+}
+
+/* Grup linkleri alt alta. */
+.grup-linkleri {
+    display: grid; /* alt alta */
+    gap: 2px; /* sık */
+    margin-bottom: 16px; /* alt boşluk */
+}
+
+/* Her grup linki: ikon, ad, sayı. */
+.grup-linkleri a {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 9px; /* boşluk */
+    padding: 8px 10px; /* iç boşluk */
+    border-radius: 10px; /* yuvarlak */
+    color: var(--text); /* yazı rengi */
+    text-decoration: none; /* alt çizgi yok */
+    font-size: 0.92rem; /* biraz küçük */
+}
+
+/* Linkin adı kalan genişliği alır, sayı sağa yaslanır. */
+.grup-linkleri a span {
+    flex: 1; /* kalan genişlik */
+}
+
+/* Gruptaki yazı sayısı: küçük gri hap. */
+.grup-linkleri em {
+    font-style: normal; /* eğik değil */
+    font-size: 0.75rem; /* küçük */
+    background: var(--zemin-ikinci); /* gri zemin */
+    color: var(--text-light); /* soluk */
+    border-radius: 999px; /* hap */
+    padding: 1px 8px; /* iç boşluk */
+}
+
+/* Linkin üstüne gelince mavi zemin. */
+.grup-linkleri a:hover {
+    background: var(--mavi-zemin); /* açık mavi */
+    color: var(--baslik-mavi); /* mavi yazı */
+}
+
+/* Grup linkindeki ikon mavi. */
+.grup-linkleri .svg-ikon {
+    color: var(--primary); /* mavi */
+}
+
+/* Bir grubun kutusu. Sayfa yazıları ekranındaki form da bu görünüşü kullanır. */
+.yazi-grubu {
+    background: var(--kart); /* kart zemini */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 18px; /* yuvarlak */
+    padding: 22px 24px; /* iç boşluk */
+    margin-bottom: 22px; /* gruplar arası */
+    scroll-margin-top: 90px; /* linkle kayınca üst menünün altında kalmasın */
+}
+
+/* Grubun başlık satırı: ikon, başlık, Sayfada gör düğmesi. */
+.yazi-grubu-baslik {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 14px; /* boşluk */
+    padding-bottom: 16px; /* alt boşluk */
+    margin-bottom: 6px; /* alt boşluk */
+    border-bottom: 1px solid var(--cizgi); /* ince çizgi */
+}
+
+/* Başlık ve açıklama kalan genişliği alır. */
+.yazi-grubu-baslik > div {
+    flex: 1; /* kalan genişlik */
+}
+
+/* Grubun ikon kutusu ortalanmaz, solda durur. */
+.yazi-grubu-baslik .kart-ikonu {
+    margin: 0; /* boşluk yok */
+    width: 46px; /* genişlik */
+    height: 46px; /* yükseklik */
+    font-size: 1.25rem; /* ikon boyu */
+    color: var(--primary); /* mavi */
+    flex-shrink: 0; /* ezilmesin */
+}
+
+/* Grubun adı. */
+.yazi-grubu-baslik h2 {
+    font-size: 1.2rem; /* orta */
+    margin: 0 0 2px 0; /* sadece alt boşluk */
+}
+
+/* Grubun açıklaması. */
+.yazi-grubu-baslik p {
+    color: var(--text-light); /* soluk */
+    font-size: 0.9rem; /* küçükçe */
+    margin: 0; /* boşluk yok */
+}
+
+/* Bir yazının alanı. Solda ince çizgi: değişince sarı olur. */
+.yazi-alani {
+    padding: 16px 0 16px 14px; /* iç boşluk, solda çizgi payı */
+    border-bottom: 1px solid var(--cizgi); /* alttan ince çizgi */
+    border-left: 3px solid transparent; /* görünmez sol çizgi */
+    transition: border-color 0.2s; /* yumuşak renk değişimi */
+}
+
+/* Gruptaki son yazının alt çizgisi olmaz. */
+.yazi-alani:last-child {
+    border-bottom: none; /* çizgi yok */
+}
+
+/* Değiştirilen yazı: sol çizgi sarı. js/site.js "degisti" sınıfını ekler. */
+.yazi-alani.degisti {
+    border-left-color: #f59e0b; /* sarı */
+}
+
+/* Üst satır: kutu adı ve değişti işareti yan yana. */
+.yazi-ust {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Kutunun adı. */
+.yazi-ust label {
+    font-weight: 700; /* kalın */
+    margin: 0; /* boşluk yok */
+}
+
+/* "Değiştirildi" yazısı: normalde gizli. */
+.degisti-isareti {
+    display: none; /* görünmez */
+    font-size: 0.72rem; /* küçük */
+    font-weight: 700; /* kalın */
+    color: #b45309; /* koyu sarı */
+    background: #fef3c7; /* açık sarı */
+    border-radius: 999px; /* hap */
+    padding: 1px 9px; /* iç boşluk */
+}
+
+/* Yazı değişince görünür. */
+.yazi-alani.degisti .degisti-isareti {
+    display: inline-block; /* görünür */
+}
+
+/* "Sitede nerede" satırı: konum ikonu ve soluk yazı. */
+.yazi-yeri {
+    display: flex; /* ikon ve yazı yan yana */
+    align-items: flex-start; /* üstten hizala */
+    gap: 6px; /* boşluk */
+    color: var(--text-light); /* soluk */
+    font-size: 0.85rem; /* küçük */
+    margin: 4px 0 8px 0; /* boşluk */
+}
+
+/* Konum ikonu mavi. */
+.yazi-yeri .svg-ikon {
+    color: var(--primary); /* mavi */
+    margin-top: 2px; /* yazının ilk satırıyla hizalı */
+}
+
+/* Yazı kutuları tam genişlik. */
+.yazi-alani input[type="text"],
+.yazi-alani textarea {
+    width: 100%; /* tam genişlik */
+}
+
+/* Sayı kutusu dar. .yazi-alani önüne yazıldı: genel input kuralının %100 genişliğini ezsin. */
+.yazi-alani .kutu-dar {
+    width: 120px; /* dar */
+}
+
+/* Uzun metin kutusu rahat okunsun. */
+.buyuk-metin {
+    line-height: 1.7; /* geniş satır aralığı */
+    min-height: 220px; /* en az yükseklik */
+}
+
+/* Alt satır: İlk haline dön ve Yazı stili düğmeleri. */
+.yazi-alt {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: flex-start; /* üstten hizala */
+    gap: 10px; /* boşluk */
+    margin-top: 8px; /* üst boşluk */
+}
+
+/* "İlk haline dön" düğmesi: sade, küçük. */
+.ilk-hale-don {
+    display: inline-flex; /* ikon ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 6px; /* boşluk */
+    background: transparent; /* zemin yok */
+    border: 1px solid var(--border); /* çerçeve */
+    color: var(--text-light); /* soluk */
+    border-radius: 8px; /* yuvarlak */
+    padding: 5px 10px; /* iç boşluk */
+    font-size: 0.82rem; /* küçük */
+    cursor: pointer; /* el işareti */
+    font-family: inherit; /* sitenin yazı tipi */
+}
+
+/* Üstüne gelince mavi. */
+.ilk-hale-don:hover {
+    color: var(--primary); /* mavi yazı */
+    border-color: var(--primary); /* mavi çerçeve */
+}
+
+/* Yazı stili açılır kutusu. Açılınca bütün satırı kaplar. */
+.stil-ayari {
+    flex: 1; /* kalan genişlik */
+    min-width: 200px; /* en az genişlik */
+}
+
+/* Yazı stili düğmesi (summary). */
+.stil-ayari summary {
+    display: inline-flex; /* ikon ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 6px; /* boşluk */
+    cursor: pointer; /* el işareti */
+    list-style: none; /* tarayıcının üçgeni gizli */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 8px; /* yuvarlak */
+    padding: 5px 10px; /* iç boşluk */
+    font-size: 0.82rem; /* küçük */
+    color: var(--text-light); /* soluk */
+}
+
+/* Safari'nin kendi üçgeni de gizli. */
+.stil-ayari summary::-webkit-details-marker {
+    display: none; /* görünmez */
+}
+
+/* Açıkken düğme mavi. */
+.stil-ayari[open] summary {
+    color: var(--primary); /* mavi yazı */
+    border-color: var(--primary); /* mavi çerçeve */
+    margin-bottom: 10px; /* araç çubuğundan uzak */
+}
+
+/* "Stil var" rozeti: yeşil hap. */
+.stil-var-rozeti {
+    background: var(--yesil-zemin); /* açık yeşil */
+    color: var(--secondary); /* yeşil yazı */
+    border-radius: 999px; /* hap */
+    padding: 0 8px; /* iç boşluk */
+    font-size: 0.72rem; /* küçük */
+    font-weight: 700; /* kalın */
+}
+
+/* Uzun metnin altındaki "120 harf, 20 kelime" yazısı. */
+.metin-sayaci {
+    text-align: right; /* sağa yaslı */
+    color: var(--text-light); /* soluk */
+    font-size: 0.8rem; /* küçük */
+    margin: 4px 0 0 0; /* boşluk */
+}
+
+/* Alttaki sabit kaydet şeridi: uyarı solda, düğme sağda. */
+.kaydet-seridi {
+    display: flex; /* yan yana */
+    justify-content: flex-end; /* sağa yaslı */
+    align-items: center; /* dikey ortala */
+    gap: 14px; /* boşluk */
+    border-top: 1px solid var(--border); /* üstte ince çizgi */
+    padding: 12px 14px; /* iç boşluk */
+    border-radius: 14px 14px 0 0; /* üst köşeler yuvarlak */
+    box-shadow: 0 -10px 24px rgba(2, 6, 23, 0.18); /* yukarı doğru gölge */
+}
+
+/* "Kaydedilmemiş değişiklik var" yazısı sarı. */
+.kaydedilmedi {
+    display: inline-flex; /* ikon ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 6px; /* boşluk */
+    color: #f59e0b; /* sarı */
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.9rem; /* küçükçe */
+}
+
+/* Uyarı gizliyken görünmez (.gizli sınıfı display:none yapar, inline-flex onu ezmesin). */
+.kaydedilmedi.gizli {
+    display: none; /* görünmez */
+}
+
+/* Sayfa yazıları ekranı: ortada, okunaklı genişlikte. */
+.kapsayici.dar-form {
+    max-width: 900px; /* en fazla 900 piksel */
+}
+
+/* ----- Ekran boyutları ----- */
+
+/* HARİTA: Telefon ve tablet görünümü (media query) */
+/* 1100 pikselden dar ekranda menü düğmelerinin yazısı küçülür, tek satıra sığar. */
+@media (max-width: 1100px) {
+    .menu-linki, .acilir-dugme { padding: 8px 8px; font-size: 0.86rem; } /* daha sık */
+}
+
+/* 992 pikselden dar ekranda (telefon, tablet). */
+@media (max-width: 992px) {
+    .menu-dugmesi { display: inline-flex; align-items: center; gap: 6px; } /* menü düğmesi görünür, ikon ve yazı yan yana */
+    .tema-dugmesi { font-size: 0; padding: 8px 10px; } /* tema düğmesinde sadece ikon kalır, yazı gizlenir, tek satıra sığar */
+    .tema-dugmesi .svg-ikon { font-size: 1rem; } /* ikon normal boyda kalır */
+    .navbar-container { flex-wrap: wrap; } /* menü alt satıra iner */
+    .menu { display: none; width: 100%; flex-direction: column; align-items: flex-start; } /* menü kapalı, kolon */
+    .menu.acik { display: flex; } /* düğmeye basınca açılır */
+    .menu { align-items: stretch; gap: 2px; padding-bottom: 8px; } /* menü öğeleri tam genişlik */
+    .menu-linki, .acilir-dugme { width: 100%; justify-content: flex-start; } /* düğmeler satır boyu */
+    .acilir.sag { margin-left: 0; } /* kişi menüsü de alt alta */
+    .acilir-liste, .acilir.sag .acilir-liste { position: static; min-width: 0; box-shadow: none; margin: 4px 0 6px 0; } /* liste düğmenin altında akar */
+    .acilir.acik .acilir-liste.genis { grid-template-columns: 1fr; min-width: 0; } /* tek sütun */
+    .form-row, .yan-yana, .footer-container { flex-direction: column; gap: 0; } /* yan yana kutular alt alta */
+    .request-details-grid { grid-template-columns: 1fr; } /* tek sütun */
+    .panel-izgara { grid-template-columns: 1fr; } /* yönetim paneli tek sütun */
+    .panel-sayaclar { grid-template-columns: repeat(2, 1fr); } /* sayaçlar ikişerli */
+    .tema-dugmesi { order: 0; margin-left: auto; } /* telefonda Menü düğmesinin solunda */
+    .tema-dugmesi + .menu-dugmesi { margin-left: 0; } /* Menü düğmesi tema düğmesinin hemen yanında */
+    .menu { order: 4; } /* açılan menü en altta */
+    .auth-card, .request-card { padding: 26px 18px; } /* daha az iç boşluk */
+    .hikaye-izgara, .iletisim-izgara { grid-template-columns: 1fr; gap: 32px; } /* hikaye ve iletişim alt alta */
+    .ozellik-izgara.uclu, .ozellik-izgara.dortlu { grid-template-columns: repeat(2, 1fr); } /* kartlar ikişerli */
+    .rakam-izgara, .iletisim-kartlari { grid-template-columns: repeat(2, 1fr); } /* rakamlar ve iletişim kartları ikişerli */
+    .adim-cizgisi { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); } /* adımlar ikişerli */
+    .adim-cizgisi::before { display: none; } /* çizgi gizlenir */
+    .hikaye-resim img { height: 300px; } /* fotoğraf daha kısa */
+    .resim-rozeti { left: 12px; } /* rozet ekrandan taşmasın */
+    .sayfa-kapagi { padding: 70px 0 64px 0; } /* kapak daha kısa */
+    .hakkimizda-bolum { padding: 52px 0; } /* bölümler daha sık */
+    .yazi-yonetimi { grid-template-columns: 1fr; } /* yönetimde grup listesi formun üstüne iner */
+    .yazi-menusu { position: static; max-height: none; } /* telefonda yapışık durmaz */
+    .grup-linkleri { grid-template-columns: repeat(2, 1fr); } /* grup linkleri ikişerli */
+    .yazi-grubu-baslik { flex-wrap: wrap; } /* Sayfada gör düğmesi alt satıra inebilir */
+    .yazi-grubu { padding: 18px 16px; } /* daha az iç boşluk */
+}
+
+/* 600 pikselden dar ekranda (telefon) kartlar tek sütun. */
+@media (max-width: 600px) {
+    .ozellik-izgara, .ozellik-izgara.uclu, .ozellik-izgara.dortlu, .adim-cizgisi { grid-template-columns: 1fr; } /* tek sütun */
+    .iletisim-kartlari { grid-template-columns: 1fr; gap: 10px; margin-top: -60px; } /* iletişim kartları tek sütun */
+    .iletisim-kart { display: grid; grid-template-columns: 48px 1fr; column-gap: 14px; row-gap: 0; text-align: left; align-items: center; padding: 14px 16px; } /* solda ikon, sağda iki satır yazı */
+    .iletisim-kart .kart-ikonu { grid-row: span 2; margin: 0; width: 48px; height: 48px; font-size: 1.3rem; } /* ikon iki satır boyunca solda */
+    .ozellik-satir { padding: 18px; } /* daha az iç boşluk */
+    .grup-linkleri { grid-template-columns: 1fr; } /* yönetimde grup linkleri tek sütun */
+    .yazi-grubu-baslik > div { flex: 1 1 180px; } /* grup başlığı en az 180 piksel, sıkışmaz */
+}

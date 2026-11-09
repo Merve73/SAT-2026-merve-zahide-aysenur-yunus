@@ -1,0 +1,139 @@
+TAMIRBUL - YAPILAN DEĞİŞİKLİKLER (KISA RAPOR)
+Hocaya anlatırken: önce "ne yaptık", sonra "neden", sonra "kodu nerede".
+Kodun içinde ilgili yerde "HARİTA:" etiketi var. VS Code'da Ctrl+Shift+F ile aranır.
+
+
+1) YÖNETİM PANELİ TEK EKRAN                          admin/panel.php
+   Ne:    Bütün önemli bilgiler tek sayfada: 8 sayaç, bekleyen tamirciler, okunmamış mesajlar,
+          son talepler, randevular, talep durumları, içerik kısayolları.
+   Neden: Yönetici her şeyi görmek için sayfa sayfa gezmesin.
+   Ek:    Bekleyen iş varsa sayaç turuncu olur ve hafifçe parlar (CSS @keyframes animasyonu).
+
+2) ROLE ÖZEL AÇILIR MENÜ                             ortak/baslik.php
+   Ne:    Menü, giriş yapanın rolüne göre değişir (ziyaretçi, müşteri, tamirci, yönetici).
+          Linkler gruplara ayrıldı, düğmeye basınca açılır. Paneldeki ikinci menü şeritleri kaldırıldı.
+   Nasıl: Her rolün linkleri bir dizide durur: menu_linki("adres", "ikon", "yazı", "açıklama", sayı)
+
+3) KOYU MOD / AÇIK MOD                               css/stil.css (:root ve html.koyu)
+   Ne:    Varsayılan koyu mod. Düğmeyle açık moda geçilir, seçim çereze (cookie) yazılır.
+   Nasıl: Renkler CSS değişkenidir: var(--kart). İki modda değişkenin değeri değişir.
+
+4) YAZI STİLLERİ (WORD GİBİ)                         ortak/stil-araclari.php, ortak/yazi-stili.php
+   Ne:    Yönetici sitedeki yazıların yazı tipini, boyutunu, kalın (K), eğik (T), rengini, hizasını seçer.
+          Seçerken canlı önizleme görür. Seçimler yazi_stilleri tablosunda durur.
+   Güvenlik: Forma CSS yazılamaz, sadece listedeki seçenekler kabul edilir.
+
+5) TALEPTE HİZMET SEÇİMİ                             ortak/hizmet-secimi.php
+   Ne:    Kategori ve cihaz türü seçilince sadece o cihaza uygun hizmet kartları çıkar.
+          Örnek: Akıllı Telefon seçilince "Bilgisayar formatı" çıkmaz.
+   Nasıl: Yeni tablo hizmet_cihazlari (hizmet - cihaz türü eşleşmesi). Yönetici hizmet formunda seçer.
+          Sunucu da kontrol eder, form kurcalanıp uygunsuz hizmet gönderilemez.
+
+6) SVG İKONLAR VE POP-UP'LAR                         ortak/ikonlar.php, js/site.js (9. bölüm)
+   Ne:    Emoji ve uçan/zıplayan ikonlar kaldırıldı. Yerine sade çizgi SVG ikonlar geldi: ikon("takvim").
+          Resim dosyası indirilmez, her ekranda net görünür, rengi yazının rengini alır.
+          Pop-up: "Emin misiniz?" penceresi, bilgi penceresi, resim büyütme, sağ üstte bildirim.
+   Nasıl: HTML'in hazır <dialog> penceresi. Forma data-onay="soru" yazmak yeterli.
+
+7) İŞLEM KAYITLARI (LOG)                             ortak/islem-kaydi.php, admin/kayitlar.php
+   Ne:    Kim, ne zaman, ne yaptı, hangi IP'den kaydedilir: giriş, hatalı giriş, talep, teklif,
+          randevu, yöneticinin değişiklikleri... Yönetici arar ve süzer. Güvenlik kayıtları kırmızı.
+   Nasıl: log_yaz("İşlem adı", "ayrıntı") tek satır. Şifre asla kayda yazılmaz.
+
+8) GÜVENLİK DÜZELTMELERİ
+   a) Giriş mesajı:  Eskiden "bu e-posta yok" / "şifre yanlış" ayrı yazıyordu. Kötü niyetli kişi
+                     hangi e-postanın kayıtlı olduğunu öğrenebiliyordu. Artık tek mesaj:
+                     "E-posta veya şifre hatalı."                                    giris.php
+   b) Deneme sınırı: Aynı bilgisayardan (IP) 5 dakikada 5 yanlış şifreden sonra 5 dakika bekletir.
+                     Sayaç çerezde değil veritabanında: çerezi silen program sınırı atlatamaz.  giris.php
+   c) CSRF:          Başka bir site, giriş yapmış kişi adına form gönderebiliyordu. Artık her formda
+                     gizli güvenlik kodu var, tutmazsa form çalışmaz.        ortak/hazirla.php
+   d) Takip kodu:    TB1004, TB1005 sıralıydı, tahmin edilip başkasının talebi görülebiliyordu.
+                     Artık TB1004-K7Q2M9 gibi rastgele.                      takip_kodu_uret
+   e) Çerez:         Oturum çerezi JavaScript ile okunamaz (httponly), başka siteden gönderilmez (samesite).
+   f) Kontroller:    E-posta ve telefon biçimi kontrol edilir, kutulara harf sınırı (maxlength) konuldu.
+   g) Zaten vardı:   SQL injection'a karşı temizle(), XSS'e karşı temiz_yaz(), şifreler password_hash.
+   h) Kapı bekçisi:  localhost:8000/veritabani/tamirbul.sql yazınca bütün veritabanı iniyordu; .git ve
+                     .txt dosyaları da açılıyordu. Artık sadece sayfa, stil, kod ve resim açılır.  araclar/kapi.php
+   i) Hata yazıları: Ekranda gösterilmez (klasör yolları dışarı sızmasın), C:\TamirBul\hatalar.log dosyasına yazılır.
+   j) Linkle işlem:  Teklif kabul, puan, tamirci onayı, mesaj okundu, talep ve randevu durumu sayfaları
+                     eskiden adres çubuğundan da çalışıyordu ("şu linke tıkla" tuzağı). Artık sadece
+                     güvenlik kodlu formla çalışır.                        "Sadece form ile çalışan sayfa" (HARİTA)
+   k) Bozuk veri:    Forma yazı yerine liste (ad[]=x) gönderilince sayfa çöküyordu. Artık boş sayılır.  formdan_al
+   l) Yönetici şifresi: Örnek yönetici şifresi 123456 ve değiştirilemiyordu. Yeni sayfa: admin/sifre.php
+                     (menüde Yönetici > Şifre değiştir). SİTE YAYINA ÇIKMADAN ÖNCE MUTLAKA DEĞİŞTİRİN.
+   m) Başlıklar:     PHP sürümü gizlendi (expose_php=0), sayfaya eklenti gömme engellendi (CSP).
+                     Site https ile açılırsa oturum çerezi sadece https ile gider (secure).
+
+9) BASLAT.BAT HER BİLGİSAYARDA ÇALIŞIR
+   - PHP yoksa kendisi indirir (araclar/php-indir.ps1), veritabanı yoksa onu da indirir. Kurulum istemez.
+   - Programlar C:\TamirBul klasörüne kurulur: kullanıcı adında Türkçe harf olsa da yol bozulmaz.
+   - Daha önce AppData\Local\TamirBul içine kurulmuşsa onu kullanır, yeniden indirmez.
+   - PHP 8.3.33 seçildi: Windows 11 "Akıllı Uygulama Denetimi" bu sürümü tanıyıp çalıştırıyor.
+
+10) MANTIK HATALARI DÜZELTİLDİ
+   - Biten randevu iptal edilip talep geri döndürülebiliyordu.          tamirci/randevu-durum.php
+   - Yönetici tamircisi olmayan talebi "Tamamlandı" yapabiliyordu.      admin/talep-durum.php
+   - Onayı kaldırılmış tamircinin teklifi kabul edilebiliyordu.         musteri/teklif-kabul.php
+   - Silinen hizmet taleplerde bağlı kalıyordu.                         admin/hizmetler.php
+   - Çalışmayan eski dosyalar silindi (hizmet-ekle/duzenle/sil.php).
+
+11) KEŞFET SAYFALARI ZENGİNLEŞTİRİLDİ                 hakkimizda.php, hizmetler.php, tamirciler.php, iletisim.php
+   Ne:    Dört sayfanın da üstünde fotoğraflı kapak var (ana sayfadaki gibi koyu perdeli).
+          Hakkımızda: hikayemiz (yazı veritabanından + fotoğraf), canlı rakamlar (tamirci, hizmet,
+          kategori, talep sayısı), misyon-vizyon-değerler, neden TamirBul (6 özellik), dört adım,
+          proje ekibi (4 kişinin görevi), sık sorulan sorular, en altta "talep oluştur" çağrısı.
+          Hizmetler: kaç hizmet listelendiği, "fiyatlar nasıl belirlenir" bölümü, alt çağrı.
+          Tamirciler: "tamircilerimiz nasıl seçiliyor" adımları, "aramıza katılın" çağrısı.
+          İletişim: tıklanabilir telefon ve e-posta kartları, konu önerileri, yardım kutuları.
+   Nasıl: Sık sorulan sorular <details> etiketiyle açılır, JavaScript gerekmez.
+          Fotoğraflar internetten (Unsplash) gelir, diğer resimler gibi. İnternet yoksa lacivert zemin görünür.
+          Stiller css/stil.css içinde "Keşfet sayfaları" bölümünde (HARİTA: Sayfa kapağı).
+          Hizmetler ve Tamirciler sayfasının açıklama cümleleri yenilendi (Yönetim > Site yazıları'ndan değişir).
+
+12) SİTE YAZILARI VE SAYFA YAZILARI GELİŞTİRİLDİ      admin/ayarlar.php, admin/sayfa-icerik.php, ortak/site-yazilari.php
+   Ne:    Site yazıları artık sayfalara göre 10 grupta (Genel, Ana sayfa, Hakkımızda, Sık sorulan sorular,
+          Hizmetler, Tamirciler, İletişim, Talep formu, Sayfanın en altı). Toplam 51 yazı.
+          Her kutunun üstünde yazının sitede NEREDE göründüğü yazar. Örnek: "Ana sayfa > fotoğrafın
+          ortasındaki en büyük yazı". Her grubun "Sayfada gör" düğmesi o sayfayı yeni sekmede açar.
+          Solda arama kutusu: "telefon" yazınca sadece içinde telefon geçen kutular kalır.
+          Değiştirilen kutu sarı çizgiyle işaretlenir, altta "Kaydedilmemiş değişiklik var" yazar,
+          kaydetmeden sayfadan çıkılırsa tarayıcı sorar. "İlk haline dön" düğmesi yazının ilk değerini geri koyar.
+          Yazı stili (renk, boyut, K, T...) her kutunun altında açılan kutuda. Stil seçiliyse "Stil var" yazar.
+          Keşfet sayfalarındaki kapak yazıları, misyon-vizyon, sık sorulan sorular, alt çağrılar artık
+          kodda sabit değil, yönetimden değişir.
+          Sayfa yazıları: yazının yeri, "Sayfada gör", harf ve kelime sayacı, aynı sayfanın diğer yazılarına link.
+   Nasıl: Bütün yazıların listesi tek dosyada: ortak/site-yazilari.php. Yeni yazı = listeye bir satır.
+          Sayfa yazıyı yazi_getir("anahtar") ile okur. Veritabanında yoksa listedeki ilk değer görünür,
+          yönetim sayfası açılınca eksik satır veritabanına kendisi eklenir (eski veritabanları da çalışır).
+   Güvenlik: Listede ya da veritabanında olmayan anahtar kaydedilmez. Yazı yerine liste gönderilirse yok sayılır.
+
+13) VERİTABANI YEDEĞİ                                 VERITABANI-YEDEKLE.bat, VERITABANI-YEDEKTEN-YUKLE.bat
+   - veritabani/tamirbul.sql: boş bilgisayarda ilk açılışta yüklenen örnek veritabanı. Yeni 32 yazı eklendi.
+   - veritabani/tamirbul_guncel.sql: bu bilgisayardaki gerçek verilerin tam yedeği (üyeler, talepler, yazılar).
+   - VERITABANI-YEDEKLE.bat: o anki veritabanının yedeğini tamirbul_guncel.sql dosyasına alır.
+   - VERITABANI-YEDEKTEN-YUKLE.bat: yedeği başka bilgisayara yükler. Önce "Devam edilsin mi (E/H)" diye sorar.
+   - İkisi de site açıkken (baslat.bat çalışırken) kullanılır. .sql dosyaları siteden indirilemez (kapı bekçisi).
+
+14) VERİTABANI KENDİ PORTUNDA (3307)                  baslat.bat, ortak/baglanti.php
+   Sorun: Bilgisayarda Laragon gibi başka bir MySQL açıksa 3306 portunu o tutuyordu. baslat.bat
+          veritabanını "zaten açık" sanıp ona bağlanmaya çalışıyor, site açılmıyordu.
+   Çözüm: TamirBul'un veritabanı artık 3307 portunda açılır. Diğer MySQL 3306'da kalır, ikisi aynı anda çalışır.
+          baslat.bat, ortak/baglanti.php, VERITABANI-*.bat ve araclar/veritabani-indir.ps1 3307 kullanır.
+
+
+VERİTABANINA EKLENEN TABLOLAR
+   yazi_stilleri      yazıların renk, boyut, yazı tipi seçimleri
+   hizmet_cihazlari   hangi hizmet hangi cihaz türü için
+   islem_kayitlari    log kayıtları
+   Eski veritabanında yoksa site ilk kullanımda kendisi oluşturur (CREATE TABLE IF NOT EXISTS).
+
+
+SORULABİLECEK 3 SORU
+   S: CSRF nedir?
+   C: Başka bir sitenin, bizim sitemizde giriş yapmış birinin adına gizlice form göndermesi.
+      Her forma sadece bizim bildiğimiz rastgele bir kod koyduk, kod tutmazsa form çalışmaz.
+   S: Neden "e-posta veya şifre hatalı" diye tek mesaj?
+   C: Ayrı mesaj olursa, saldırgan e-posta deneyerek sitedeki üyeleri bulur.
+   S: Log neden tutulur?
+   C: Bir sorun olunca kimin ne yaptığını görmek ve şifre deneme gibi saldırıları fark etmek için.
