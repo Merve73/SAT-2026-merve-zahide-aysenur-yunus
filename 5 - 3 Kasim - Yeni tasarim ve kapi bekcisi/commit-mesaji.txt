@@ -1,0 +1,6 @@
+3 Kasım: Yeni tasarım, SVG ikonlar ve kapı bekçisi
+
+- Uçan ve zıplayan emojiler kaldırıldı, yerine sade SVG ikonlar geldi
+- Inter yazı tipi, yeni düğmeler, yenilenen menü ve kartlar
+- Ana sayfada güven şeridi, telefon görünümü düzeltildi
+- Kapı bekçisi (araclar/kapi.php): veritabanı dosyası ve gizli klasörler dışarıdan açılamaz

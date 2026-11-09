@@ -1,0 +1,14 @@
+# Git'in takip etmeyeceği dosyalar.
+
+# Müşterilerin yüklediği arıza fotoğrafları. Kişisel veri olabilir, depoya girmez.
+# Klasörün kendisi .gitkeep dosyasıyla depoda kalır.
+yuklemeler/*
+!yuklemeler/.gitkeep
+
+# Sunucunun hata kayıt dosyası (araclar/sunucu.bat yazar).
+araclar/hatalar.log
+
+# İşletim sisteminin kendi oluşturduğu dosyalar.
+Thumbs.db
+desktop.ini
+.DS_Store
