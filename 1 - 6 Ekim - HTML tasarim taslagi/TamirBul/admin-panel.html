@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetici Paneli - TamirBul</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <h1>Tamir<span>Bul</span> <span style="font-size: 1rem; color: #f43f5e;">[ADMIN]</span></h1>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="giris.html" class="btn btn-sm btn-outline">Çıkış Yap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="dashboard-section">
+        <div class="container dashboard-container">
+            <div class="dashboard-header">
+                <h2>Sistem Yönetici Paneli</h2>
+                <p>Bekleyen tamirci başvurularını onaylayın ve sistem genelini denetleyin.</p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>24</h3>
+                    <p>Toplam Müşteri</p>
+                </div>
+                <div class="stat-card">
+                    <h3>8</h3>
+                    <p>Aktif Tamirci</p>
+                </div>
+                <div class="stat-card">
+                    <h3>3</h3>
+                    <p>Onay Bekleyen Usta</p>
+                </div>
+            </div>
+
+            <h3 class="section-subtitle">Onay Bekleyen Tamirci Başvuruları</h3>
+            <div class="requests-list">
+                <div class="request-item">
+                    <div class="request-header">
+                        <span class="request-title"> Sorgun Elektronik (Mehmet Usta)</span>
+                        <span class="status-badge pending">Onay Bekliyor</span>
+                    </div>
+                    <div class="request-meta">E-posta: mehmet@servis.com | Uzmanlık: Beyaz Eşya, Küçük Ev Aletleri</div>
+                    <div class="offer-actions" style="gap: 10px; margin-top: 15px;">
+                        <button class="btn btn-sm btn-secondary">Başvuruyu Onayla</button>
+                        <button class="btn btn-sm btn-outline" style="border-color: #f43f5e; color: #f43f5e;">Reddet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-container">
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

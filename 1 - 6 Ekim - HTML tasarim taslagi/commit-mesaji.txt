@@ -1,0 +1,7 @@
+6 Ekim: Sitenin HTML tasarım taslağı
+
+- Ana sayfa, giriş, müşteri ve tamirci kayıt sayfaları
+- Müşteri paneli, tamirci paneli, yönetici paneli
+- Talep oluşturma, taleplerim, talep detayı, teklif verme, uygun talepler, sohbet ekranları
+- Ortak stil dosyası (css/style.css) ve JavaScript dosyası (js/main.js)
+- SAT projesi bilgi formu

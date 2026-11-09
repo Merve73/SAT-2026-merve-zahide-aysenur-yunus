@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taleplerim - TamirBul</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <h1>Tamir<span>Bul</span></h1>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="musteri-paneli.html">Müşteri Paneli</a></li>
+                    <li><a href="talep-olustur.html" class="btn btn-outline">+ Yeni Talep</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="dashboard-section">
+        <div class="container dashboard-container">
+            <div class="dashboard-header">
+                <h2>Tüm Tamir Taleplerim</h2>
+                <p>Oluşturduğunuz tüm aktif ve geçmiş arıza taleplerini buradan listeleyebilirsiniz.</p>
+            </div>
+
+            <div class="requests-list">
+                <div class="request-item">
+                    <div class="request-header">
+                        <span class="request-title"> iPhone 13 - Ekran Değişimi</span>
+                        <span class="status-badge pending">Teklif Bekliyor / Geldi</span>
+                    </div>
+                    <div class="request-meta">Talep Tarihi: 05 Ekim 2026 | Konum: Yozgat / Sorgun</div>
+                    <div class="request-desc">Cihaz yere düştü, camı tamamen çatladı ve dokunmatik çalışmıyor. Orijinal ekran değişimi istiyorum.</div>
+                    <div class="offer-actions">
+                        <a href="talep-detay.html" class="btn btn-sm btn-primary">Detayları Gör & Teklifleri İncele</a>
+                    </div>
+                </div>
+
+                <div class="request-item">
+                    <div class="request-header">
+                        <span class="request-title"> Dyson V15 Süpürge - Tetik Arızası</span>
+                        <span class="status-badge completed">Tamamlandı</span>
+                    </div>
+                    <div class="request-meta">Talep Tarihi: 28 Eylül 2026 | Konum: Kahramanmaraş / Onikişubat</div>
+                    <div class="request-desc">Süpürgenin tetik mekanizması kırıldı, cihaz çalışmıyor.</div>
+                    <div class="offer-actions">
+                        <a href="chat.html" class="btn btn-sm btn-outline">Geçmiş Sohbeti Aç</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-container">
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

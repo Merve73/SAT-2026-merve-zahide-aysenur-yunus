@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamir Talebi Oluştur - TamirBul</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <h1> Tamir<span>Bul</span></h1>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="musteri-paneli.html">Taleplerim</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="musteri-paneli.html" class="btn btn-outline">Hesabım</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="request-section">
+        <div class="container request-container">
+            <div class="request-card">
+                <h2>Arızalı Cihazınız İçin Talep Oluşturun</h2>
+                <p class="request-subtitle">Cihaz bilgilerinizi ne kadar detaylı girerseniz, tamircilerden o kadar doğru fiyat teklifi alırsınız.</p>
+
+                <form id="formTalepOlustur" action="#" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="form-section-title">Cihaz Türü ve Kategorisi</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cmbAnaKategori">Ana Kategori</label>
+                            <select id="cmbAnaKategori" name="ana_kategori_id" required>
+                                <option value="">Kategori Seçiniz</option>
+                                <option value="1"> Mobil & Bilişim (Telefon, Laptop, Tablet)</option>
+                                <option value="2"> Beyaz Eşya (Çamaşır, Bulaşık, Buzdolabı)</option>
+                                <option value="3"> Küçük Ev Aletleri (Süpürge, Kahve Mak.)</option>
+                                <option value="4"> TV & Ses Sistemleri (Televizyon, Amfi)</option>
+                                <option value="5"> Oyun Konsolları (PS, Xbox, Kol)</option>
+                                <option value="6"> Diğer Elektronikler & Kart Tamiri</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cmbCihazTuru">Cihaz Türü</label>
+                            <select id="cmbCihazTuru" name="cihaz_turu_id" required disabled>
+                                <option value="">Önce Ana Kategori Seçiniz</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-section-title"> Marka ve Model Bilgisi</div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="txtMarka">Marka</label>
+                            <input 
+                                type="text" 
+                                id="txtMarka" 
+                                name="marka" 
+                                placeholder="Örn: Apple, Bosch, Dyson, Sony, Samsung" 
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtModel">Model / Seri Numarası (Varsa)</label>
+                            <input 
+                                type="text" 
+                                id="txtModel" 
+                                name="model" 
+                                placeholder="Örn: iPhone 13, V15, PS5, Series 6">
+                        </div>
+                    </div>
+
+                    <div class="form-section-title"> Arıza Detayı ve Görsel</div>
+
+                    <div class="form-group">
+                        <label for="txtArizaAciklamasi">Arıza Açıklaması / Sorun Nedir?</label>
+                        <textarea 
+                            id="txtArizaAciklamasi" 
+                            name="ariza_aciklamasi" 
+                            rows="4" 
+                            placeholder="Örn: Cihazın ekranı kırıldı / Su akıtıyor / Çalışırken ses yapıyor / Tetik basmıyor vb." 
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fileCihazResmi">Cihaz / Arıza Fotoğrafı Ekle (İsteğe Bağlı)</label>
+                        <input 
+                            type="file" 
+                            id="fileCihazResmi" 
+                            name="cihaz_resmi" 
+                            accept="image/*">
+                        
+                    </div>
+
+                    <div class="form-section-title"> Tamir Konumu </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cmbIl">İl</label>
+                            <select id="cmbIl" name="il_id" required>
+                                <option value="">İl Seçiniz</option>
+                                <option value="1">Adana</option>
+                                <option value="6">Ankara</option>
+                                <option value="7">Antalya</option>
+                                <option value="16">Bursa</option>
+                                <option value="34">İstanbul</option>
+                                <option value="35">İzmir</option>
+                                <option value="38">Kayseri</option>
+                                <option value="46">Kahramanmaraş</option>
+                                <option value="66">Yozgat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cmbIlce">İlçe</label>
+                            <select id="cmbIlce" name="ilce_id" required disabled>
+                                <option value="">Önce İl Seçiniz</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btnTalepOlusturSubmit">Talebi Yayınla ve Teklif Topla</button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-container">
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
