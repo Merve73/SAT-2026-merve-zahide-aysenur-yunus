@@ -1,0 +1,3 @@
+﻿Bu klasördekiler ileride eklenecek. Şimdilik kullanılmıyor.
+KOD-HARITASI.txt: kod haritası rehberi.
+Kod haritası sayfası: admin/kod-haritasi.php (şimdilik kapalı, açılınca panele yönlendirir).

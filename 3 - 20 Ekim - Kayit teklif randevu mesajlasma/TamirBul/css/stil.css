@@ -1,0 +1,1398 @@
+/* DOSYA: css/stil.css
+   KİM: Kişi 1
+   NE YAPAR: Sitenin tek stil dosyası. Tasarım "sat proje" klasöründeki HTML'den alındı.
+   Her satırın sonundaki yorum o satırın ne yaptığını söyler.
+   Renkleri değiştirmek için en üstteki :root kutusu değiştirilir. */
+
+/* HARİTA: Renkler (CSS değişkenleri) */
+/* :root içindeki --isim değerleri tüm dosyada var(--isim) diye kullanılır. */
+:root {
+    --primary: #2563eb; /* ana mavi */
+    --primary-dark: #1d4ed8; /* koyu mavi */
+    --secondary: #10b981; /* yeşil */
+    --background: #f8fafc; /* sayfa zemini */
+    --text: #0f172a; /* yazı rengi */
+    --text-light: #64748b; /* soluk yazı */
+    --border: #cbd5e1; /* çerçeve rengi */
+    --navy: #0f172a; /* lacivert şerit */
+    --radius-lg: 16px; /* büyük köşe yuvarlaklığı */
+    --radius-sm: 10px; /* küçük köşe yuvarlaklığı */
+}
+
+/* ----- Genel ----- */
+
+/* Bütün etiketler: tarayıcının boşlukları sıfırlanır. */
+* {
+    margin: 0; /* dış boşluk yok */
+    padding: 0; /* iç boşluk yok */
+    box-sizing: border-box; /* genişliğe kenar da dahil */
+}
+
+/* Sayfa gövdesi. */
+body {
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif; /* yazı tipi */
+    background: var(--background); /* zemin rengi */
+    color: var(--text); /* yazı rengi */
+    line-height: 1.6; /* satır yüksekliği */
+    min-height: 100vh; /* en az ekran boyu */
+    display: flex; /* içeriği kolon yaparız */
+    flex-direction: column; /* üstten alta */
+}
+
+/* Asıl içerik kalan boşluğu doldurur, altlık en altta kalır. */
+main {
+    flex: 1; /* kalan yüksekliği al */
+}
+
+/* Başlıkların satır aralığı. */
+h1, h2, h3, h4, h5 {
+    line-height: 1.25; /* başlıklarda sık satır */
+}
+
+/* Linkler. */
+a {
+    color: var(--primary); /* mavi link */
+}
+
+/* Resimler kutusundan taşmasın. */
+img {
+    max-width: 100%; /* en fazla kutu genişliği */
+}
+
+/* Paragraflar. */
+p {
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Ortadaki içerik alanı. */
+.container,
+.kapsayici {
+    width: 88%; /* ekranın %88'i */
+    max-width: 1200px; /* en fazla 1200 piksel */
+    margin: 0 auto; /* ortala */
+}
+
+/* ----- Düğmeler ----- */
+
+/* HARİTA: Parlak renkli düğmeler (btn) */
+/* Bütün düğmelerin ortak görünüşü. */
+.btn {
+    display: inline-flex; /* yazı ortada */
+    justify-content: center; /* yatay ortala */
+    align-items: center; /* dikey ortala */
+    position: relative; /* ::before bunun içinde konumlanır */
+    overflow: hidden; /* taşan renk gizlenir */
+    padding: 11px 26px; /* iç boşluk */
+    border: none; /* çerçeve yok */
+    border-radius: 40px; /* yuvarlak kenar */
+    text-decoration: none; /* link alt çizgisi yok */
+    font-weight: 700; /* kalın yazı */
+    font-size: 0.95rem; /* yazı boyu */
+    font-family: inherit; /* sayfanın yazı tipi */
+    cursor: pointer; /* el işareti */
+    color: #ffffff; /* beyaz yazı */
+    z-index: 1; /* yazı renkli zeminin üstünde */
+    transition: transform 0.3s, box-shadow 0.3s; /* yumuşak hareket */
+    white-space: nowrap; /* yazı tek satır */
+}
+
+/* Düğmenin arkasında kayan renkli zemin. */
+.btn::before {
+    content: ""; /* boş kutu */
+    position: absolute; /* düğmenin üstüne yerleşir */
+    top: -2px; /* üst kenar */
+    left: -2px; /* sol kenar */
+    right: -2px; /* sağ kenar */
+    bottom: -2px; /* alt kenar */
+    background: linear-gradient(45deg, #ff007f, #7928ca, #4f46e5, #3b82f6, #00ff87, #ff007f); /* renk geçişi */
+    background-size: 400%; /* renk şeridi geniş */
+    z-index: -1; /* yazının arkasında */
+    animation: renkKaydir 6s linear infinite; /* sürekli kayar */
+}
+
+/* Renkli zemini soldan sağa kaydıran animasyon. */
+@keyframes renkKaydir {
+    0% { background-position: 0% 50%; } /* başlangıç */
+    50% { background-position: 100% 50%; } /* orta */
+    100% { background-position: 0% 50%; } /* başa dön */
+}
+
+/* Fare üstüne gelince düğme hafif kalkar. */
+.btn:hover {
+    transform: translateY(-3px); /* yukarı kay */
+    box-shadow: 0 12px 28px rgba(121, 40, 202, 0.45); /* mor gölge */
+}
+
+/* Koyu içi, renkli çerçeveli düğme. */
+.btn-outline {
+    color: #93c5fd; /* açık mavi yazı */
+}
+
+/* ::after renkli zeminin üstüne 2 piksel içeriden koyu kutu koyar, çerçeve gibi görünür. */
+.btn-outline::after {
+    content: ""; /* boş kutu */
+    position: absolute; /* düğmenin üstüne */
+    top: 2px; /* 2 piksel içeride */
+    left: 2px; /* 2 piksel içeride */
+    right: 2px; /* 2 piksel içeride */
+    bottom: 2px; /* 2 piksel içeride */
+    background: #0f172a; /* koyu lacivert */
+    border-radius: 40px; /* yuvarlak */
+    z-index: -1; /* yazının arkasında */
+}
+
+/* Outline düğmenin üstüne gelince iç renk açılır. */
+.btn-outline:hover::after {
+    background: #1e3a8a; /* koyu mavi */
+}
+
+/* Büyük ana sayfa düğmesi. */
+.btn-hero {
+    font-size: 1.1rem; /* büyük yazı */
+    padding: 15px 36px; /* geniş */
+}
+
+/* Küçük düğme. */
+.btn-sm {
+    padding: 7px 18px; /* küçük iç boşluk */
+    font-size: 0.85rem; /* küçük yazı */
+}
+
+/* Kutunun tamamını kaplayan düğme. */
+.btn-block {
+    display: flex; /* blok düğme */
+    width: 100%; /* tam genişlik */
+    margin-top: 10px; /* üst boşluk */
+}
+
+/* Kırmızı düğme: sil, reddet, iptal. ::before yerine sabit renk. */
+.btn-danger::before {
+    background: linear-gradient(135deg, #be123c, #f43f5e); /* kırmızı */
+}
+
+/* Yeşil düğme: kabul, tamamlandi. */
+.btn-success::before {
+    background: linear-gradient(135deg, #16a34a, #22c55e); /* yeşil */
+}
+
+/* ----- Üst menü ----- */
+
+/* HARİTA: Üst menü görünümü (navbar) */
+/* Koyu lacivert üst şerit. */
+.navbar {
+    background: rgba(15, 23, 42, 0.97); /* koyu lacivert */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35); /* alt gölge */
+    position: sticky; /* sayfa kayarken üstte kalır */
+    top: 0; /* en üstte */
+    z-index: 1000; /* her şeyin üstünde */
+}
+
+/* Logo, linkler, düğmeler yan yana. */
+.navbar-container {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 20px; /* aradaki boşluk */
+    padding: 14px 0; /* üst alt boşluk */
+}
+
+/* Logo linki. */
+.logo {
+    text-decoration: none; /* alt çizgi yok */
+    flex-shrink: 0; /* daralmasın */
+}
+
+/* Logo yazısı. */
+.logo h1 {
+    font-size: 1.6rem; /* büyük */
+    font-weight: 900; /* çok kalın */
+    color: #f8fafc; /* beyaz */
+}
+
+/* Logonun renkli ikinci yarısı. */
+.logo span {
+    background: linear-gradient(135deg, #60a5fa, #c084fc, #f43f5e); /* renk geçişi */
+    -webkit-background-clip: text; /* renk sadece yazıda */
+    background-clip: text; /* renk sadece yazıda */
+    -webkit-text-fill-color: transparent; /* yazının kendi rengi şeffaf */
+}
+
+/* Linkler ve düğmeler kutusu. */
+.menu {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    flex: 1; /* kalan genişliği al */
+    gap: 20px; /* boşluk */
+}
+
+/* Link listesi sağa yaslanır. */
+.nav-menu {
+    margin-left: auto; /* sağa it */
+}
+
+/* Linkler yan yana. */
+.nav-menu ul {
+    display: flex; /* yan yana */
+    list-style: none; /* madde işareti yok */
+    gap: 16px; /* boşluk */
+}
+
+/* Tek link. */
+.nav-menu a {
+    color: #94a3b8; /* gri */
+    text-decoration: none; /* alt çizgi yok */
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.92rem; /* yazı boyu */
+}
+
+/* Üstüne gelinen ve açık sayfanın linki. */
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #60a5fa; /* açık mavi */
+}
+
+/* Giriş düğmeleri ve kullanıcı kutusu. */
+.auth-buttons,
+.user-profile-menu {
+    display: flex; /* yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Giriş yapan kişinin adı. */
+.user-name {
+    color: #e2e8f0; /* açık gri */
+    font-size: 0.9rem; /* küçük */
+}
+
+/* Telefon menü düğmesi. Bilgisayarda gizli. */
+.menu-dugmesi {
+    display: none; /* gizli */
+    margin-left: auto; /* sağa */
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz yazı */
+    border: 0; /* çerçeve yok */
+    border-radius: 8px; /* yuvarlak */
+    padding: 8px 14px; /* iç boşluk */
+    font-weight: 700; /* kalın */
+}
+
+/* Panel sayfalarındaki ikinci menü. */
+.alt-menu {
+    background: #1e293b; /* koyu gri-mavi */
+}
+
+/* İkinci menünün satırları. */
+.alt-menu .kapsayici {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satıra */
+    gap: 6px 20px; /* boşluk */
+    padding: 8px 0; /* üst alt boşluk */
+}
+
+/* İkinci satır (yönetim) ince çizgiyle ayrılır. */
+.alt-menu .kapsayici + .kapsayici {
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* ince çizgi */
+}
+
+/* İkinci menü linki. */
+.alt-menu a {
+    color: #cbd5e1; /* açık gri */
+    text-decoration: none; /* alt çizgi yok */
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.9rem; /* küçük */
+}
+
+/* İkinci menü linki üstüne gelince. */
+.alt-menu a:hover {
+    color: #60a5fa; /* mavi */
+}
+
+/* ----- Uyarı kutuları ----- */
+
+/* Sarı şerit: veritabanı kapalı, tamirci onaysız. */
+.uyari {
+    background: #fef9c3; /* açık sarı */
+    color: #854d0e; /* koyu sarı yazı */
+    padding: 12px 6%; /* iç boşluk */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* Kırmızı hata kutusu. */
+.hata {
+    background: #ffe4e6; /* açık kırmızı */
+    color: #9f1239; /* koyu kırmızı yazı */
+    border: 1px solid #fda4af; /* kırmızı çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Yeşil başarı kutusu. */
+.tamam {
+    background: #dcfce7; /* açık yeşil */
+    color: #166534; /* koyu yeşil yazı */
+    border: 1px solid #86efac; /* yeşil çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Boş liste yazısı. */
+.bos-liste {
+    background: #ffffff; /* beyaz */
+    border: 1px dashed var(--border); /* kesik çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 24px; /* iç boşluk */
+    text-align: center; /* ortalı */
+    color: var(--text-light); /* soluk yazı */
+    margin-bottom: 25px; /* alt boşluk */
+}
+
+/* HARİTA: Giriş gerekli kutusu (giriş yap / kayıt ol düğmeleri) */
+/* Giriş yapmadan açılamayan sayfalarda çıkan kutu. Yazı ve iki düğme ortada. */
+.giris-gerekli {
+    background: #eff6ff; /* açık mavi */
+    border: 1px solid #bfdbfe; /* mavi çerçeve */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    padding: 28px 20px; /* iç boşluk */
+    text-align: center; /* ortalı */
+}
+
+/* Kutunun yazısı. */
+.giris-gerekli p {
+    color: #1e3a8a; /* koyu mavi */
+    font-weight: 600; /* yarı kalın */
+    margin-bottom: 16px; /* düğmelerle arasında boşluk */
+}
+
+/* Düğmeler yan yana ve ortada. */
+.giris-gerekli .kart-dugmeleri {
+    justify-content: center; /* ortala */
+}
+
+/* ----- Ana sayfa ----- */
+
+/* HARİTA: Ana sayfa karşılama ve slayt görünümü */
+/* Tam ekran karşılama alanı. */
+.hero-section {
+    position: relative; /* resimler bunun içine yerleşir */
+    height: 85vh; /* ekranın %85'i */
+    min-height: 480px; /* en az yükseklik */
+    display: flex; /* içeriği ortala */
+    align-items: center; /* dikey ortala */
+    overflow: hidden; /* taşan resim gizlenir */
+}
+
+/* Slayt resimlerinin kutusu. */
+.hero-bg-slider {
+    position: absolute; /* alanın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+}
+
+/* Her slayt resmi üst üste durur ve görünmezdir. js/site.js sırayla "aktif" yapar. */
+.slayt {
+    position: absolute; /* üst üste */
+    top: 0; /* üst kenara */
+    left: 0; /* sol kenara */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+    object-fit: cover; /* resmi kırparak doldur */
+    opacity: 0; /* görünmez */
+    transition: opacity 1.2s; /* yavaşça görünsün */
+}
+
+/* Görünen slayt. */
+.slayt.aktif {
+    opacity: 1; /* görünür */
+}
+
+/* Resmin üstündeki koyu perde. */
+.hero-overlay {
+    position: absolute; /* alanın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    width: 100%; /* tam genişlik */
+    height: 100%; /* tam yükseklik */
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(30, 27, 75, 0.78)); /* koyu perde */
+}
+
+/* Yazıların kutusu, perdenin üstünde. */
+.hero-container-center {
+    position: relative; /* perdenin üstüne çıkar */
+    text-align: center; /* ortalı yazı */
+}
+
+/* Yazı alanı genişliği. */
+.hero-content {
+    max-width: 800px; /* en fazla 800 piksel */
+    margin: 0 auto; /* ortala */
+}
+
+/* Büyük başlık. */
+.hero-content h2 {
+    font-size: clamp(2rem, 4.5vw, 3.4rem); /* ekrana göre büyüyen yazı */
+    font-weight: 900; /* çok kalın */
+    color: #ffffff; /* beyaz */
+    margin-bottom: 22px; /* alt boşluk */
+}
+
+/* Açıklama yazısı. */
+.hero-content p {
+    font-size: 1.15rem; /* büyükçe */
+    color: #e2e8f0; /* açık gri */
+    margin-bottom: 32px; /* alt boşluk */
+}
+
+/* İki düğme yan yana. */
+.hero-actions {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    justify-content: center; /* ortala */
+    gap: 14px; /* boşluk */
+}
+
+/* Ana sayfa bölümleri. */
+.how-it-works-section,
+.categories-section {
+    padding: 80px 0; /* üst alt boşluk */
+}
+
+/* Bölüm başlığı. */
+.section-title {
+    text-align: center; /* ortalı */
+    font-size: 2.1rem; /* büyük */
+    margin-bottom: 40px; /* alt boşluk */
+}
+
+/* Kart ızgaraları. auto-fit: satıra sığdığı kadar kart koyar. */
+.steps-grid,
+.categories-grid,
+.kart-alani,
+.secim-kartlari {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* en az 240 piksel kart */
+    gap: 24px; /* kartlar arası boşluk */
+}
+
+/* Kayıt seçim sayfasındaki iki kart. */
+.secim-kartlari {
+    width: 100%; /* tam genişlik */
+    max-width: 820px; /* en fazla */
+}
+
+/* Beyaz kartlar. */
+.step-card,
+.category-card,
+.kart {
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    padding: 28px 24px; /* iç boşluk */
+    text-align: center; /* ortalı yazı */
+    transition: transform 0.3s; /* yumuşak hareket */
+    height: 100%; /* satırdaki kartlar eşit boy */
+}
+
+/* Kartın üstüne gelince hafif kalkar. */
+.step-card:hover,
+.category-card:hover,
+.kart:hover {
+    transform: translateY(-4px); /* yukarı */
+}
+
+/* Kart başlıkları. */
+.step-card h3,
+.category-card h3,
+.kart h2 {
+    font-size: 1.2rem; /* yazı boyu */
+    margin: 8px 0; /* üst alt boşluk */
+}
+
+/* Tıklanabilir kart linki. */
+.category-card-link {
+    text-decoration: none; /* alt çizgi yok */
+    color: inherit; /* yazı rengi kartın */
+}
+
+/* Kartın altındaki "Talep Oluştur" yazısı. */
+.card-action-text {
+    font-weight: 700; /* kalın */
+    color: var(--primary); /* mavi */
+}
+
+/* Adım numarası kutusu. */
+.step-number {
+    width: 54px; /* genişlik */
+    height: 54px; /* yükseklik */
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz */
+    font-size: 1.4rem; /* büyük */
+    font-weight: 800; /* kalın */
+    border-radius: 16px; /* yuvarlak */
+    display: flex; /* rakamı ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    margin: 0 auto 14px auto; /* ortala, alt boşluk */
+}
+
+/* Bölümün altındaki link. */
+.section-link {
+    text-align: center; /* ortalı */
+    margin-top: 30px; /* üst boşluk */
+}
+
+/* ----- Arka plani resimli kart ----- */
+
+/* HARİTA: Resimli kart görünümü (CSS) */
+/* Resim style="background-image" ile gelir. Resim yoksa lacivert kalır. */
+.resimli-kart {
+    position: relative; /* perde bunun içinde */
+    overflow: hidden; /* taşan perde gizlenir */
+    background-color: #1e293b; /* resim yoksa lacivert */
+    background-size: cover; /* resmi kırparak doldur */
+    background-position: center; /* resmi ortala */
+    border: none; /* çerçeve yok */
+    color: #ffffff; /* beyaz yazı */
+    min-height: 260px; /* en az yükseklik */
+    display: flex; /* içeriği kolon yap */
+    flex-direction: column; /* üstten alta */
+    justify-content: flex-end; /* yazılar alta yaslanır */
+}
+
+/* Resmin üstündeki, aşağı doğru koyulaşan perde. */
+.resimli-kart::before {
+    content: ""; /* boş kutu */
+    position: absolute; /* kartın tamamını kaplar */
+    top: 0; /* üst */
+    left: 0; /* sol */
+    right: 0; /* sağ */
+    bottom: 0; /* alt */
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.25), rgba(15, 23, 42, 0.92) 75%); /* koyu perde */
+}
+
+/* Kartın içindeki her şey perdenin üstünde. */
+.resimli-kart > * {
+    position: relative; /* perdenin üstüne çıkar */
+}
+
+/* Resimli karttaki başlıklar beyaz. */
+.resimli-kart h1,
+.resimli-kart h2,
+.resimli-kart h3,
+.resimli-kart strong {
+    color: #ffffff; /* beyaz */
+}
+
+/* Resimli karttaki yazılar açık gri. */
+.resimli-kart p {
+    color: #e2e8f0; /* açık gri */
+}
+
+/* Resimli karttaki fiyat yeşil. */
+.resimli-kart .fiyat {
+    color: #4ade80; /* açık yeşil */
+}
+
+/* Resimli karttaki puan sarı. */
+.resimli-kart .rating {
+    color: #fcd34d; /* sarı */
+}
+
+/* Resimli karttaki alt link yazısı. */
+.resimli-kart .card-action-text {
+    color: #93c5fd; /* açık mavi */
+}
+
+/* ----- Formlar ----- */
+
+/* Form sayfası bölümü: kart ortada. */
+.auth-section,
+.request-section {
+    padding: 50px 20px; /* iç boşluk */
+}
+
+/* Kartları ortalayan kutu. */
+.auth-container,
+.request-container {
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    align-items: center; /* ortala */
+    gap: 24px; /* kartlar arası boşluk */
+}
+
+/* Beyaz form kartı. */
+.auth-card,
+.request-card,
+.form-kutu,
+.bilgi-kutu,
+.sohbet-karti {
+    width: 100%; /* tam genişlik */
+    max-width: 600px; /* en fazla */
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08); /* gölge */
+    padding: 36px 32px; /* iç boşluk */
+    margin-bottom: 24px; /* alt boşluk */
+}
+
+/* Geniş kartlar. */
+.auth-card-wide,
+.request-card,
+.sohbet-karti {
+    max-width: 820px; /* daha geniş */
+}
+
+/* Dar özet kartı (talep takip, teklif ver). */
+.dar-kart {
+    width: 100%; /* tam genişlik */
+    max-width: 600px; /* en fazla */
+}
+
+/* Üst üstte iki kart arasında boşluk. */
+.bosluklu {
+    margin-top: 10px; /* üst boşluk */
+}
+
+/* Form kartındaki başlık. */
+.auth-card h2,
+.request-card h2 {
+    font-size: 1.7rem; /* büyük */
+    text-align: center; /* ortalı */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Form kartındaki açıklama. */
+.auth-subtitle,
+.request-subtitle {
+    color: var(--text-light); /* soluk */
+    text-align: center; /* ortalı */
+    margin-bottom: 24px; /* alt boşluk */
+}
+
+/* Talep formundaki ara başlık. */
+.form-section-title {
+    font-weight: 800; /* kalın */
+    color: var(--primary-dark); /* koyu mavi */
+    border-bottom: 2px solid #dbeafe; /* alt çizgi */
+    margin: 24px 0 14px 0; /* boşluk */
+}
+
+/* Bir etiket + kutu ikilisi. */
+.form-group {
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Kutu adı. */
+label {
+    display: block; /* kendi satırı */
+    font-size: 0.88rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+    color: #334155; /* koyu gri */
+    margin-bottom: 6px; /* alt boşluk */
+}
+
+/* Eski tip formlarda label üstünde boşluk. */
+.form-kutu label {
+    margin-top: 12px; /* üst boşluk */
+}
+
+/* Küçük açıklama yazısı. */
+.form-help,
+.kucuk-etiket {
+    font-size: 0.85rem; /* küçük */
+    font-weight: 400; /* normal kalınlık */
+    color: var(--text-light); /* soluk */
+}
+
+/* Yazı kutuları ve seçim kutuları. */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="file"],
+select,
+textarea {
+    display: block; /* kendi satırı */
+    width: 100%; /* tam genişlik */
+    padding: 11px 14px; /* iç boşluk */
+    border: 1.5px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    font-size: 0.95rem; /* yazı boyu */
+    font-family: inherit; /* sayfanın yazı tipi */
+    background: #ffffff; /* beyaz */
+}
+
+/* Kutuya tıklayınca mavi çerçeve. */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none; /* tarayıcının çizgisi yok */
+    border-color: var(--primary); /* mavi çerçeve */
+}
+
+/* Kilitli kutu soluk. */
+select:disabled,
+input:disabled {
+    background: #f1f5f9; /* gri zemin */
+}
+
+/* Büyük yazı kutusu. */
+textarea {
+    min-height: 90px; /* en az yükseklik */
+}
+
+/* Onay ve seçim kutuları küçük kalsın. */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 16px; /* küçük */
+    height: 16px; /* küçük */
+    accent-color: var(--primary); /* mavi işaret */
+}
+
+/* İki kutu yan yana. */
+.form-row {
+    display: flex; /* yan yana */
+    gap: 18px; /* boşluk */
+}
+
+/* Yan yana kutular eşit genişlik. */
+.form-row .form-group {
+    flex: 1; /* eşit pay */
+}
+
+/* Beni hatırla ve şifremi unuttum satırı. */
+.form-actions-row {
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: center; /* dikey ortala */
+    margin-bottom: 18px; /* alt boşluk */
+}
+
+/* Beni hatırla kutusu ve yazısı. */
+.remember-me {
+    display: flex; /* yan yana */
+    gap: 8px; /* boşluk */
+    margin: 0; /* boşluk yok */
+}
+
+/* Şifremi unuttum linki. */
+.forgot-password {
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.88rem; /* küçük */
+}
+
+/* Form kartının altı. */
+.auth-footer {
+    margin-top: 24px; /* üst boşluk */
+    padding-top: 18px; /* iç boşluk */
+    border-top: 1px solid var(--border); /* üst çizgi */
+    text-align: center; /* ortalı */
+}
+
+/* Kayıt linkleri yan yana. */
+.register-links {
+    display: flex; /* yan yana */
+    justify-content: center; /* ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Müşteri ve tamirci kayıt linkleri. */
+.link-primary,
+.link-secondary {
+    font-weight: 700; /* kalın */
+    text-decoration: none; /* alt çizgi yok */
+}
+
+/* Tamirci linki yeşil. */
+.link-secondary {
+    color: #059669; /* yeşil */
+}
+
+/* Yetkinlik kutularının ızgarası. */
+.competencies-grid {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* en az 200 piksel */
+    gap: 10px; /* boşluk */
+}
+
+/* Tek yetkinlik kutusu. */
+.checkbox-card {
+    display: flex; /* kutu ve yazı yan yana */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    padding: 11px 14px; /* iç boşluk */
+    border: 1.5px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    cursor: pointer; /* el işareti */
+}
+
+/* Yetkinlik kutusunun üstüne gelince. */
+.checkbox-card:hover {
+    border-color: var(--primary); /* mavi çerçeve */
+}
+
+/* ----- Paneller ----- */
+
+/* Panel ve normal sayfa bölümü. */
+.dashboard-section,
+.sayfa {
+    padding: 40px 0 60px 0; /* üst alt boşluk */
+}
+
+/* Panel başlığı alanı. */
+.dashboard-header {
+    margin-bottom: 26px; /* alt boşluk */
+}
+
+/* Panel ve sayfa başlığı. */
+.dashboard-header h2,
+.sayfa h1 {
+    font-size: 2rem; /* büyük */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Panel açıklaması. */
+.dashboard-header p,
+.giris-metni {
+    color: var(--text-light); /* soluk */
+    margin-bottom: 20px; /* alt boşluk */
+}
+
+/* Sayfa içindeki ikinci başlıklar. */
+.sayfa h2 {
+    font-size: 1.3rem; /* orta */
+    margin: 10px 0 12px 0; /* boşluk */
+}
+
+/* Sayaç kutularının ızgarası. */
+.stats-cards-grid {
+    display: grid; /* ızgara */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* en az 180 piksel */
+    gap: 18px; /* boşluk */
+    margin-bottom: 30px; /* alt boşluk */
+}
+
+/* Tek sayaç kutusu. */
+.stat-card {
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-top: 4px solid var(--primary); /* üstte mavi çizgi */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 20px 14px; /* iç boşluk */
+    text-align: center; /* ortalı */
+}
+
+/* Turuncu çizgili sayaç: dikkat isteyen. */
+.stat-card.highlight {
+    border-top-color: #f59e0b; /* turuncu */
+}
+
+/* Yeşil çizgili sayaç: biten işler. */
+.stat-card.success {
+    border-top-color: var(--secondary); /* yeşil */
+}
+
+/* Sayaç sayısı. */
+.stat-number {
+    display: block; /* kendi satırı */
+    font-size: 2rem; /* büyük */
+    font-weight: 900; /* çok kalın */
+    color: var(--primary); /* mavi */
+}
+
+/* Sayaç yazısı. */
+.stat-label {
+    color: var(--text-light); /* soluk */
+    font-size: 0.9rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* Bölüm başlıkları. */
+.content-title,
+.section-subtitle {
+    font-size: 1.35rem; /* orta */
+    margin: 10px 0 18px 0; /* boşluk */
+}
+
+/* Düğme satırı. */
+.kart-dugmeleri,
+.offer-actions,
+.detail-actions {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+    margin: 10px 0; /* üst alt boşluk */
+}
+
+/* ----- Talep ve teklif kartları ----- */
+
+/* Liste. */
+.requests-list {
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    gap: 18px; /* kartlar arası boşluk */
+    margin-bottom: 26px; /* alt boşluk */
+}
+
+/* Talep kartı. */
+.request-item-card,
+.request-item {
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-lg); /* yuvarlak */
+    padding: 24px 26px; /* iç boşluk */
+    margin-bottom: 20px; /* alt boşluk */
+}
+
+/* Kart üstü: solda bilgi, sağda düğme. */
+.request-item-header,
+.request-header {
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: flex-start; /* üstten hizala */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 10px; /* boşluk */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Kart başlığı (cihaz adı). */
+.request-item-card h3,
+.request-item-card h4,
+.request-title {
+    font-size: 1.2rem; /* orta */
+    margin: 8px 0 4px 0; /* boşluk */
+}
+
+/* Kod, tarih, konum satırı. */
+.request-date,
+.request-meta {
+    color: var(--text-light); /* soluk */
+    font-size: 0.88rem; /* küçük */
+}
+
+/* Arıza yazısı alanı. */
+.request-item-body,
+.request-desc {
+    padding: 12px 0; /* üst alt boşluk */
+    border-top: 1px solid #e2e8f0; /* üst çizgi */
+}
+
+/* Durum etiketi. Rengi durum_rozeti() fonksiyonu seçer. */
+.badge {
+    display: inline-block; /* yazı kadar */
+    padding: 3px 12px; /* iç boşluk */
+    border-radius: 20px; /* hap şeklinde */
+    font-size: 0.8rem; /* küçük */
+    font-weight: 700; /* kalın */
+}
+
+/* Mavi etiket. */
+.badge-info {
+    background: #dbeafe; /* açık mavi */
+    color: #1e40af; /* koyu mavi */
+}
+
+/* Sarı etiket. */
+.badge-warning {
+    background: #fef9c3; /* açık sarı */
+    color: #854d0e; /* koyu sarı */
+}
+
+/* Yeşil etiket. */
+.badge-success {
+    background: #dcfce7; /* açık yeşil */
+    color: #166534; /* koyu yeşil */
+}
+
+/* Kırmızı etiket. */
+.badge-danger {
+    background: #ffe4e6; /* açık kırmızı */
+    color: #9f1239; /* koyu kırmızı */
+}
+
+/* Gri etiket. */
+.badge-gri {
+    background: #f1f5f9; /* açık gri */
+    color: #334155; /* koyu gri */
+}
+
+/* Mavi küçük etiket (kategori). */
+.etiket {
+    display: inline-block; /* yazı kadar */
+    background: #dbeafe; /* açık mavi */
+    color: #1e40af; /* koyu mavi */
+    border-radius: 20px; /* hap */
+    padding: 3px 12px; /* iç boşluk */
+    font-size: 0.8rem; /* küçük */
+    font-weight: 700; /* kalın */
+}
+
+/* Gelen teklifler alanı. */
+.offers-subpanel {
+    background: #f8fafc; /* açık gri */
+    border: 1px solid #e2e8f0; /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 16px; /* iç boşluk */
+}
+
+/* Alan başlıkları. */
+.offers-subpanel h5,
+.offer-form-box h5 {
+    font-size: 1rem; /* normal */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Tek teklif kartı. */
+.offer-card {
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 14px 18px; /* iç boşluk */
+    display: flex; /* yan yana */
+    justify-content: space-between; /* iki uca */
+    align-items: center; /* dikey ortala */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 12px; /* boşluk */
+    margin-bottom: 10px; /* alt boşluk */
+}
+
+/* Kabul edilen teklif yeşil çerçeveli. */
+.offer-card.kabul {
+    border: 2px solid #22c55e; /* yeşil çerçeve */
+    background: #f0fdf4; /* açık yeşil */
+}
+
+/* Teklifteki puan ve not satırları. */
+.offer-mechanic-info span,
+.offer-mechanic-info small {
+    display: block; /* kendi satırı */
+    font-size: 0.85rem; /* küçük */
+    color: var(--text-light); /* soluk */
+}
+
+/* Puan yazısı. */
+.rating {
+    color: #b45309; /* koyu sarı */
+}
+
+/* Fiyat, süre ve düğmeler. */
+.offer-details {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Fiyat yazısı. */
+.offer-price,
+.fiyat {
+    font-size: 1.15rem; /* büyükçe */
+    font-weight: 800; /* kalın */
+    color: #059669; /* yeşil */
+}
+
+/* Tamircinin teklif kutusu. */
+.offer-form-box {
+    background: #f0f9ff; /* açık mavi */
+    border: 1px solid #bae6fd; /* mavi çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 16px; /* iç boşluk */
+}
+
+/* Teklif formu kutuları tek satır. */
+.form-row-align {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: flex-end; /* alta hizala */
+    gap: 12px; /* boşluk */
+}
+
+/* Teklif formundaki her kutu. */
+.form-row-align .form-group {
+    flex: 1; /* eşit pay */
+    min-width: 150px; /* en az genişlik */
+    margin-bottom: 0; /* alt boşluk yok */
+}
+
+/* Teklif formundaki düğme daralmasın. */
+.form-row-align .button-group {
+    flex: 0; /* düğme kadar */
+}
+
+/* Seçilen tamirci kutusu (yeşil). */
+.completed-note {
+    background: #f0fdf4; /* açık yeşil */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    padding: 12px 16px; /* iç boşluk */
+}
+
+/* Puan formu satırı. */
+.puan-formu {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    align-items: center; /* dikey ortala */
+    gap: 10px; /* boşluk */
+}
+
+/* Puan seçim kutusu dar. */
+.puan-formu select {
+    width: auto; /* içerik kadar */
+}
+
+/* Talep detayı: solda bilgi, sağda fotoğraf. */
+.request-details-grid {
+    display: grid; /* ızgara */
+    grid-template-columns: 2fr 1fr; /* 2'ye 1 */
+    gap: 24px; /* boşluk */
+    padding: 14px 0; /* üst alt boşluk */
+}
+
+/* Bilgi listesi. */
+.detail-list {
+    list-style: none; /* madde işareti yok */
+}
+
+/* Bilgi satırı. */
+.detail-list li {
+    padding: 6px 0; /* üst alt boşluk */
+    border-bottom: 1px dashed #e2e8f0; /* kesik alt çizgi */
+}
+
+/* Fotoğraf çerçevesi. */
+.image-preview-frame {
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    min-height: 150px; /* en az yükseklik */
+    display: flex; /* içeriği ortala */
+    align-items: center; /* dikey ortala */
+    justify-content: center; /* yatay ortala */
+    padding: 6px; /* iç boşluk */
+    color: var(--text-light); /* soluk yazı */
+}
+
+/* Konum etiketi. */
+.location-badge {
+    background: #f1f5f9; /* açık gri */
+    border-radius: 20px; /* hap */
+    padding: 5px 14px; /* iç boşluk */
+    font-size: 0.88rem; /* küçük */
+    font-weight: 600; /* yarı kalın */
+}
+
+/* ----- Sohbet ----- */
+
+/* HARİTA: Sohbet ekranı görünümü (balonlar) */
+/* Mesajların kayan kutusu. */
+.chat-messages {
+    height: 400px; /* sabit yükseklik */
+    overflow-y: auto; /* taşarsa kaydırma çubuğu */
+    display: flex; /* kolon */
+    flex-direction: column; /* üstten alta */
+    gap: 12px; /* balonlar arası boşluk */
+}
+
+/* Karşı tarafın mesajı: solda gri. */
+.mesaj-balonu {
+    align-self: flex-start; /* sola */
+    background: #f1f5f9; /* gri */
+    padding: 10px 15px; /* iç boşluk */
+    border-radius: 12px; /* yuvarlak */
+    max-width: 75%; /* en fazla genişlik */
+}
+
+/* Benim mesajım: sağda mavi. */
+.mesaj-balonu.benim {
+    align-self: flex-end; /* sağa */
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz yazı */
+}
+
+/* Balondaki ad ve saat. */
+.mesaj-balonu small {
+    display: block; /* kendi satırı */
+    font-weight: 700; /* kalın */
+    opacity: 0.75; /* biraz soluk */
+}
+
+/* Mesaj yazma satırı. */
+.sohbet-formu {
+    display: flex; /* yan yana */
+    gap: 10px; /* boşluk */
+    margin-top: 14px; /* üst boşluk */
+}
+
+/* ----- Tablolar ----- */
+
+/* Tablo kutusu: dar ekranda yana kayar. */
+.tablo-kutu {
+    overflow-x: auto; /* yana kaydırma */
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: var(--radius-sm); /* yuvarlak */
+    margin-bottom: 26px; /* alt boşluk */
+}
+
+/* Tablo. */
+table {
+    width: 100%; /* tam genişlik */
+    border-collapse: collapse; /* çift çizgi yok */
+}
+
+/* Hücreler. */
+th, td {
+    text-align: left; /* sola yaslı */
+    padding: 10px 12px; /* iç boşluk */
+    border-bottom: 1px solid #e2e8f0; /* alt çizgi */
+    vertical-align: top; /* üste hizala */
+    font-size: 0.92rem; /* küçükçe */
+}
+
+/* Başlık hücreleri. */
+th {
+    background: var(--navy); /* lacivert */
+    color: #ffffff; /* beyaz */
+}
+
+/* Tablodaki formlar yan yana. */
+td form {
+    display: inline-block; /* yan yana */
+    margin: 0 4px 4px 0; /* küçük boşluk */
+}
+
+/* Tablodaki seçim kutusu dar. */
+td select {
+    display: inline-block; /* yan yana */
+    width: auto; /* içerik kadar */
+    padding: 6px 10px; /* küçük iç boşluk */
+}
+
+/* Tablodaki küçük resim. */
+.tablo-resmi {
+    width: 90px; /* genişlik */
+    height: 56px; /* yükseklik */
+    object-fit: cover; /* kırparak doldur */
+    border-radius: 6px; /* yuvarlak */
+}
+
+/* Yönetim formundaki resim önizlemesi. */
+.resim-onizleme {
+    display: block; /* kendi satırı */
+    width: 220px; /* genişlik */
+    height: 130px; /* yükseklik */
+    object-fit: cover; /* kırparak doldur */
+    border-radius: var(--radius-sm); /* yuvarlak */
+}
+
+/* ----- Diğer ----- */
+
+/* Filtre linkleri. */
+.filtre {
+    display: flex; /* yan yana */
+    flex-wrap: wrap; /* sığmazsa alt satır */
+    gap: 8px; /* boşluk */
+    margin-bottom: 22px; /* alt boşluk */
+}
+
+/* Tek filtre linki. */
+.filtre a {
+    padding: 6px 16px; /* iç boşluk */
+    background: #ffffff; /* beyaz */
+    border: 1px solid var(--border); /* çerçeve */
+    border-radius: 20px; /* hap */
+    text-decoration: none; /* alt çizgi yok */
+    color: #334155; /* koyu gri */
+    font-weight: 600; /* yarı kalın */
+    font-size: 0.9rem; /* küçük */
+}
+
+/* Seçili filtre ve üstüne gelinen filtre. */
+.filtre a:hover,
+.filtre a.secili {
+    background: var(--primary); /* mavi */
+    color: #ffffff; /* beyaz */
+}
+
+/* İki kutu yan yana (iletişim, il-ilçe). */
+.yan-yana {
+    display: flex; /* yan yana */
+    gap: 24px; /* boşluk */
+    align-items: flex-start; /* üste hizala */
+}
+
+/* Yan yana kutular eşit. */
+.yan-yana > * {
+    flex: 1; /* eşit pay */
+}
+
+/* ----- Altlık ----- */
+
+/* Sayfanın en altındaki koyu şerit. */
+.footer {
+    background: var(--navy); /* lacivert */
+    color: #94a3b8; /* gri yazı */
+    padding: 40px 0 10px 0; /* iç boşluk */
+    font-size: 0.92rem; /* küçükçe */
+}
+
+/* Altlıktaki linkler. */
+.footer a {
+    color: #cbd5e1; /* açık gri */
+    text-decoration: none; /* alt çizgi yok */
+}
+
+/* Altlıktaki sütun başlıkları. */
+.footer strong {
+    color: #f8fafc; /* beyaz */
+    display: block; /* kendi satırı */
+    margin-bottom: 8px; /* alt boşluk */
+}
+
+/* Üç sütun yan yana. */
+.footer-container {
+    display: flex; /* yan yana */
+    gap: 30px; /* boşluk */
+}
+
+/* Sütunlar eşit. */
+.footer-container > div {
+    flex: 1; /* eşit pay */
+}
+
+/* En alttaki not. */
+.alt-not {
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* üst çizgi */
+    margin-top: 20px; /* üst boşluk */
+    padding-top: 12px; /* iç boşluk */
+    text-align: center; /* ortalı */
+    font-size: 0.85rem; /* küçük */
+}
+
+/* ----- Ekran boyutları ----- */
+
+/* HARİTA: Telefon ve tablet görünümü (media query) */
+/* 1280 pikselden dar ekranda kullanıcı adı gizlenir, menü tek satıra sığar. */
+@media (max-width: 1280px) {
+    .user-name { display: none; } /* adı gizle */
+}
+
+/* 992 pikselden dar ekranda (telefon, tablet). */
+@media (max-width: 992px) {
+    .menu-dugmesi { display: inline-block; } /* menü düğmesi görünür */
+    .navbar-container { flex-wrap: wrap; } /* menü alt satıra iner */
+    .menu { display: none; width: 100%; flex-direction: column; align-items: flex-start; } /* menü kapalı, kolon */
+    .menu.acik { display: flex; } /* düğmeye basınca açılır */
+    .nav-menu { margin-left: 0; } /* sola yasla */
+    .nav-menu ul { flex-direction: column; } /* linkler alt alta */
+    .auth-buttons, .user-profile-menu { flex-wrap: wrap; } /* düğmeler sığmazsa alt satır */
+    .form-row, .yan-yana, .footer-container { flex-direction: column; gap: 0; } /* yan yana kutular alt alta */
+    .request-details-grid { grid-template-columns: 1fr; } /* tek sütun */
+    .auth-card, .request-card { padding: 26px 18px; } /* daha az iç boşluk */
+}

@@ -1,0 +1,8 @@
+20 Ekim: Kayıt, teklif, randevu, mesajlaşma ve içerik yönetimi
+
+- Müşteri ve tamirci kayıt sayfaları
+- Talep detayı ve düzenleme, teklif verme ve kabul etme, iş bitince puan verme
+- Müşteri ile tamirci arasında sohbet ekranı
+- Yönetimden değişen ana sayfa resimleri, nasıl çalışır adımları, kategoriler, cihaz türleri, il ve ilçeler
+- Ortak form parçaları: cihaz seçimi, konum seçimi, yetkinlik seçimi, resim yükleme, hata ve başarı kutuları
+- Veritabanı yoksa otomatik indirme (araclar/veritabani-indir.ps1)

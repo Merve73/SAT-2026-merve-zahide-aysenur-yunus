@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canlı Destek / Sohbet - TamirBul</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <h1>Tamir<span>Bul</span></h1>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="musteri-paneli.html">Panele Dön</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="dashboard-section">
+        <div class="container dashboard-container" style="max-width: 800px;">
+            <div class="dashboard-header" style="margin-bottom: 20px;">
+                <h2>Sohbet Ekranı</h2>
+                <p><strong>Görüşülen Servis:</strong> Güven Teknik Servis (Ahmet Usta) —  iPhone 13 Ekran Tamiri</p>
+            </div>
+
+            <div class="auth-card" style="padding: 20px; display: flex; flex-direction: column; height: 450px; justify-content: space-between;">
+          
+                <div class="chat-messages" style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 10px;">
+                    <div style="align-self: flex-start; background: #f1f5f9; padding: 10px 15px; border-radius: 12px; max-width: 75%;">
+                        <small style="color: #64748b; display: block; font-weight: bold;">Güven Teknik Servis (10:15)</small>
+                        Merhaba Hanımefendi, teklifimizi ilettik. Orijinal ekran değişimi için yardımcı olabiliriz.
+                    </div>
+                    <div style="align-self: flex-end; background: #2563eb; color: #fff; padding: 10px 15px; border-radius: 12px; max-width: 75%;">
+                        <small style="color: #cbd5e1; display: block; font-weight: bold;">Zahide Nur (10:18)</small>
+                        Merhaba, ekranı bugün bırakırsam ne zaman teslim alabilirim?
+                    </div>
+                </div>
+
+                <form id="formChat" style="display: flex; gap: 10px; margin-top: 15px;">
+                    <input type="text" placeholder="Mesajınızı yazın..." style="flex: 1; margin: 0;" required>
+                    <button type="submit" class="btn btn-primary" style="width: auto; padding: 0 25px;">Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-container">
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

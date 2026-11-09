@@ -1,0 +1,120 @@
+KOD HARİTASI - "BU KOD NEREDE?" REHBERİ
+=======================================
+
+Hoca bir özelliğin kodunu sorduğunda 3 yoldan biriyle bulun:
+
+1) SİTEDEN: Yönetici ile girin > menüde "Kod haritası". Kelime yazın (örnek: teklif).
+   Dosya adı ve SATIR NUMARASI çıkar. Satır numarası her zaman güncel.
+
+2) VS CODE'DAN: Ctrl+Shift+F ile "HARİTA: teklif" gibi arayın. Tıklayınca o satıra gider.
+   Dosyayı açmak için Ctrl+P (dosya adı yazın), satıra gitmek için Ctrl+G (numara yazın).
+
+3) BU LİSTEDEN: Aşağıda soru > dosya > aranacak etiket yazıyor.
+
+Kodda her etiket şu şekildedir:   // HARİTA: Konu adı
+Etiketin altındaki satirlar o işi yapan koddur. Her satırın üstünde ne yaptığını anlatan yorum vardır.
+
+
+SAYFA NASIL KURULUR?
+-------------------
+Her sayfa aynı sırayla yazılır:
+  1. ortak/baglanti.php    veritabanına bağlanır
+  2. ortak/guvenlik.php    oturumu açar, yardımcı fonksiyonları yükler
+  3. sayfanın PHP kodu     form kaydı, veritabanından okuma
+  4. ortak/baslik.php      üst menü (<main> açılır)
+  5. sayfanın HTML'i
+  6. ortak/altlik.php      sayfa altı (<main> kapanır)
+Etiket: "Sayfa iskeleti"
+
+
+HOCANIN SORABİLECEĞİ SORULAR
+----------------------------
+
+VERİTABANI
+- Veritabanına nerede bağlanıyorsunuz?          ortak/baglanti.php        "Veritabanı bağlantısı"
+- Tablolar nerede oluşturuluyor?                veritabani/tamirbul.sql   "Tablo oluşturma"
+- Örnek veriler nerede?                         veritabani/tamirbul.sql   "Örnek veriler"
+- SELECT sorgusunu nasıl çalıştırıyorsunuz?     ortak/baglanti.php        "Sorgu çalıştırma yardımcıları"
+  (satirlar = çok satır, tek_satir = bir satır, sayi_getir = COUNT, calistir = INSERT/UPDATE/DELETE)
+- INNER JOIN ornegi?                            musteri/panel.php, tamirci/uygun-talepler-sorgu.php
+- LEFT JOIN ve alt sorgu örneği?                talep-takip.php           "LEFT JOIN ve alt sorgu"
+- Aynı tablo iki kez (AS)?                      admin/talepler.php        "Aynı tabloyu iki kez"
+- Üç tablo birden JOIN?                         tamirci/randevularim.php  "Randevu listesi"
+- AVG (ortalama) nerede?                        ortak/baglanti.php        "puan ortalaması"
+- COUNT (sayma) nerede?                         musteri/panel.php, admin/panel.php   "sayaçları"
+
+GÜVENLİK
+- Şifre nasıl saklanıyor? (password_hash)       musteri-kayit.php         "Müşteri kaydı"
+- Şifre nasıl kontrol ediliyor? (password_verify) giris.php               "Giriş yapma"
+- SQL injection'a karşı ne yaptınız?            ortak/baglanti.php        "SQL injection koruması"
+- XSS'e karşı ne yaptınız? (htmlspecialchars)   ortak/guvenlik.php        "XSS koruması"
+- Oturum (session) nerede açılıyor?             ortak/guvenlik.php        "Oturum"
+- Müşteri admin sayfasına girebilir mi?         ortak/guvenlik.php        "Sayfa yetki kontrolü"
+- Başkasının talebini görebilir mi?             musteri/talep-detay.php   "Talep detayı" (musteri_id koşulu)
+- Yüklenen dosya zararlı olabilir mi?           ortak/guvenlik.php        "Resim yükleme"
+- Çıkış nasıl yapılıyor?                        cikis.php                 "Çıkış yapma"
+- Beni hatırla nasıl çalışıyor?                 giris.php                 "Beni hatırla"
+
+ÜYELİK
+- Müşteri kaydı                                 musteri-kayit.php         "Müşteri kaydı"
+- Tamirci kaydı ve onay bekleme                 tamirci-kayit.php         "Tamirci kaydı"
+- Girişten sonra hangi panele gidiyor?          giris.php                 "Role göre panele"
+- Yönetici tamirciyi nasıl onaylıyor?           admin/panel.php, admin/kullanici-onay.php   "Tamirci onaylama"
+- Onaysız tamirci ne görüyor?                   tamirci/menu.php          "Tamirci onay durumu"
+- Şifre değiştirme                              ortak/guvenlik.php        "Şifre değiştirme"
+- Profil güncelleme                             musteri/profil.php, tamirci/profil.php   "Profil güncelleme"
+
+İŞİN AKIŞI (talep > teklif > kabul > randevu > puan)
+- Talep nasıl oluşturuluyor? Takip kodu?        talep-olustur.php         "Talep oluşturma"
+- Fotoğraf nasıl yükleniyor?                    ortak/guvenlik.php        "Resim yükleme"
+- Tamirci hangi talepleri görüyor?              tamirci/uygun-talepler-sorgu.php   "Tamirciye uygun talepler"
+- Teklif nasıl veriliyor?                       tamirci/teklif-ver.php    "Teklif verme"
+- Müşteri teklifleri nerede görüyor?            musteri/teklif-kartlari.php   "Gelen teklifleri listeleme"
+- Teklif nasıl kabul ediliyor?                  musteri/teklif-kabul.php  "Teklif kabul etme"
+- Randevu nasıl kuruluyor?                      tamirci/randevu-ekle.php  "Randevu kurma"
+- İş nasıl tamamlanıyor?                        tamirci/randevu-durum.php "İş tamamlama"
+- Puan nasıl veriliyor?                         musteri/is-durumu.php, musteri/puan-ver.php   "Puan"
+- Talep durumları neler?                        ortak/guvenlik.php        "Talep durumları"
+- Talep takip (giriş yapmadan)                  talep-takip.php           "Talep takip"
+- Talep düzenleme                               musteri/talep-duzenle.php "Talep düzenleme"
+- Sohbet: kim kiminle konuşabilir?              sohbet.php                "Sohbet izin kontrolü"
+- Sohbet: mesaj nasıl kaydediliyor?             sohbet.php                "Sohbet mesaj gönderme"
+
+DİNAMİK İÇERİK (YÖNETİM PANELİ)
+- Ana sayfa yazıları nereden geliyor?           ortak/baglanti.php        "Site yazılarını okuma"
+- Yönetici yazıları nerede değiştiriyor?        admin/ayarlar.php         "Site yazılarını değiştirme"
+- Ana sayfa resimleri (slayt)                   admin/slaytlar.php        "slayt"
+- Nasıl çalışır kartları                        admin/adimlar.php         "Nasıl çalışır"
+- Kategori ekle / sil                           admin/kategoriler.php     "Kategori"
+- Cihaz türü ekle / sil                         admin/cihaz-turleri.php   "Cihaz türü"
+- Hizmet ekle / düzenle / sil                   admin/hizmetler.php       "Hizmet"
+- İl / ilçe ekle / sil                          admin/konumlar.php        "İl ve ilçe"
+- Hakkımızda yazısı                             admin/sayfa-icerik.php, hakkimizda.php   "Hakkımızda"
+- Üst menü linkleri                             ortak/baslik.php          "Üst menü linkleri"
+
+JAVASCRIPT
+- Telefonda menü nasıl açılıyor?                js/site.js                "Telefon menüsü"
+- İl seçince ilçeler nasıl değişiyor?           js/site.js                "bağlı listeleri"
+- Ana sayfa resimleri nasıl dönüyor?            js/site.js                "slayt değiştirme"
+
+CSS (GÖRÜNÜM)
+- Renkler nerede?                               css/stil.css              "Renkler"
+- Düğmeler                                      css/stil.css              "düğmeler"
+- Kartların arkasındaki resim                   css/stil.css + ortak/guvenlik.php   "Resimli kart"
+- Telefonda nasıl görünüyor? (media query)      css/stil.css              "Telefon ve tablet"
+- Sohbet balonları                              css/stil.css              "Sohbet ekranı"
+
+
+KİMİN DOSYASI?
+--------------
+Her dosyanın en üstündeki yorumda "KİM: Kişi 1/2/3/4" yazar. Dağılım NASIL-CALISIR.txt içinde.
+
+
+YENİ ETİKET EKLEMEK
+-------------------
+Yeni bir özellik yazınca üstüne bir yorum ekleyin:
+    PHP / JS:   // HARİTA: Özelliğin adı
+    CSS:        /* HARİTA: Özelliğin adı */
+    HTML:       <!-- HARİTA: Özelliğin adı -->
+    SQL:        -- HARİTA: Özelliğin adı
+Kod haritası sayfası onu kendiliğinden bulur.

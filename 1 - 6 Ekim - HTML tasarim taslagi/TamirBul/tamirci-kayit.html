@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamirci Kaydı - TamirBul</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <h1> Tamir<span>Bul</span></h1>
+            </a>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Ana Sayfa</a></li>
+                    <li><a href="giris.html">Giriş Yap</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="auth-section">
+        <div class="container auth-container">
+            <div class="auth-card auth-card-wide">
+                <h2>Tamirci / Teknik Servis Hesabı Oluştur</h2>
+                <p class="auth-subtitle">İşletmenizi veya kişisel hizmetinizi kaydedin, hemen teklif vermeye başlayın. (Kayıt sonrası Admin onayı gereklidir)</p>
+
+                <form id="formTamirciKayit" action="#" method="POST">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="txtAdSoyad">Yetkili Adı Soyadı</label>
+                            <input 
+                                type="text" 
+                                id="txtAdSoyad" 
+                                name="ad_soyad" 
+                                placeholder="Örn: Mehmet Usta" 
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtIsletmeAdi">İşletme / Servis Adı</label>
+                            <input 
+                                type="text" 
+                                id="txtIsletmeAdi" 
+                                name="isletme_adi" 
+                                placeholder="Örn: Güven Teknik Servis" 
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="txtEposta">E-Posta Adresi</label>
+                            <input 
+                                type="email" 
+                                id="txtEposta" 
+                                name="eposta" 
+                                placeholder="ornek@servis.com" 
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtTelefon">Telefon Numarası</label>
+                            <input 
+                                type="tel" 
+                                id="txtTelefon" 
+                                name="telefon" 
+                                placeholder="05XXXXXXXXX" 
+                                required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cmbIl">Bulunduğunuz İl</label>
+                            <select id="cmbIl" name="il_id" required>
+                                <option value="">İl Seçiniz</option>
+                                <option value="1">Adana</option>
+                                <option value="6">Ankara</option>
+                                <option value="7">Antalya</option>
+                                <option value="16">Bursa</option>
+                                <option value="34">İstanbul</option>
+                                <option value="35">İzmir</option>
+                                <option value="38">Kayseri</option>
+                                <option value="46">Kahramanmaraş</option>
+                                <option value="66">Yozgat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="cmbIlce">Bulunduğunuz İlçe</label>
+                            <select id="cmbIlce" name="ilce_id" required disabled>
+                                <option value="">Önce İl Seçiniz</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="txtAcikAdres">Açık Adres / Dükkan Adresi</label>
+                        <textarea id="txtAcikAdres" name="adres" rows="2" placeholder="Mahalle, Cadde, Sokak No..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="section-label"><strong>Tamir Edebildiğiniz Cihaz Türleri (Yetkinlikleriniz):</strong></label>
+                        <p class="form-help">Sadece seçtiğiniz kategorilerdeki tamir talepleri panelinize düşecektir.</p>
+                        
+                        <div class="competencies-grid">
+                            <label class="checkbox-card">
+                                <input type="checkbox" name="yetkinlikler[]" value="mobil_bilisim">
+                                <span> Mobil & Bilişim (Telefon/Laptop/Tablet)</span>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" name="yetkinlikler[]" value="beyaz_esya">
+                                <span>Beyaz Eşya (Çamaşır/Bulaşık/Buzdolabı)</span>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" name="yetkinlikler[]" value="kucuk_ev_aleti">
+                                <span> Küçük Ev Aletleri (Süpürge/Kahve/Ütü)</span>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" name="yetkinlikler[]" value="tv_goruntu">
+                                <span> TV & Ses Sistemleri (Televizyon/Amfi)</span>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" name="yetkinlikler[]" value="oyun_konsol">
+                                <span> Oyun Konsolları (PS/Xbox/Nintendo)</span>
+                            </label>
+
+                            <label class="checkbox-card">
+                                <input type="checkbox" name="yetkinlikler[]" value="diger_elektronik">
+                                <span> Diğer Elektronik & Kart Tamiri</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="txtSifre">Şifre</label>
+                            <input 
+                                type="password" 
+                                id="txtSifre" 
+                                name="sifre" 
+                                placeholder="******" 
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtSifreTekrar">Şifre Tekrarı</label>
+                            <input 
+                                type="password" 
+                                id="txtSifreTekrar" 
+                                name="sifreTekrar" 
+                                placeholder="******" 
+                                required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary btn-block" id="btnTamirciKayitOl">Tamirci Başvurusunu Tamamla</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Zaten bir hesabınız var mı? <a href="giris.html" class="link-secondary">Giriş Yap</a></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-container">
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
